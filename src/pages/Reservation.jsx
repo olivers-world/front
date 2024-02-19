@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
@@ -49,7 +49,7 @@ function Reservation() {
       <NavBar></NavBar>
 
       <div className="h-screen w-screen bg-white flex justify-center items-center">
-        <div class="flex items-center flex-col">
+        <div className="flex items-center flex-col">
           <Calendar
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           ></Calendar>

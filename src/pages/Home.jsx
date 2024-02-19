@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/no-unescaped-entities */
 import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="absolute h-screen w-screen bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen">
       <NavBar></NavBar>
-      <div class="z-10 h-screen w-screen absolute flex flex-col justify-center items-center">
+      <div className="z-10 h-screen w-screen absolute flex flex-col justify-center items-center">
         <div className="mb-32 w-fit flex items-center flex-col">
           <h1 className="text-5xl text-white mb-4">Oliver's World</h1>
           <button className="bg-primary text-white px-4 py-2 rounded-sm">
@@ -27,7 +27,7 @@ const Home = () => {
       <section className="min-h-screen my-16 flex justify-between flex-wrap mx-auto  max-w-screen-lg">
         <div>
           <h1 className=" text-4xl mb-8">
-            <span class="text-primary ml-16">Découvrez</span>
+            <span className="text-primary ml-16">Découvrez</span>
             <br /> notre histoire
           </h1>
           <p className="max-w-xl">
@@ -68,7 +68,7 @@ const Home = () => {
       </section>
 
       <section className="my-16 mx-auto  max-w-screen-lg">
-        <div class="">
+        <div className="">
           <h1 className="py-8 text-4xl text-primary mb-8 ml-16">Happening</h1>
           <div className="flex gap-8 justify-evenly">
             <img src={example1} alt="" />
