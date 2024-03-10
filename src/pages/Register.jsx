@@ -53,7 +53,7 @@ const Register = () => {
   useEffect(() => {
     prenomRef.current.focus();
   }, []);
-  
+
   // Associé regex prenom au champ prenom
   useEffect(() => {
     setValidPrenom(PRENOM_REGEX.test(prenom));
@@ -82,15 +82,17 @@ const Register = () => {
 
     const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(pwd);
+    const v3 = PRENOM_REGEX.test(prenom);
+    const v4 = NOM_REGEX.test(nom);
 
-    if (!v1 || !v2) {
+    if (!v1 || !v2 || !v3 || !v4) {
       setErrMsg("Entrée incorrecte");
       return;
     }
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ email, pwd }),
+        JSON.stringify({ nom, prenom, email, pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -100,8 +102,11 @@ const Register = () => {
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
       setSuccess(true);
+
       //clear state and controlled inputs
       //need value attrib on inputs for this
+      setPrenom("");
+      setNom("");
       setEmail("");
       setPwd("");
       setMatchPwd("");
@@ -124,7 +129,7 @@ const Register = () => {
           <h1>Success!</h1>
           <p>
             <a href="#" style={styles.link}>
-              Sign In
+              Se connecter
             </a>
           </p>
         </section>
@@ -137,11 +142,19 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1>Register</h1>
+          <h1>Inscription</h1>
           <form style={styles.form} onSubmit={handleSubmit}>
             <div>
               <label htmlFor="prenom" style={{ display: "block" }}>
                 Prenom:
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  style={validPrenom ? styles.valid : styles.hide}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  style={validPrenom || !prenom ? styles.hide : styles.invalid}
+                />
               </label>
               <input
                 type="text"
@@ -152,13 +165,13 @@ const Register = () => {
                 value={prenom}
                 required
                 aria-invalid={validPrenom ? "false" : "true"}
-                aria-describedby="uidnote"
+                aria-describedby="prenomnote"
                 onFocus={() => setPrenomFocus(true)}
                 onBlur={() => setPrenomFocus(false)}
                 style={styles.input}
               />
               <p
-                id="uidnote"
+                id="prenomnote"
                 style={
                   prenomFocus && prenom && !validPrenom
                     ? styles.instructions
@@ -166,17 +179,27 @@ const Register = () => {
                 }
               >
                 <FontAwesomeIcon icon={faInfoCircle} />
-                4 to 24 characters.
+                2 à 24 caractères.
                 <br />
-                Must begin with a letter.
+                Doit commencer par une lettre.
                 <br />
-                Letters, numbers, underscores, hyphens allowed.
+                Lettres et traits d'union autorisés.
+                <br />
+                Les caractères accentués sont acceptés.
               </p>
             </div>
 
             <div>
               <label htmlFor="nom" style={{ display: "block" }}>
                 Nom:
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  style={validNom ? styles.valid : styles.hide}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  style={validNom || !nom ? styles.hide : styles.invalid}
+                />
               </label>
               <input
                 type="text"
@@ -187,13 +210,13 @@ const Register = () => {
                 value={nom}
                 required
                 aria-invalid={validNom ? "false" : "true"}
-                aria-describedby="uidnote"
+                aria-describedby="nomnote"
                 onFocus={() => setNomFocus(true)}
                 onBlur={() => setNomFocus(false)}
                 style={styles.input}
               />
               <p
-                id="uidnote"
+                id="nomnote"
                 style={
                   nomFocus && nom && !validNom
                     ? styles.instructions
@@ -201,11 +224,13 @@ const Register = () => {
                 }
               >
                 <FontAwesomeIcon icon={faInfoCircle} />
-                4 to 24 characters.
+                2 à 24 caractères.
                 <br />
-                Must begin with a letter.
+                Doit commencer par une lettre.
                 <br />
-                Letters, numbers, underscores, hyphens allowed.
+                Lettres et traits d'union autorisés.
+                <br />
+                Les caractères accentués sont acceptés.
               </p>
             </div>
 
@@ -244,11 +269,11 @@ const Register = () => {
                 }
               >
                 <FontAwesomeIcon icon={faInfoCircle} />
-                4 to 24 characters.
+                Il doit s'agir d'une adresse électronique valide.
                 <br />
-                Must begin with a letter.
-                <br />
-                Letters, numbers, underscores, hyphens allowed.
+                Caractères autorisés : lettres, chiffres, points, traits de
+                soulignement, signes de pourcentage, signes plus et traits
+                d'union.
               </p>
             </div>
 
