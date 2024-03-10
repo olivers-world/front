@@ -13,7 +13,7 @@ const NOM_REGEX = /^[A-Za-zéèêëîïôöûüçÉÈÊËÎÏÔÖÛÜÇ-]{2,24}$
 const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const REGISTER_URL = "/register";
+const REGISTER_URL = "/api/auth/register";
 
 const Register = () => {
   const prenomRef = useRef();
@@ -92,7 +92,7 @@ const Register = () => {
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ nom, prenom, email, pwd }),
+        JSON.stringify({ prenom, nom, email, pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -366,7 +366,7 @@ const Register = () => {
               }
               style={styles.button}
             >
-              S'enregistrer
+              S'inscrire
             </button>
           </form>
           <p>

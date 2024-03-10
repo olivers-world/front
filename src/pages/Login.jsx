@@ -2,25 +2,25 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 
 import axios from "../api/axios";
-const LOGIN_URL = "/login";
+const LOGIN_URL = "/api/auth/login";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
-  const userRef = useRef();
+  const emailRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    userRef.current.focus();
+    emailRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd]);
+  }, [email, pwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ const Login = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ email, pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -38,8 +38,8 @@ const Login = () => {
       //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
-      setUser("");
+      setAuth({ email, pwd, roles, accessToken });
+      setEmail("");
       setPwd("");
       setSuccess(true);
     } catch (err) {
@@ -60,11 +60,11 @@ const Login = () => {
     <>
       {success ? (
         <section style={styles.section}>
-          <h1>You are logged in!</h1>
+          <h1>Vous êtes connecté !</h1>
           <br />
           <p>
             <a href="#" style={styles.link}>
-              Go to Home
+              Aller à l'accueil
             </a>
           </p>
         </section>
@@ -77,19 +77,19 @@ const Login = () => {
           >
             {errMsg}
           </p>
-          <h1>Sign In</h1>
+          <h1>Connexion</h1>
           <form style={styles.form} onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="username" style={{ display: "block" }}>
-                Username:
+              <label htmlFor="email" style={{ display: "block" }}>
+                Email:
               </label>
               <input
                 type="text"
-                id="username"
-                ref={userRef}
+                id="email"
+                ref={emailRef}
                 autoComplete="off"
-                onChange={(e) => setUser(e.target.value)}
-                value={user}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 required
                 style={styles.input}
               />
@@ -97,7 +97,7 @@ const Login = () => {
 
             <div>
               <label htmlFor="password" style={{ display: "block" }}>
-                Password:
+                Mot de Passe:
               </label>
               <input
                 type="password"
@@ -109,14 +109,14 @@ const Login = () => {
               />
             </div>
 
-            <button style={styles.button}>Sign In</button>
+            <button style={styles.button}>Se connecter</button>
           </form>
           <p>
-            Need an Account?
+            Pas de compte?
             <br />
             <span style={styles.line}>
               <a href="/register" style={styles.link}>
-                Sign Up
+                S'inscrire
               </a>
             </span>
           </p>
