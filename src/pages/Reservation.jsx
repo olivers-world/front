@@ -46,7 +46,7 @@ function Reservation() {
 
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar backgroundColor={"#988F72"} />
 
       <div className="h-screen w-screen bg-white flex justify-center items-center">
         <div className="flex items-center flex-col">
@@ -83,7 +83,9 @@ function Reservation() {
                 <option value="50">50</option>
               </select>
 
-              <button type="submit">Réserver</button>
+              <button type="submit" onClick={handleSubmit}>
+                Réserver
+              </button>
             </form>
           </div>
           <div>
