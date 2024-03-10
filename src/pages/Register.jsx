@@ -128,7 +128,7 @@ const Register = () => {
         <section style={styles.section}>
           <h1>Success!</h1>
           <p>
-            <a href="#" style={styles.link}>
+            <a href="/login" style={styles.link}>
               Se connecter
             </a>
           </p>

@@ -36,8 +36,11 @@ const Login = () => {
       );
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
+      const { accessToken, roles } = response?.data;
+      // Stocker le token et les roles dans le localStorage
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("roles", roles);
+
       setAuth({ email, pwd, roles, accessToken });
       setEmail("");
       setPwd("");
@@ -63,7 +66,7 @@ const Login = () => {
           <h1>Vous êtes connecté !</h1>
           <br />
           <p>
-            <a href="#" style={styles.link}>
+            <a href="/" style={styles.link}>
               Aller à l'accueil
             </a>
           </p>
