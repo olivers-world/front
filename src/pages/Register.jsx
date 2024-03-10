@@ -279,7 +279,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="password" style={{ display: "block" }}>
-                Password:
+                Mot de Passe:
                 <FontAwesomeIcon
                   icon={faCheck}
                   style={validPwd ? styles.valid : styles.hide}
@@ -321,7 +321,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="confirm_pwd" style={{ display: "block" }}>
-                Confirm Password:
+                Confirmer Mot de Passe:
                 <FontAwesomeIcon
                   icon={faCheck}
                   style={validMatch && matchPwd ? styles.valid : styles.hide}
@@ -352,7 +352,7 @@ const Register = () => {
                 }
               >
                 <FontAwesomeIcon icon={faInfoCircle} />
-                Must match the first password input field.
+                Doit correspondre au premier champ de saisie du mot de passe.
               </p>
             </div>
 
@@ -366,16 +366,16 @@ const Register = () => {
               }
               style={styles.button}
             >
-              Sign Up
+              S'enregistrer
             </button>
           </form>
           <p>
-            Already registered?
+            Déjà inscrit?
             <br />
             <span style={styles.line}>
               {/*put router link here*/}
               <a href="/login" style={styles.link}>
-                Sign In
+                Se connecter
               </a>
             </span>
           </p>
