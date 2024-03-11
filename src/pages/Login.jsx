@@ -36,12 +36,13 @@ const Login = () => {
       );
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
-      const { accessToken, roles } = response?.data;
+      const { accessToken, roles, prenom, nom } = response?.data;
       // Stocker le token et les roles dans le localStorage
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("roles", roles);
+      localStorage.setItem("userInfo", JSON.stringify({ prenom, nom, email }));
 
-      setAuth({ email, pwd, roles, accessToken });
+      setAuth({ prenom, nom, email, roles, accessToken });
       setEmail("");
       setPwd("");
       setSuccess(true);
