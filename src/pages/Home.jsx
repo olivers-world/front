@@ -2,6 +2,7 @@
 import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
+import Hero from "../components/Hero.jsx";
 
 import img from "../images/img-1.png";
 import img2 from "../images/img-2.png";
@@ -14,23 +15,17 @@ const Home = () => {
   return (
     <div className="absolute h-screen w-screen bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen">
       <NavBar></NavBar>
-      <div className="z-10 h-screen w-screen absolute flex flex-col justify-center items-center">
-        <div className="mb-32 w-fit flex items-center flex-col">
-          <h1 className="text-5xl text-white mb-4">Oliver's World</h1>
-          <button className="bg-primary text-white px-4 py-2 rounded-sm">
-            Réserver ici
-          </button>
-        </div>
-      </div>
+
+      <Hero text={"Oliver's World"} buttonText={"Réservez"} />
       <div className="h-screen w-screen"></div>
 
       <section className="min-h-screen my-16 flex justify-between flex-wrap mx-auto  max-w-screen-lg">
         <div>
-          <h1 className=" text-4xl mb-8">
-            <span className="text-primary ml-16">Découvrez</span>
-            <br /> notre histoire
+          <h1 className=" text-4xl mb-8 font-jacqueFrancois">
+            <span className="text-primary text-7xl ml-16 mt-2 font-imperialScript font-medium">Découvrez</span>
+            <br/> notre Histoire
           </h1>
-          <p className="max-w-xl">
+          <p className="max-w-xl text-justify font-notoSerifKr">
             Bienvenue chez Oliver's World, un lieu où la diversité culinaire
             rencontre l'excellence, offrant une expérience culinaire
             transcendant les frontières. Inspiré par mes voyages et ma passion
@@ -56,9 +51,10 @@ const Home = () => {
             chevronné ou que vous découvriez de nouveaux horizons gustatifs,
             notre restaurant est l'endroit où les frontières s'estompent, créant
             des souvenirs délicieux.
-            <br />
-            <br /> Bienvenue dans notre univers gastronomique!
           </p>
+          <br />
+          <br />
+          <p className="text-center text-2xl font-notoSerifKr">Bienvenue dans notre univers gastronomique!</p>
         </div>
 
         <div className="py-16 flex flex-col gap-8">

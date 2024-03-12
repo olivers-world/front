@@ -5,7 +5,7 @@ import tripadvisor from "../images/tripadvisor.svg";
 
 function Footer() {
   return (
-    <div class="bg-primary w-screen">
+    <div className="bg-primary w-screen">
       <div className="flex flex-col items-center py-8 gap-4">
         <div className="flex gap-8">
           <img src={insta} alt="" />

@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         jacqueFrancois: ["Jacques Francois", "sans-serif"],
+        imperialScript: ["Imperial Script", "sans-serif"],
+        notoSerifKr: ['"Noto Serif KR"', 'serif'],
       },
       backgroundImage: {
         "hero-bg": "url('/bg-img.png')",

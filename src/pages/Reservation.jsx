@@ -52,7 +52,7 @@ function Reservation() {
 
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar backgroundColor={"#988F72"} />
 
       <div
         className="h-screen w-screen flex justify-center items-center z-10
@@ -109,6 +109,7 @@ function Reservation() {
 
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="ml-4 bg-primary p-2 rounded-lg text-white text-base"
               >
                 Réserver
