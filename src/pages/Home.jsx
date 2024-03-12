@@ -65,7 +65,7 @@ const Home = () => {
 
       <section className="my-16 mx-auto  max-w-screen-lg">
         <div className="">
-          <h1 className="py-8 text-4xl text-primary mb-8 ml-16">Happening</h1>
+          <h1 className="py-8 text-7xl text-primary mb-8 ml-16 font-imperialScript">Happening</h1>
           <div className="flex gap-8 justify-evenly">
             <img src={example1} alt="" />
             <img src={example2} alt="" />
