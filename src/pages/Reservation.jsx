@@ -63,8 +63,11 @@ function Reservation() {
             className="rounded-xl p-2 mb-4"
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           />
+
           <div className="">
-            <form onSubmit={handleSubmit} className="rounded-xl bg-white p-2 ">
+            <form onSubmit={handleSubmit} className="rounded-xl bg-white p-4 ">
+              <span className="mr-2">Je veux arriver vers :</span>
+
               <select
                 onChange={handleHourChange}
                 value={selectedHours}
@@ -92,25 +95,24 @@ function Reservation() {
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
               </select>
 
-              <span className="mr-2">Nombre de personnes :</span>
-              <input
-                type="number"
-                name=""
-                className="w-10"
-                id=""
-                min="1"
-                value={peopleNumber}
-                onChange={handlePeopleNumber}
-              />
-
+              <div className="mt-2">
+                <span className="mr-2">Nombre de personnes :</span>
+                <input
+                  type="number"
+                  name=""
+                  className="w-10"
+                  id=""
+                  min="1"
+                  value={peopleNumber}
+                  onChange={handlePeopleNumber}
+                />
+              </div>
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="ml-4 bg-primary p-2 rounded-lg text-white text-base"
+                className=" w-full mt-4 bg-primary font-medium p-2 rounded-lg text-white border-primary border text-base"
               >
                 Réserver
               </button>

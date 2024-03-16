@@ -9,11 +9,14 @@ const Contact = () => {
       <section className="min-h-screen" id="contact">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="flex items-stretch justify-center">
-            <div className="grid md:grid-cols-2">
+            <div className="grid md:grid-cols-2 md:gap-16">
               <div className="h-full pr-6">
                 <ul className="mb-6 md:mb-0">
+                  <h1 className="text-6xl font-medium text-primary mb-4 font-imperialScript">
+                    Oliver's World
+                  </h1>
                   <li className="flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-gray-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -31,19 +34,19 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div className="ml-4 mb-4">
-                      <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                      <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900">
                         Notre adresse{" "}
                       </h3>
-                      <p className="text-gray-600 dark:text-slate-400">
+                      <p className="text-gray-600 :text-slate-400">
                         43 rue des Olivers, 13019{" "}
                       </p>
-                      <p className="text-gray-600 dark:text-slate-400">
+                      <p className="text-gray-600 :text-slate-400">
                         Marseille, France
                       </p>
                     </div>
                   </li>
                   <li className="flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-gray-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -62,19 +65,19 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div className="ml-4 mb-4">
-                      <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                      <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 :text-white">
                         Contact
                       </h3>
-                      <p className="text-gray-600 dark:text-slate-400">
+                      <p className="text-gray-600 :text-slate-400">
                         Mobile: 04 82 93 92 01
                       </p>
-                      <p className="text-gray-600 dark:text-slate-400">
+                      <p className="text-gray-600 :text-slate-400">
                         Mail: oliversworld@gmail.com
                       </p>
                     </div>
                   </li>
                   <li className="flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-gray-50">
+                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -92,13 +95,13 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div className="ml-4 mb-4">
-                      <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                      <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 :text-white">
                         Horaires
                       </h3>
-                      <p className="text-gray-600 dark:text-slate-400">
+                      <p className="text-gray-600 :text-slate-400">
                         Lundi - Vendredi: 08:00 - 17:00
                       </p>
-                      <p className="text-gray-600 dark:text-slate-400">
+                      <p className="text-gray-600 :text-slate-400">
                         Samedi : 08:00 - 12:00
                       </p>
                     </div>
@@ -119,7 +122,7 @@ const Contact = () => {
                           id="name"
                           autoComplete="given-name"
                           placeholder="Votre nom"
-                          className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
+                          className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md :text-gray-300 sm:mb-0"
                           name="name"
                         />
                       </div>
@@ -133,7 +136,7 @@ const Contact = () => {
                           id="email"
                           autoComplete="email"
                           placeholder="Votre adresse email"
-                          className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
+                          className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md :text-gray-300 sm:mb-0"
                           name="email"
                         />
                       </div>
@@ -149,7 +152,7 @@ const Contact = () => {
                         cols="30"
                         rows="5"
                         placeholder="Votre message"
-                        className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
+                        className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md :text-gray-300 sm:mb-0"
                       ></textarea>
                     </div>
                   </div>

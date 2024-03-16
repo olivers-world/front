@@ -26,10 +26,10 @@ const Navbar = ({
       className={`${position} z-20 w-full flex justify-between items-center text-${linkscolor} my-3`}
     >
       <div className="w-1/2 flex justify-evenly">
-        <NavLink to="/reservation" className="text-2xl font-jacqueFrancois">
+        <NavLink to="/reservation" className=" font-jacqueFrancois">
           Réservation
         </NavLink>
-        <NavLink to="/menu" className="text-2xl font-jacqueFrancois">
+        <NavLink to="/menu" className=" font-jacqueFrancois">
           Menu
         </NavLink>
       </div>
@@ -38,14 +38,14 @@ const Navbar = ({
         <img src={logo} className="w-16" alt="logo" />
       </NavLink>
       <div className="w-1/2 flex justify-evenly">
-        <NavLink to="/contact" className="text-2xl font-jacqueFrancois">
+        <NavLink to="/contact" className=" font-jacqueFrancois">
           Contact
         </NavLink>
         <div className="flex gap-2">
-          <NavLink to="/login" className="text-2xl font-jacqueFrancois">
+          <NavLink to="/login" className=" font-jacqueFrancois">
             Connexion
           </NavLink>
-          <NavLink to="/register" className="text-2xl font-jacqueFrancois">
+          <NavLink to="/register" className=" font-jacqueFrancois">
             Inscription
           </NavLink>
         </div>
