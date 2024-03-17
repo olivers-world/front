@@ -6,14 +6,19 @@ import Footer from "../components/Footer.jsx";
 import img from "../images/bg-img-2.jpeg";
 import axios from "../api/axios";
 
-const FORM_URL = "";
+const CREATE_URL = "/api/reservation/create";
+const GET_URL = "/api/reservation/get";
 
 function Reservation() {
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [date, setDate] = useState();
+
   const [selectedHours, setSelectedHours] = useState(12);
   const [selectedMinutes, setSelectedMinutes] = useState(0);
+
   const [peopleNumber, setPeopleNumber] = useState(1);
+
+  const [reservations, setReservations] = useState([]);
 
   const handleHourChange = (hour) => {
     setSelectedHours(hour.target.value);
@@ -39,7 +44,6 @@ function Reservation() {
       parseInt(selectedHours, 10),
       parseInt(selectedMinutes, 10)
     );
-
     setDate(updatedDate);
   };
 
@@ -50,18 +54,20 @@ function Reservation() {
     console.log(date);
     console.log("Formulaire soumis !");
 
-    const formattedDate = date.toISOString();
+    const formattedDate = `${calendarDate.getFullYear()}-${
+      calendarDate.getMonth() + 1
+    }-${calendarDate.getDate()} ${selectedHours}:${selectedMinutes}:00`;
 
     const userInfo = JSON.parse(userInfoString);
     const email = userInfo.email;
 
     try {
       const response = await axios.post(
-        FORM_URL,
+        CREATE_URL,
         JSON.stringify({
           user: email,
           date: formattedDate,
-          nbPersonnne: peopleNumber,
+          nbPersonne: peopleNumber,
         }),
         {
           headers: { "Content-Type": "application/json" },
@@ -72,19 +78,48 @@ function Reservation() {
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
     } catch (err) {
+      // Il n'y a pas de réponse du serveur
       if (!err?.response) {
         console.log("Pas de réponse serveur");
-      } else if (err.response?.status === 500) {
-        console.log("Database error");
-      } else {
-        console.log("Échec de l'inscription");
       }
-      errRef.current.focus();
+      // Erreur de base de données
+      else if (err.response?.status === 500) {
+        console.log("Database error");
+      }
+      // Ici, vous vérifiez si l'erreur vient du fait qu'il n'y a pas assez de place
+      else if (
+        err.response?.status === 400 &&
+        err.response?.data?.message === "Pas assez de place"
+      ) {
+        console.log("Trop de place");
+      }
+      // Autres erreurs
+      else {
+        console.log("Échec");
+      }
+    }
+  };
+
+  const fetchReservations = async () => {
+    const formattedDate = `${calendarDate.getFullYear()}-${
+      calendarDate.getMonth() + 1
+    }-${calendarDate.getDate()} ${selectedHours}:${selectedMinutes}:00`;
+    console.log(formattedDate);
+
+    try {
+      const response = await axios.get(GET_URL, {
+        params: { dateHeure: formattedDate },
+      });
+      setReservations(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des réservations", error);
+      setReservations([]); // En cas d'erreur, on vide les réservations
     }
   };
 
   useEffect(() => {
     updateDateReservation();
+    fetchReservations();
   }, [selectedHours, selectedMinutes, calendarDate]);
 
   return (
@@ -109,7 +144,6 @@ function Reservation() {
               <span className="mr-2 font-medium text-lg">
                 Je veux arriver vers :
               </span>
-
               <select
                 onChange={handleHourChange}
                 value={selectedHours}
@@ -126,7 +160,6 @@ function Reservation() {
               </select>
 
               <span className="mx-1 text-base">H</span>
-
               <select
                 name="minutes"
                 onChange={(minutes) => handleMinutesChange(minutes)}
@@ -159,51 +192,18 @@ function Reservation() {
 
             <div className="my-4 flex-1 overflow-y-auto">
               <div className="flex flex-wrap gap-2 max-h-[112px]">
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
-                  19:30
-                </div>
+                {/* Liste de tous les créneaux pris*/}
+                {reservations.map((reservation, index) => (
+                  <div
+                    key={index}
+                    className="px-4 py-1 w-fit rounded-lg bg-primary text-white"
+                  >
+                    {new Date(reservation.DateHeure).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -215,13 +215,6 @@ function Reservation() {
               Réserver
             </button>
           </form>
-          {/* <div>
-            <div>Heure: {selectedHours}</div>
-            <div>Minutes: {selectedMinutes}</div>
-            <div>Date Entière: {calendarDate && calendarDate.toString()}</div>
-            <div>--------------</div>
-            <div>Calendar Date: {date && date.toString()}</div>
-          </div> */}
         </div>
       </div>
 
