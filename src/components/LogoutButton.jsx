@@ -10,6 +10,7 @@ const LogoutButton = () => {
     // Supprimer le token et les rôles du localStorage
     localStorage.removeItem('accessToken');
     localStorage.removeItem('roles');
+    localStorage.removeItem('userInfo');
     // Réinitialiser l'état d'authentification
     setAuth({});
     // Rediriger vers la page de connexion
@@ -17,7 +18,7 @@ const LogoutButton = () => {
   };
 
   return (
-    <button onClick={logout} className={"bg-primary text-white px-4 py-2 rounded-sm"}>
+    <button onClick={logout} className={"bg-baseprimary text-white px-4 py-2 rounded-sm"}>
       Déconnexion
     </button>
   );

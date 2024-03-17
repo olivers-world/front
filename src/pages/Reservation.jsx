@@ -4,6 +4,9 @@ import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
 import img from "../images/bg-img-2.jpeg";
+import axios from "../api/axios";
+
+const FORM_URL = "";
 
 function Reservation() {
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -40,10 +43,44 @@ function Reservation() {
     setDate(updatedDate);
   };
 
-  const handleSubmit = (event) => {
+  const userInfoString = localStorage.getItem("userInfo");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(date);
     console.log("Formulaire soumis !");
+
+    const formattedDate = date.toISOString();
+
+    const userInfo = JSON.parse(userInfoString);
+    const email = userInfo.email;
+
+    try {
+      const response = await axios.post(
+        FORM_URL,
+        JSON.stringify({ 
+          user: email,
+          date: formattedDate,
+          nbPersonnne: peopleNumber,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: false,
+        }
+      );
+      console.log(response?.data);
+      console.log(response?.accessToken);
+      console.log(JSON.stringify(response));
+    } catch (err) {
+      if (!err?.response) {
+        console.log("Pas de réponse serveur");
+      } else if (err.response?.status === 500) {
+        console.log("Database error");
+      } else {
+        console.log("Échec de l'inscription");
+      }
+      errRef.current.focus();
+    }
   };
 
   useEffect(() => {
@@ -114,6 +151,7 @@ function Reservation() {
                 className="w-10 text-xl"
                 id=""
                 min="1"
+                max="8"
                 value={peopleNumber}
                 onChange={handlePeopleNumber}
               />
@@ -121,49 +159,49 @@ function Reservation() {
 
             <div className="my-4 flex-1 overflow-y-auto">
               <div className="flex flex-wrap gap-2 max-h-[112px]">
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
                   19:30
                 </div>
               </div>
@@ -172,7 +210,7 @@ function Reservation() {
             <button
               type="submit"
               onClick={handleSubmit}
-              className=" w-full bg-white font-medium p-2 rounded-lg text-primary border-2 border-primary border text-base"
+              className=" w-full bg-white font-medium p-2 rounded-lg text-baseprimary border-baseprimary border text-base"
             >
               Réserver
             </button>
