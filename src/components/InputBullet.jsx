@@ -10,7 +10,7 @@ const InputBullet = ({ info, trapped = false }) => {
       type="number"
       className={`px-2 ${
         trapped ? "mx-2" : ""
-      } text-xl w-12 text-black bg-white rounded-md`}
+      } text-xl w-16 text-black bg-white rounded-md`}
       value={Number(value)}
       onChange={(e) => setValue(e.target.value)}
     ></input>

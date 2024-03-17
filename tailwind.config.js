@@ -1,12 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tw-elements-react/dist/js/**/*.js",
+  ],
   theme: {
     extend: {
       fontFamily: {
         jacqueFrancois: ["Jacques Francois", "sans-serif"],
         imperialScript: ["Imperial Script", "sans-serif"],
-        notoSerifKr: ['"Noto Serif KR"', 'serif'],
+        notoSerifKr: ['"Noto Serif KR"', "serif"],
       },
       backgroundImage: {
         "hero-bg": "url('/bg-img.png')",
@@ -18,5 +22,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [require("tw-elements-react/dist/plugin.cjs")],
 };
