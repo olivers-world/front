@@ -160,7 +160,7 @@ const Contact = () => {
                     <button
                       type="submit"
                       className="w-full bg-baseprimary text-white px-6 py-3 font-xl rounded-md sm:mb-0"
-                    >
+                      >
                       Envoyer le message
                     </button>
                   </div>
