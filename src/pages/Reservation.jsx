@@ -58,7 +58,7 @@ function Reservation() {
     try {
       const response = await axios.post(
         FORM_URL,
-        JSON.stringify({ 
+        JSON.stringify({
           user: email,
           date: formattedDate,
           nbPersonnne: peopleNumber,
@@ -159,49 +159,49 @@ function Reservation() {
 
             <div className="my-4 flex-1 overflow-y-auto">
               <div className="flex flex-wrap gap-2 max-h-[112px]">
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
-                <div className="px-4 py-1 w-fit rounded-lg bg-baseprimary text-white">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
               </div>
@@ -210,7 +210,7 @@ function Reservation() {
             <button
               type="submit"
               onClick={handleSubmit}
-              className=" w-full bg-white font-medium p-2 rounded-lg text-baseprimary border-baseprimary border text-base"
+              className=" w-full bg-white font-medium p-2 rounded-lg text-primary border-primary border text-base"
             >
               Réserver
             </button>
