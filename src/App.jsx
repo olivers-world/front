@@ -4,6 +4,7 @@ import Contact from "./pages/Contact.jsx";
 import Menu from "./pages/Menu.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
+import Admin from "./pages/Admin.jsx";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
 ]);
 
