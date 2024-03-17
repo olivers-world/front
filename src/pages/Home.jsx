@@ -19,11 +19,13 @@ const Home = () => {
       <Hero text={"Oliver's World"} buttonText={"Réservez"} />
       <div className="h-screen w-screen"></div>
 
-      <section className="min-h-screen my-16 flex justify-between flex-wrap mx-auto  max-w-screen-lg">
-        <div>
+      <section className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg">
+        <div className="mx-8">
           <h1 className=" text-4xl mb-8 font-jacqueFrancois">
-            <span className="text-primary text-7xl ml-16 mt-2 font-imperialScript font-medium">Découvrez</span>
-            <br/> notre Histoire
+            <span className="text-primary text-7xl ml-16 mt-2 font-imperialScript font-medium">
+              Découvrez
+            </span>
+            <br /> notre Histoire
           </h1>
           <p className="max-w-xl text-justify font-notoSerifKr">
             Bienvenue chez Oliver's World, un lieu où la diversité culinaire
@@ -54,19 +56,23 @@ const Home = () => {
           </p>
           <br />
           <br />
-          <p className="text-center text-2xl font-notoSerifKr">Bienvenue dans notre univers gastronomique!</p>
+          <p className="text-center text-2xl font-notoSerifKr">
+            Bienvenue dans notre univers gastronomique!
+          </p>
         </div>
 
-        <div className="py-16 flex flex-col gap-8">
+        <div className="hidden md:block py-16 flex flex-col gap-8">
           <img className="" src={img} alt="" />
           <img className="" src={img2} alt="" />
         </div>
       </section>
 
       <section className="my-16 mx-auto  max-w-screen-lg">
-        <div className="">
-          <h1 className="py-8 text-7xl text-primary mb-8 ml-16 font-imperialScript">Happening</h1>
-          <div className="flex gap-8 justify-evenly">
+        <div className="mx-8">
+          <h1 className="py-8 text-7xl text-primary mb-8 ml-16 font-imperialScript">
+            Happening
+          </h1>
+          <div className="flex flex-wrap gap-8 justify-evenly">
             <img src={example1} alt="" />
             <img src={example2} alt="" />
             <img src={example3} alt="" />
@@ -74,7 +80,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       <Footer></Footer>
     </div>
   );

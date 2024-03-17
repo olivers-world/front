@@ -58,19 +58,25 @@ function Reservation() {
         className="h-screen w-screen flex justify-center items-center z-10
       bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen"
       >
-        <div className="flex items-center flex-col z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 z-10 bg-white p-4 rounded-xl ">
           <Calendar
-            className="rounded-xl p-2 mb-4"
+            className="rounded-lg p-2 border-none "
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           />
 
-          <div className="">
-            <form onSubmit={handleSubmit} className="rounded-xl bg-white p-4 ">
-              <span className="mr-2">Je veux arriver vers :</span>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col rounded-xl h-full bg-white p-4 max-w-[350px]"
+          >
+            <div>
+              <span className="mr-2 font-medium text-lg">
+                Je veux arriver vers :
+              </span>
 
               <select
                 onChange={handleHourChange}
                 value={selectedHours}
+                className=" text-xl"
                 name="hours"
                 id=""
               >
@@ -82,42 +88,95 @@ function Reservation() {
                 <option value="22">22</option>
               </select>
 
-              <span className="mx-1">H</span>
+              <span className="mx-1 text-base">H</span>
 
               <select
                 name="minutes"
                 onChange={(minutes) => handleMinutesChange(minutes)}
                 value={selectedMinutes}
                 id=""
-                className="mr-4"
+                className="mr-4 text-xl"
               >
                 <option value="00">00</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
               </select>
+            </div>
 
-              <div className="mt-2">
-                <span className="mr-2">Nombre de personnes :</span>
-                <input
-                  type="number"
-                  name=""
-                  className="w-10"
-                  id=""
-                  min="1"
-                  value={peopleNumber}
-                  onChange={handlePeopleNumber}
-                />
+            <div className="mt-2">
+              <span className="mr-2 font-medium text-lg">
+                Nombre de personnes :
+              </span>
+              <input
+                type="number"
+                name=""
+                className="w-10 text-xl"
+                id=""
+                min="1"
+                value={peopleNumber}
+                onChange={handlePeopleNumber}
+              />
+            </div>
+
+            <div className="my-4 flex-1 overflow-y-auto">
+              <div className="flex flex-wrap gap-2 max-h-[112px]">
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
+                <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
+                  19:30
+                </div>
               </div>
-              <button
-                type="submit"
-                onClick={handleSubmit}
-                className=" w-full mt-4 bg-primary font-medium p-2 rounded-lg text-white border-primary border text-base"
-              >
-                Réserver
-              </button>
-            </form>
-          </div>
+            </div>
+
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className=" w-full bg-white font-medium p-2 rounded-lg text-primary border-2 border-primary border text-base"
+            >
+              Réserver
+            </button>
+          </form>
           {/* <div>
             <div>Heure: {selectedHours}</div>
             <div>Minutes: {selectedMinutes}</div>
