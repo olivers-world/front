@@ -15,6 +15,7 @@ const Navbar = ({
   };
 
   let prenom, nom, email;
+
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   if (userInfo) {
     prenom = userInfo.prenom;
@@ -65,7 +66,7 @@ const Navbar = ({
             />
           </svg>
 
-          {displayConnexionMenu && <ConnexionMenu />}
+          {displayConnexionMenu && <ConnexionMenu firstname={prenom} />}
         </div>
       </div>
     </div>
