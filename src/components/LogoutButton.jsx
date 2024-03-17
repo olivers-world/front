@@ -10,6 +10,7 @@ const LogoutButton = () => {
     // Supprimer le token et les rôles du localStorage
     localStorage.removeItem('accessToken');
     localStorage.removeItem('roles');
+    localStorage.removeItem('userInfo');
     // Réinitialiser l'état d'authentification
     setAuth({});
     // Rediriger vers la page de connexion
