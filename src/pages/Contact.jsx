@@ -12,11 +12,11 @@ const Contact = () => {
             <div className="grid md:grid-cols-2 md:gap-16">
               <div className="h-full pr-6">
                 <ul className="mb-6 md:mb-0">
-                  <h1 className="text-6xl font-medium text-primary mb-4 font-imperialScript">
+                  <h1 className="text-6xl font-medium text-baseprimary mb-4 font-imperialScript">
                     Oliver's World
                   </h1>
                   <li className="flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
+                    <div className="flex h-10 w-10 items-center justify-center rounded bg-baseprimary-900 text-baseprimary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -46,7 +46,7 @@ const Contact = () => {
                     </div>
                   </li>
                   <li className="flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
+                    <div className="flex h-10 w-10 items-center justify-center rounded bg-baseprimary-900 text-baseprimary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -77,7 +77,7 @@ const Contact = () => {
                     </div>
                   </li>
                   <li className="flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
+                    <div className="flex h-10 w-10 items-center justify-center rounded bg-baseprimary-900 text-baseprimary">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -159,7 +159,7 @@ const Contact = () => {
                   <div className="text-center">
                     <button
                       type="submit"
-                      className="w-full bg-primary text-white px-6 py-3 font-xl rounded-md sm:mb-0"
+                      className="w-full bg-baseprimary text-white px-6 py-3 font-xl rounded-md sm:mb-0"
                     >
                       Envoyer le message
                     </button>

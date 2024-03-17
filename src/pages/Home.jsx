@@ -22,7 +22,7 @@ const Home = () => {
       <section className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg">
         <div className="mx-8">
           <h1 className=" text-4xl mb-8 font-jacqueFrancois">
-            <span className="text-primary text-7xl ml-16 mt-2 font-imperialScript font-medium">
+            <span className="text-baseprimary text-7xl ml-16 mt-2 font-imperialScript font-medium">
               Découvrez
             </span>
             <br /> notre Histoire
@@ -61,7 +61,7 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="hidden md:block py-16 flex flex-col gap-8">
+        <div className="md:block py-16 flex flex-col gap-8">
           <img className="" src={img} alt="" />
           <img className="" src={img2} alt="" />
         </div>
@@ -69,7 +69,7 @@ const Home = () => {
 
       <section className="my-16 mx-auto  max-w-screen-lg">
         <div className="mx-8">
-          <h1 className="py-8 text-7xl text-primary mb-8 ml-16 font-imperialScript">
+          <h1 className="py-8 text-7xl text-baseprimary mb-8 ml-16 font-imperialScript">
             Happening
           </h1>
           <div className="flex flex-wrap gap-8 justify-evenly">
