@@ -10,7 +10,7 @@ const Hero = ({ text, buttonText = undefined }) => {
         </h1>
         {buttonText && (
           <NavLink to="/reservation">
-            <button className="bg-baseprimary text-white px-4 py-2 rounded-sm font-jacqueFrancois text-xl">
+            <button className="bg-primary text-white px-4 py-2 rounded-sm font-jacqueFrancois text-xl">
               {buttonText}
             </button>
           </NavLink>

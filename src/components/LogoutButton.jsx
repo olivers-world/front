@@ -18,7 +18,7 @@ const LogoutButton = () => {
   };
 
   return (
-    <button onClick={logout} className={"bg-baseprimary text-white px-4 py-2 rounded-sm"}>
+    <button onClick={logout} className={"bg-primary text-white px-4 py-2 rounded-sm"}>
       Déconnexion
     </button>
   );
