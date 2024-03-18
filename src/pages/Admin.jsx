@@ -4,6 +4,8 @@ import Dashboard from "../components/Dashboard";
 import Footer from "../components/Footer";
 import MakeRecipe from "@/components/MakeRecipe";
 import { useState, useEffect } from "react";
+import EditReservation from "@/components/EditReservation";
+import Avis from "@/components/Avis";
 
 const Section = ({ children, display, handleSetActiveSection, active }) => {
   return (
@@ -99,7 +101,7 @@ const Admin = () => {
           </aside>
           <section className="w-full py-4 px-4 xl:max-w-[835px]  border">
             {/*<Dashboard /> */}
-            <MakeRecipe />
+            <Avis />
           </section>
         </section>
       </div>
