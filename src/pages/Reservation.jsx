@@ -130,7 +130,7 @@ function Reservation() {
         className="h-screen w-screen flex justify-center  z-10
       bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen"
       >
-        <div className="grid grid-cols-1 mt-64 md:grid-cols-2 z-10 h-fit min-h-[400px]  bg-white p-4 rounded-xl ">
+        <div className="grid grid-cols-1 mt-36 md:mt-64 md:grid-cols-2 z-10 h-fit min-h-[400px]  bg-white p-4 rounded-xl ">
           <Calendar
             className="rounded-lg p-2 border-none my-auto "
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
@@ -140,54 +140,56 @@ function Reservation() {
             onSubmit={handleSubmit}
             className="flex flex-col rounded-xl items-center justify-center h-full bg-white p-4 max-w-[350px]"
           >
-            <div>
+            <div className="flex flex-wrap">
               <span className="mr-2 font-medium text-lg">
                 Je veux arriver vers :
               </span>
-              <select
-                onChange={handleHourChange}
-                value={selectedHours}
-                className=" text-xl"
-                name="hours"
-                id=""
-              >
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-              </select>
+              <div className="inline text-center">
+                <select
+                  onChange={handleHourChange}
+                  value={selectedHours}
+                  className=" text-xl"
+                  name="hours"
+                  id=""
+                >
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                </select>
 
-              <span className="mx-1 text-base">H</span>
-              <select
-                name="minutes"
-                onChange={(minutes) => handleMinutesChange(minutes)}
-                value={selectedMinutes}
-                id=""
-                className="mr-4 text-xl"
-              >
-                <option value="00">00</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-              </select>
-            </div>
+                <span className="mx-1 text-base">H</span>
+                <select
+                  name="minutes"
+                  onChange={(minutes) => handleMinutesChange(minutes)}
+                  value={selectedMinutes}
+                  id=""
+                  className="mr-4 text-xl"
+                >
+                  <option value="00">00</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
 
-            <div className="mt-2">
-              <span className="mr-2 font-medium text-lg">
-                Nombre de personnes :
-              </span>
-              <input
-                type="number"
-                name=""
-                className="w-10 text-xl"
-                id=""
-                min="1"
-                max="8"
-                value={peopleNumber}
-                onChange={handlePeopleNumber}
-              />
+              <div className="mt-2">
+                <span className="mr-2 font-medium text-lg">
+                  Nombre de personnes :
+                </span>
+                <input
+                  type="number"
+                  name=""
+                  className="w-10 text-xl"
+                  id=""
+                  min="1"
+                  max="8"
+                  value={peopleNumber}
+                  onChange={handlePeopleNumber}
+                />
+              </div>
             </div>
 
             <div className="my-8 flex-1 max-h-[125px] overflow-y-auto">

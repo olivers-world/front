@@ -159,7 +159,7 @@ const MakeRecipe = () => {
         </Accordeon>
 
         <div className="my-8 text-center w-full">
-          <h1 className="mx-auto uppercase my-8 w-fit text-4xl font-medium">
+          <h1 className="mx-auto font-jacqueFrancois my-8 w-fit text-4xl font-medium">
             {nomMenu}
           </h1>
           <p className="py-2">{selectedEntree}</p>
@@ -190,7 +190,7 @@ const MakeRecipe = () => {
               );
             })}
           </p>
-          <p className="font-medium text-4xl mt-8">
+          <p className="font-medium  text-4xl mt-8">
             {prixMenu} {prixMenu ? " $" : ""}
           </p>
           <img className="mx-auto scale-75" src={feuille} alt="" />

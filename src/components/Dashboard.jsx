@@ -8,18 +8,19 @@ const Dashboard = () => {
   return (
     <>
       <div className="bg-primary py-2 rounded-lg">
+        <span className="px-4 py-1 block uppercase font-medium text-white">
+          Nombre de réservations
+        </span>
         <DashboardInfoLine>
-          <span>Nombre de réservations ce jour</span>
+          <span>ce jour</span>
           <InfoBullet info={0} />
         </DashboardInfoLine>
-
         <DashboardInfoLine>
-          <span> -------------------------------- cette semaine</span>
+          <span>cette semaine</span>
           <InfoBullet info={0} />
         </DashboardInfoLine>
-
         <DashboardInfoLine>
-          <span>-------------------------------- ce mois</span>
+          <span>ce mois</span>
           <InfoBullet info={0} />
         </DashboardInfoLine>
       </div>

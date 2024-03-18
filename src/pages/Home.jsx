@@ -61,7 +61,7 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="md:block py-16 flex flex-col gap-8">
+        <div className="hidden md:block py-16  flex-col gap-8">
           <img className="" src={img} alt="" />
           <img className="" src={img2} alt="" />
         </div>

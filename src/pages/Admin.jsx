@@ -23,7 +23,7 @@ const Burger = ({ expanded, handleMenu }) => {
     <div
       className={`absolute text-primary ${
         expanded ? "-rotate-90" : ""
-      } transition-all duration-500 origin-center xl:hidden right-[15%] cursor-pointer top-5 w-fit h-fit font-medium text-xl z-40`}
+      } transition-all duration-500 origin-center xl:hidden right-[15%] cursor-pointer top-5 w-fit h-fit font-medium text-xl z-20`}
       onClick={() => handleMenu()}
     >
       <div className="flex flex-col gap-1">
@@ -99,7 +99,7 @@ const Admin = () => {
           </aside>
           <section className="w-full py-4 px-4 xl:max-w-[835px]  border">
             {/*<Dashboard /> */}
-            <Dashboard />
+            <MakeRecipe />
           </section>
         </section>
       </div>

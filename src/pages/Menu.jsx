@@ -13,9 +13,8 @@ const Home = () => {
     <>
       <div className="flex flex-col min-h-screen">
         <NavBar linkscolor="black" position="block" />
-        <div className="h-[100px]"></div>
 
-        <div className="">
+        <div className="py-6">
           <div className="flex flex-wrap justify-center gap-10">
             <div className="relative">
               <img src={entree} alt="" />
