@@ -92,18 +92,18 @@ function Reservation() {
       <NavBar backgroundColor={"#988F72"} />
 
       <div
-        className="h-screen w-screen flex justify-center items-center z-10
+        className="h-screen w-screen flex justify-center  z-10
       bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 z-10 bg-white p-4 rounded-xl ">
+        <div className="grid grid-cols-1 mt-64 md:grid-cols-2 z-10 h-fit min-h-[400px]  bg-white p-4 rounded-xl ">
           <Calendar
-            className="rounded-lg p-2 border-none "
+            className="rounded-lg p-2 border-none my-auto "
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           />
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col rounded-xl h-full bg-white p-4 max-w-[350px]"
+            className="flex flex-col rounded-xl items-center justify-center h-full bg-white p-4 max-w-[350px]"
           >
             <div>
               <span className="mr-2 font-medium text-lg">
@@ -157,8 +157,8 @@ function Reservation() {
               />
             </div>
 
-            <div className="my-4 flex-1 overflow-y-auto">
-              <div className="flex flex-wrap gap-2 max-h-[112px]">
+            <div className="my-8 flex-1 max-h-[125px] overflow-y-auto">
+              <div className="flex flex-wrap gap-2 ">
                 <div className="px-4 py-1 w-fit rounded-lg bg-primary text-white">
                   19:30
                 </div>
@@ -210,7 +210,7 @@ function Reservation() {
             <button
               type="submit"
               onClick={handleSubmit}
-              className=" w-full bg-white font-medium p-2 rounded-lg text-primary border-primary border text-base"
+              className="border mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary"
             >
               Réserver
             </button>

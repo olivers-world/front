@@ -72,8 +72,6 @@ const Admin = () => {
         active: section.name === name,
       }))
     );
-
-    console.log("chech");
   };
 
   return (
@@ -84,7 +82,7 @@ const Admin = () => {
 
       <div className="mx-8 min-h-screen">
         <section className="flex flex-wrap max-w-6xl mx-auto my-8 ">
-          <aside className="relative border w-full text-center xl:w-fit">
+          <aside className="relative border h-fit w-full text-center xl:w-fit">
             <Burger handleMenu={handleMenu} expanded={expanded} />
             {sections.map((section, index) => {
               return (
@@ -101,7 +99,7 @@ const Admin = () => {
           </aside>
           <section className="w-full py-4 px-4 xl:max-w-[835px]  border">
             {/*<Dashboard /> */}
-            <MakeRecipe />
+            <Dashboard />
           </section>
         </section>
       </div>

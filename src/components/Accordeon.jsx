@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 const Accordeon = ({ title, children }) => {
-  const [accordionOpen, setAccordionOpen] = useState(false);
+  const [accordionOpen, setAccordionOpen] = useState(true);
 
   return (
     <div className="relative mb-3">
