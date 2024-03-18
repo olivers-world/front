@@ -69,7 +69,9 @@ const Admin = () => {
 
   const handleSetActiveSection = (name) => {
     setActiveSection(name);
-    setExpanded(false);
+    if (window.innerWidth < 1280) {
+      setExpanded(false);
+    }
 
     setSections((prevSections) =>
       prevSections.map((section) => ({
