@@ -69,6 +69,7 @@ const Admin = () => {
 
   const handleSetActiveSection = (name) => {
     setActiveSection(name);
+    setExpanded(false);
 
     setSections((prevSections) =>
       prevSections.map((section) => ({

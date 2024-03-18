@@ -1,13 +1,39 @@
 import React from "react";
+import { useState } from "react";
 
-const ReservationResume = ({ name, date, time, peopleNumber }) => {
+const ReservationBlock = ({
+  id, // Supposons que chaque réservation a un id unique
+  initialName,
+  initialDate,
+  initialTime,
+  initialPeopleNumber,
+  onUpdate,
+}) => {
+  const [name, setName] = useState(initialName);
+  const [date, setDate] = useState(initialDate);
+  const [time, setTime] = useState(initialTime);
+  const [peopleNumber, setPeopleNumber] = useState(initialPeopleNumber);
+
+  // Logique pour gérer les changements d'état et l'envoi des données
+  const sendUpdateToServer = async () => {
+    //
+    const updatedReservation = { id, name, date, time, peopleNumber };
+    onUpdate(updatedReservation);
+  };
+
   return (
     <div className="bg-secondary w-fit text-white rounded-md p-2 mt-4">
       <div className="flex gap-6">
-        <div className="font-medium">{name}</div>
+        <div className="font-medium">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="bg-secondary w-24 uppercase text-white"
+          />
+        </div>
         <div>
           <svg
-            className={`inline  ml-1  svg-icon cursor-pointer text-white w-4 align-middle overflow-hidden`}
+            className={`inline  mr-1  svg-icon cursor-pointer text-white w-4 align-middle overflow-hidden`}
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -20,16 +46,30 @@ const ReservationResume = ({ name, date, time, peopleNumber }) => {
           <input
             type="number"
             value={peopleNumber}
-            className="bg-secondary w-12"
+            onChange={(e) => setPeopleNumber(parseInt(e.target.value, 10))}
+            className="bg-secondary w-12 text-white"
           />
         </div>
       </div>
-      <input type="date" value={date} className="bg-secondary" />
+      <input
+        type="date"
+        value={date}
+        className="bg-secondary"
+        onChange={(e) => setDate(e.target.value)}
+      />
       <br />
-      <input type={time} value="19:30" className="bg-secondary" />
+      <input
+        type="time"
+        value={time}
+        className="bg-secondary"
+        onChange={(e) => setTime(e.target.value)}
+      />
 
       <div className="mt-2">
-        <button className="bg-white text-primary px-4 py-1 mr-2 rounded-sm">
+        <button
+          onClick={sendUpdateToServer}
+          className="bg-white text-primary px-4 py-1 mr-2 rounded-sm"
+        >
           Modifier
         </button>
         <button className="bg-white text-primary px-4 py-1  rounded-sm">
@@ -41,6 +81,47 @@ const ReservationResume = ({ name, date, time, peopleNumber }) => {
 };
 
 const EditReservation = () => {
+  const [reservations, setReservations] = useState([
+    {
+      name: "COURTARI ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 1,
+    },
+    {
+      name: "GARIBALDO ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 2,
+    },
+    {
+      name: "Réservation ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 3,
+    },
+    {
+      name: "Réservation ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 4,
+    },
+  ]);
+
+  const updateReservationInState = (updatedReservation) => {
+    setReservations(
+      reservations.map((reservation) =>
+        reservation.id === updatedReservation.id
+          ? updatedReservation
+          : reservation
+      )
+    );
+  };
+
   return (
     <>
       <div className="flex gap-4">
@@ -67,12 +148,19 @@ const EditReservation = () => {
         </div>
       </div>
       <div className="flex flex-wrap gap-4">
-        <ReservationResume
-          name={"COURTARO"}
-          date={"2003-10-03"}
-          time={"10:30"}
-          peopleNumber={18}
-        />
+        {reservations.map((reservation, index) => {
+          return (
+            <ReservationBlock
+              key={reservation.id}
+              id={reservation.id}
+              initialName={reservation.name}
+              initialDate={reservation.date}
+              initialTime={reservation.time}
+              initialPeopleNumber={reservation.peopleNumber}
+              onUpdate={updateReservationInState}
+            />
+          );
+        })}
       </div>
     </>
   );
