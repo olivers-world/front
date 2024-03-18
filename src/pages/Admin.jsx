@@ -68,12 +68,29 @@ const Admin = () => {
   ]);
 
   const handleSetActiveSection = (name) => {
+    setActiveSection(name);
+
     setSections((prevSections) =>
       prevSections.map((section) => ({
         ...section,
         active: section.name === name,
       }))
     );
+  };
+
+  const renderActiveSection = () => {
+    switch (activeSection) {
+      case "dashboard":
+        return <Dashboard />;
+      case "confectionner un menu":
+        return <MakeRecipe />;
+      case "modifier, annuler une réservation":
+        return <EditReservation />;
+      case "avis":
+        return <Avis />;
+      default:
+        return <Dashboard />;
+    }
   };
 
   return (
@@ -100,8 +117,7 @@ const Admin = () => {
             })}
           </aside>
           <section className="w-full py-4 px-4 xl:max-w-[835px]  border">
-            {/*<Dashboard /> */}
-            <Avis />
+            {renderActiveSection()}
           </section>
         </section>
       </div>
