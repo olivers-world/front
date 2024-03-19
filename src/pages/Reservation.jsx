@@ -203,6 +203,7 @@ function Reservation() {
                     {new Date(reservation.DateHeure).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
+                      hour12: false
                     })}
                   </div>
                 ))}
