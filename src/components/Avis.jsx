@@ -4,7 +4,7 @@ import { useState } from "react";
 const AvisBlock = ({ name, content, date }) => {
   return (
     <div className="py-6 px-6 w-fit">
-      <p className="text-center">{content}</p>
+      <p className="italic text-center">"{content}"</p>
       <div className="flex justify-center gap-4 w-full text-sm">
         <div>{name}</div>
         <div>{date}</div>
@@ -18,7 +18,11 @@ const Avis = () => {
     { name: "joseph", content: "très bon et pas cher", date: "10/03/2003" },
     { name: "joseph", content: "très bon et pas cher", date: "10/03/2003" },
     { name: "joseph", content: "très bon et pas cher", date: "10/03/2003" },
-    { name: "joseph", content: "très bon et pas cher", date: "10/03/2003" },
+    {
+      name: "joseph",
+      content: "très bon et pas cher et grrr",
+      date: "10/03/2003",
+    },
     { name: "joseph", content: "très bon et pas cher", date: "10/03/2003" },
     { name: "joseph", content: "très bon et pas cher", date: "10/03/2003" },
   ]);

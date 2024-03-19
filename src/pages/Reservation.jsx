@@ -124,21 +124,21 @@ function Reservation() {
 
   return (
     <div>
-      <NavBar backgroundColor={"#988F72"} />
+      <NavBar />
 
       <div
         className="h-screen w-screen flex justify-center  z-10
       bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen"
       >
-        <div className="grid grid-cols-1 mt-36 md:mt-64 md:grid-cols-2 z-10 h-fit min-h-[400px]  bg-white p-4 rounded-xl ">
+        <div className="grid grid-cols-1 mt-36 md:mt-64 md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
           <Calendar
-            className="rounded-lg p-2 border-none my-auto "
+            className="rounded-lg p-2 border-none"
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           />
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col rounded-xl items-center justify-center h-full bg-white p-4 max-w-[350px]"
+            className="flex flex-col rounded-xl  h-full bg-white px-4 py-4 max-w-[350px]"
           >
             <div className="flex flex-wrap">
               <span className="mr-2 font-medium text-lg">
@@ -212,7 +212,7 @@ function Reservation() {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="border mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary"
+              className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary"
             >
               Réserver
             </button>

@@ -25,7 +25,7 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
 
   return (
     <div
-      className={`${position} z-30 w-full flex justify-between items-center text-${linkscolor} my-3`}
+      className={`${position}  z-30 w-full flex justify-between items-center text-${linkscolor} my-3`}
     >
       <div className="w-1/2 flex justify-evenly opacity-0 sm:opacity-100">
         <NavLink to="/reservation" className=" font-jacqueFrancois">

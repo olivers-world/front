@@ -11,7 +11,27 @@ import example2 from "../images/example-2.png";
 import example3 from "../images/example-3.png";
 import example4 from "../images/example-4.png";
 
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+gsap.registerPlugin(useGSAP);
+
 const Home = () => {
+  const title = useRef();
+
+  const toggleNavbarColor = () => {};
+
+  useGSAP(() => {
+    gsap.from(title.current, {
+      y: 100,
+      duration: 1,
+      delay: 0.3,
+      ease: "ease-out",
+    });
+    gsap.from(title.current, { y: 200, duration: 1, ease: "ease-out" });
+  }, []);
+
   return (
     <div className="absolute h-screen w-screen bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen">
       <NavBar></NavBar>
