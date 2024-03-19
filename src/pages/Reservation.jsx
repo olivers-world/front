@@ -19,6 +19,7 @@ function Reservation() {
   const [peopleNumber, setPeopleNumber] = useState(1);
 
   const [reservations, setReservations] = useState([]);
+  const [timeSlots, setTimeSlots] = useState([]);
 
   const handleHourChange = (hour) => {
     setSelectedHours(hour.target.value);
@@ -103,8 +104,7 @@ function Reservation() {
   const fetchReservations = async () => {
     const formattedDate = `${calendarDate.getFullYear()}-${
       calendarDate.getMonth() + 1
-    }-${calendarDate.getDate()} ${selectedHours}:${selectedMinutes}:00`;
-    console.log(formattedDate);
+    }-${calendarDate.getDate()} ${selectedHours}:00:00`;
 
     try {
       const response = await axios.get(GET_URL, {
@@ -113,7 +113,6 @@ function Reservation() {
       setReservations(response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des réservations", error);
-      setReservations([]); // En cas d'erreur, on vide les réservations
     }
   };
 
@@ -121,6 +120,23 @@ function Reservation() {
     updateDateReservation();
     fetchReservations();
   }, [selectedHours, selectedMinutes, calendarDate]);
+
+  useEffect(() => {
+    const slots = [];
+    for (let minute = 0; minute < 60; minute += 5) {
+      const timeString = `${selectedHours}:${minute
+        .toString()
+        .padStart(2, "0")}`;
+      const isTaken = reservations.some(
+        (reservation) =>
+          new Date(reservation.DateHeure).getHours() ===
+            parseInt(selectedHours) &&
+          new Date(reservation.DateHeure).getMinutes() === minute
+      );
+      slots.push({ time: timeString, taken: isTaken });
+    }
+    setTimeSlots(slots);
+  }, [reservations, selectedHours]);
 
   return (
     <div>
@@ -168,10 +184,17 @@ function Reservation() {
                   id=""
                   className="mr-4 text-xl"
                 >
-                  <option value="00">00</option>
+                  <option value="00">05</option>
                   <option value="10">10</option>
+                  <option value="15">15</option>
                   <option value="20">20</option>
+                  <option value="25">25</option>
                   <option value="30">30</option>
+                  <option value="35">35</option>
+                  <option value="40">40</option>
+                  <option value="45">45</option>
+                  <option value="50">50</option>
+                  <option value="55">55</option>
                 </select>
               </div>
 
@@ -193,18 +216,15 @@ function Reservation() {
             </div>
 
             <div className="my-8 flex-1 max-h-[125px] overflow-y-auto">
-              <div className="flex flex-wrap gap-2 ">
-                {/* Liste de tous les créneaux pris*/}
-                {reservations.map((reservation, index) => (
+              <div className="flex flex-wrap gap-2">
+                {timeSlots.map((slot, index) => (
                   <div
                     key={index}
-                    className="px-4 py-1 w-fit rounded-lg bg-primary text-white"
+                    className={`px-4 py-1 w-fit rounded-lg ${
+                      slot.taken ? "bg-red-500" : "bg-primary"
+                    } text-white`}
                   >
-                    {new Date(reservation.DateHeure).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: false
-                    })}
+                    {slot.time}
                   </div>
                 ))}
               </div>
