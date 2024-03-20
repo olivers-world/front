@@ -11,15 +11,14 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
     return !!token;
   };
 
-  let prenom, nom, email;
-
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  if (userInfo) {
-    prenom = userInfo.prenom;
-    nom = userInfo.nom;
-    email = userInfo.email;
-    // Utilisez prenom, nom, et email selon vos besoins
-  }
+  // let prenom, nom, email;
+  // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  // if (userInfo) {
+  //   prenom = userInfo.prenom;
+  //   nom = userInfo.nom;
+  //   email = userInfo.email;
+  //   // Utilisez prenom, nom, et email selon vos besoins
+  // }
 
   const [displayConnexionMenu, setDisplayConnexionMenu] = useState(false);
 
@@ -65,7 +64,7 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
               />
             </svg>
 
-            {displayConnexionMenu && <ConnexionMenu firstname={prenom} />}
+            {displayConnexionMenu && <ConnexionMenu/>}
           </div>
         </div>
         <Burger color={linkscolor == "white" ? "white" : "primary"}></Burger>

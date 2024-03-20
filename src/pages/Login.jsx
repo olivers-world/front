@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from "../context/AuthProvider";
+import useAuth from '../hooks/useAuth';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
@@ -7,7 +7,8 @@ import axios from "../api/axios";
 const LOGIN_URL = "/api/auth/login";
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, persist, setPersist } = useAuth();
+  
   const emailRef = useRef();
   const errRef = useRef();
 
@@ -38,13 +39,14 @@ const Login = () => {
       );
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
-      const { accessToken, roles, prenom, nom } = response?.data;
+      const prenom = response?.data?.prenom;
+      const nom = response?.data?.nom;
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
       // Stocker le token et les roles dans le localStorage
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("roles", roles);
       localStorage.setItem("userInfo", JSON.stringify({ prenom, nom, email }));
 
-      setAuth({ prenom, nom, email, roles, accessToken });
+      setAuth({ email, pwd, roles, accessToken });
       setEmail("");
       setPwd("");
       setSuccess(true);
@@ -61,6 +63,14 @@ const Login = () => {
       errRef.current.focus();
     }
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
 
   return (
     <>
@@ -142,6 +152,13 @@ const Login = () => {
               <button className="cursor-pointer mt-4 flex w-full justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
                 Se connecter
               </button>
+              <input
+                type="checkbox"
+                id="persist"
+                onChange={togglePersist}
+                checked={persist}
+              />
+              <label htmlFor="persist">Trust This Device</label>
             </form>
           </div>
         </section>

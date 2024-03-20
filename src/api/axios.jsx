@@ -1,13 +1,12 @@
 import axios from 'axios';
+const BASE_URL = 'http://localhost:1945';
 
 export default axios.create({
-    baseURL: 'http://localhost:1945'
+    baseURL: BASE_URL
 });
 
-axios.interceptors.request.use(request => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      request.headers.Authorization = `Bearer ${token}`;
-    }
-    return request;
-  });
+export const axiosPrivate = axios.create({
+    baseURL: BASE_URL,
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true
+});

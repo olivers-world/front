@@ -1,24 +1,17 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+import useLogout from "../hooks/useLogout";
 
 const LogoutButton = () => {
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const logout = useLogout();
 
-  const logout = () => {
-    // Supprimer le token et les rôles du localStorage
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('roles');
-    localStorage.removeItem('userInfo');
-    // Réinitialiser l'état d'authentification
-    setAuth({});
-    // Rediriger vers la page de connexion
+  const signOut = async () => {
+    await logout();
     navigate('/login');
-  };
+}
 
   return (
-    <button onClick={logout} className={"bg-primary text-white px-4 py-2 rounded-sm"}>
+    <button onClick={signOut} className={"bg-primary text-white px-4 py-2 rounded-sm"}>
       Déconnexion
     </button>
   );
