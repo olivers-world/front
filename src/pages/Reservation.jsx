@@ -233,7 +233,7 @@ function Reservation() {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary"
+              className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-white float-right bg-primary"
             >
               Réserver
             </button>
