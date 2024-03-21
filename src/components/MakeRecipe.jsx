@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Accordeon from "./Accordeon";
 import feuille from "../images/feuille.png";
+import MenuOfTheDay from "./MenuOfTheDay";
 
 const MakeRecipe = () => {
   const [selectedEntree, setSelectedEntree] = useState("");
@@ -158,43 +159,15 @@ const MakeRecipe = () => {
           })}
         </Accordeon>
 
-        <div className="my-8 text-center w-full">
-          <h1 className="mx-auto font-jacqueFrancois my-8 w-fit text-4xl font-medium">
-            {nomMenu}
-          </h1>
-          <p className="py-2">{selectedEntree}</p>
-          <p className="py-2">{selectedPlat}</p>
-          <p className="py-2">
-            {selectedDessert.map((dessert, index) => {
-              return (
-                <>
-                  <span>
-                    {dessert} {index + 1 !== selectedDessert.length ? "," : ""}
-                  </span>{" "}
-                </>
-              );
-            })}
-          </p>
-          <p className="py-2">
-            {selectedBoisson.map((boisson, index) => {
-              return (
-                <>
-                  <span
-                    className={` ${
-                      selectedBoisson.length > 3 ? "text-sm" : ""
-                    }`}
-                  >
-                    {boisson} {index + 1 !== selectedBoisson.length ? "," : ""}
-                  </span>{" "}
-                </>
-              );
-            })}
-          </p>
-          <p className="font-medium  text-4xl mt-8">
-            {prixMenu} {prixMenu ? " $" : ""}
-          </p>
-          <img className="mx-auto scale-75" src={feuille} alt="" />
-        </div>
+        <MenuOfTheDay
+          selectedEntree={selectedEntree}
+          selectedPlat={selectedPlat}
+          selectedBoisson={selectedBoisson}
+          selectedDessert={selectedDessert}
+          prixMenu={prixMenu}
+          nomMenu={nomMenu}
+        ></MenuOfTheDay>
+
         <button className="border mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary">
           Ajouter le menu à la carte
         </button>

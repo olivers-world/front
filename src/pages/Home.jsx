@@ -3,6 +3,7 @@ import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
 import Hero from "../components/Hero.jsx";
+import MenuOfTheDay from "@/components/MenuOfTheDay.jsx";
 
 import img from "../images/img-1.png";
 import img2 from "../images/img-2.png";
@@ -39,15 +40,50 @@ const Home = () => {
       <Hero text={"Oliver's World"} buttonText={"Réservez"} />
       <div className="h-screen w-screen"></div>
 
-      <section className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg">
-        <div className="mx-8">
+      <section
+        id="hero"
+        className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg"
+      >
+        <div className="flex flex-wrap md:flex-nowrap justify-center gap-16 mx-auto">
           <h1 className=" text-4xl mb-8 font-jacqueFrancois">
-            <span className="text-baseprimary text-7xl ml-16 mt-2 font-imperialScript font-medium">
-              Découvrez
+            <span className="text-baseprimary  text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
+              Notre
             </span>
-            <br /> notre Histoire
+            <br /> Plat du jour
           </h1>
-          <p className="max-w-xl text-justify font-notoSerifKr">
+          <div className="max-w-xl px-16 flex w-full justify-center items-center text-justify font-notoSerifKr">
+            <MenuOfTheDay
+              selectedEntree={"Velouté de champignons"}
+              selectedPlat={"Lasagnes au lit d épinard"}
+              selectedBoisson={["Soda", "Vin rouge", "Rosé"]}
+              selectedDessert={["Tiramisu", "Panacotta", "Cheesecake"]}
+              prixMenu={18}
+              nomMenu={"Le Doux"}
+            ></MenuOfTheDay>
+          </div>
+        </div>
+        <br />
+      </section>
+
+      <section
+        id="hero"
+        className=" py-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg"
+      >
+        <div className=" flex-1 hidden md:block py-16 flex-col gap-8">
+          <img className=" right-0 -top-4 parallax-bg" src={img} alt="" />
+          <img className=" right-0 parallax-bg top-1/2" src={img2} alt="" />
+        </div>
+        <div className="mx-8">
+          <div className="flex md:justify-end">
+            <h1 className="text-4xl mb-8 font-jacqueFrancois block ">
+              <span className="text-baseprimary text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
+                Notre
+              </span>
+              <div className="ml-6 inline">Histoire</div>
+            </h1>
+          </div>
+          <br />
+          <p className="max-w-xl block text-justify font-notoSerifKr">
             Bienvenue chez Oliver's World, un lieu où la diversité culinaire
             rencontre l'excellence, offrant une expérience culinaire
             transcendant les frontières. Inspiré par mes voyages et ma passion
@@ -75,28 +111,19 @@ const Home = () => {
             des souvenirs délicieux.
           </p>
           <br />
-          <br />
-          <p className="text-center text-2xl font-notoSerifKr">
-            Bienvenue dans notre univers gastronomique!
-          </p>
-        </div>
-
-        <div className="hidden md:block py-16  flex-col gap-8">
-          <img className="" src={img} alt="" />
-          <img className="" src={img2} alt="" />
         </div>
       </section>
 
-      <section className="my-16 mx-auto  max-w-screen-lg">
+      <section id="images-section" className="my-16 mx-auto  max-w-screen-lg">
         <div className="mx-8">
           <h1 className="py-8 text-7xl text-baseprimary mb-8 ml-16 font-imperialScript">
             Happening
           </h1>
-          <div className="flex flex-wrap gap-8 justify-evenly">
-            <img src={example1} alt="" />
-            <img src={example2} alt="" />
-            <img src={example3} alt="" />
-            <img src={example4} alt="" />
+          <div className="relative flex flex-wrap gap-8 justify-evenly">
+            <img className="x-parallax-bg" src={example1} alt="" />
+            <img className="x-parallax-bg" src={example2} alt="" />
+            <img className="x-parallax-bg" src={example3} alt="" />
+            <img className="x-parallax-bg" src={example4} alt="" />
           </div>
         </div>
       </section>
