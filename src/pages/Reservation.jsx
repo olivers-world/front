@@ -3,7 +3,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
-import img from "../images/bg-img-2.jpeg";
 import axios from "../api/axios";
 
 const CREATE_URL = "/api/reservation/create";
@@ -14,7 +13,7 @@ function Reservation() {
   const [date, setDate] = useState();
 
   const [selectedHours, setSelectedHours] = useState(12);
-  const [selectedMinutes, setSelectedMinutes] = useState(0);
+  const [selectedMinutes, setSelectedMinutes] = useState(5);
 
   const [peopleNumber, setPeopleNumber] = useState(1);
 
@@ -72,7 +71,7 @@ function Reservation() {
         }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: false,
+          withCredentials: true,
         }
       );
       console.log(response?.data);
@@ -123,7 +122,7 @@ function Reservation() {
 
   useEffect(() => {
     const slots = [];
-    for (let minute = 0; minute < 60; minute += 5) {
+    for (let minute = 5; minute <= 55; minute += 5) {
       const timeString = `${selectedHours}:${minute
         .toString()
         .padStart(2, "0")}`;
@@ -184,7 +183,7 @@ function Reservation() {
                   id=""
                   className="mr-4 text-xl"
                 >
-                  <option value="00">05</option>
+                  <option value="05">05</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
                   <option value="20">20</option>
