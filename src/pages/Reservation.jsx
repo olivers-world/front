@@ -13,7 +13,7 @@ function Reservation() {
   const [date, setDate] = useState();
 
   const [selectedHours, setSelectedHours] = useState(12);
-  const [selectedMinutes, setSelectedMinutes] = useState(5);
+  const [selectedMinutes, setSelectedMinutes] = useState(0);
 
   const [peopleNumber, setPeopleNumber] = useState(1);
 
@@ -55,7 +55,7 @@ function Reservation() {
     console.log("Formulaire soumis !");
 
     const formattedDate = `${calendarDate.getFullYear()}-${
-      calendarDate.getMonth() + 1
+      calendarDate.getMonth()
     }-${calendarDate.getDate()} ${selectedHours}:${selectedMinutes}:00`;
 
     const userInfo = JSON.parse(userInfoString);
@@ -104,11 +104,13 @@ function Reservation() {
     const formattedDate = `${calendarDate.getFullYear()}-${
       calendarDate.getMonth() + 1
     }-${calendarDate.getDate()} ${selectedHours}:00:00`;
+    console.log(formattedDate);
 
     try {
       const response = await axios.get(GET_URL, {
         params: { dateHeure: formattedDate },
       });
+      console.log(response.data);
       setReservations(response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des réservations", error);
@@ -122,7 +124,7 @@ function Reservation() {
 
   useEffect(() => {
     const slots = [];
-    for (let minute = 5; minute <= 55; minute += 5) {
+    for (let minute = 0; minute <= 55; minute += 5) {
       const timeString = `${selectedHours}:${minute
         .toString()
         .padStart(2, "0")}`;
@@ -183,6 +185,7 @@ function Reservation() {
                   id=""
                   className="mr-4 text-xl"
                 >
+                  <option value="00">00</option>
                   <option value="05">05</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
