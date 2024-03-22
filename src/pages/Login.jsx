@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect, useContext } from "react";
-import useAuth from '../hooks/useAuth';
+import { useRef, useState, useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
@@ -8,7 +8,7 @@ const LOGIN_URL = "/api/auth/login";
 
 const Login = () => {
   const { setAuth, persist, setPersist } = useAuth();
-  
+
   const emailRef = useRef();
   const errRef = useRef();
 
@@ -45,8 +45,15 @@ const Login = () => {
       const roles = response?.data?.roles;
       // Stocker le token et les roles dans le localStorage
       localStorage.setItem("userInfo", JSON.stringify({ prenom, nom, email }));
+      localStorage.setItem("roles",roles);
 
-      setAuth({ email, pwd, roles, accessToken });
+      setAuth({
+        email: email,
+        pwd: pwd,
+        roles: roles,
+        accessToken: accessToken,
+      });
+
       setEmail("");
       setPwd("");
       setSuccess(true);

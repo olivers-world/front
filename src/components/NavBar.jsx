@@ -6,20 +6,6 @@ import ConnexionMenu from "./ConnexionMenu";
 import Burger from "./Burger";
 
 const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
-  const isUserLoggedIn = () => {
-    const token = localStorage.getItem("accessToken");
-    return !!token;
-  };
-
-  // let prenom, nom, email;
-  // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  // if (userInfo) {
-  //   prenom = userInfo.prenom;
-  //   nom = userInfo.nom;
-  //   email = userInfo.email;
-  //   // Utilisez prenom, nom, et email selon vos besoins
-  // }
-
   const [displayConnexionMenu, setDisplayConnexionMenu] = useState(false);
 
   return (
@@ -64,7 +50,7 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
               />
             </svg>
 
-            {displayConnexionMenu && <ConnexionMenu/>}
+            {displayConnexionMenu && <ConnexionMenu />}
           </div>
         </div>
         <Burger color={linkscolor == "white" ? "white" : "primary"}></Burger>
