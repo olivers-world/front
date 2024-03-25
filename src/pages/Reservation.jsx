@@ -55,7 +55,7 @@ function Reservation() {
     console.log("Formulaire soumis !");
 
     const formattedDate = `${calendarDate.getFullYear()}-${
-      calendarDate.getMonth()
+      calendarDate.getMonth() + 1
     }-${calendarDate.getDate()} ${selectedHours}:${selectedMinutes}:00`;
 
     const userInfo = JSON.parse(userInfoString);
@@ -104,7 +104,8 @@ function Reservation() {
     const formattedDate = `${calendarDate.getFullYear()}-${
       calendarDate.getMonth() + 1
     }-${calendarDate.getDate()} ${selectedHours}:00:00`;
-    console.log(formattedDate);
+    
+    console.log("formattedDate : " + formattedDate);
 
     try {
       const response = await axios.get(GET_URL, {
