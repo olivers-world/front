@@ -7,48 +7,47 @@ import { useState, useEffect } from "react";
 import EditReservation from "@/components/EditReservation";
 import Avis from "@/components/Avis";
 
-const Section = ({ children, display, handleSetActiveSection, active }) => {
+const Section = ({
+  children,
+  display,
+  handleSetActiveSection,
+  active,
+  handleMenu,
+  canExpand,
+}) => {
   return (
     <section
       className={`cursor-pointer capitalize bg-white py-4 px-4 border-b 
       ${active ? "font-medium" : ""} 
       ${display ? "" : "hidden"}`}
-      onClick={() => handleSetActiveSection(children)}
+      onClick={() => {
+        handleSetActiveSection(children);
+        canExpand ? handleMenu() : "";
+      }}
     >
       {children}
     </section>
   );
 };
 
-const Burger = ({ expanded, handleMenu }) => {
-  return (
-    <div
-      className={`absolute text-primary ${
-        expanded ? "-rotate-90" : ""
-      } transition-all duration-500 origin-center xl:hidden right-[15%] cursor-pointer top-5 w-fit h-fit font-medium text-xl z-20`}
-      onClick={() => handleMenu()}
-    >
-      <div className="flex flex-col gap-1">
-        <div className="h-[0.15em] w-8 rounded bg-primary"></div>
-        <div className="h-[0.15em] w-8 rounded bg-primary"></div>
-        <div className="h-[0.15em] w-8 rounded bg-primary"></div>
-      </div>
-    </div>
-  );
-};
-
 const Admin = () => {
   const [expanded, setExpanded] = useState(false);
+  const [canExpand, setCanExpand] = useState(true);
+
   const [activeSection, setActiveSection] = useState("dashboard");
 
   useEffect(() => {
     if (window.innerWidth > 1280) {
       setExpanded(true);
+      setCanExpand(false);
     }
 
     const handleResize = () => {
       if (window.innerWidth > 1280) {
         setExpanded(true);
+        setCanExpand(false);
+      } else {
+        setCanExpand(true);
       }
     };
 
@@ -101,12 +100,13 @@ const Admin = () => {
       <div className="mx-8 min-h-screen">
         <section className="flex flex-wrap max-w-6xl mx-auto my-8 ">
           <aside className="relative border h-fit w-full text-center xl:w-fit">
-            <Burger handleMenu={handleMenu} expanded={expanded} />
             {sections.map((section, index) => {
               return (
                 <Section
                   display={expanded || section.active}
                   key={index}
+                  handleMenu={handleMenu}
+                  canExpand={canExpand}
                   handleSetActiveSection={handleSetActiveSection}
                   active={section.active}
                 >

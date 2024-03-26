@@ -22,7 +22,7 @@ const ReservationBlock = ({
   };
 
   return (
-    <div className="bg-secondary w-fit text-white rounded-md p-2 mt-4">
+    <div className="bg-secondary w-fit min-w-[204px] flex-1 max-w-[250px] text-white rounded-md p-2 mt-4">
       <div className="flex gap-6">
         <div className="font-medium">
           <input
@@ -65,7 +65,7 @@ const ReservationBlock = ({
         onChange={(e) => setTime(e.target.value)}
       />
 
-      <div className="mt-2">
+      <div className="mt-2 flex justify-between">
         <button
           onClick={sendUpdateToServer}
           className="bg-white text-primary px-4 py-1 mr-2 rounded-sm"
@@ -137,7 +137,7 @@ const EditReservation = () => {
 
   return (
     <>
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <div>
           <label htmlFor="">Nom : </label>
           <input

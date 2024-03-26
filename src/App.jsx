@@ -9,19 +9,17 @@ import Login from "./pages/Login.jsx";
 import Admin from "./pages/Admin.jsx";
 import Layout from "./components/Layout.jsx";
 import RequireAuth from "./components/RequireAuth";
-import AlertsProvider from "./alerts/alerts-context";
 
 function App() {
   return (
-    <AlertsProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/reservation" element={<Reservation />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/reservation" element={<Reservation />} />
+      <Route path="/menu" element={<Menu />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      {/* <Route
           path="/admin"
           element={
             <RequireAuth allowedRoles={["Administrateur"]}>
@@ -29,9 +27,8 @@ function App() {
             </RequireAuth>
           }
         /> */}
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
-    </AlertsProvider>
+      <Route path="/admin" element={<Admin />} />
+    </Routes>
   );
 }
 
