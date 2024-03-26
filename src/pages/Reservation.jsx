@@ -1,12 +1,64 @@
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import NavBar from "../components/NavBar.jsx";
-import Footer from "../components/Footer.jsx";
+
 import axios from "../api/axios";
 
 const CREATE_URL = "/api/reservation/create";
 const GET_URL = "/api/reservation/get";
+
+const Modale = ({
+  closeModal,
+  date,
+  selectedSlot,
+  peopleNumber,
+  handleSubmit,
+}) => {
+  let dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-40 after:content[''] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen">
+      <div className="relative bg-white  z-50 p-8 rounded-lg border shadow-xl">
+        <h2 className="text-2xl font-semibold mb-4">
+          Réservation pour le {date.toLocaleDateString("fr-FR", dateOptions)}
+        </h2>
+        <p className="text-lg">
+          Pour <span className="font-medium">{peopleNumber}</span> personnes à
+          <span className="font-medium"> {selectedSlot}</span>
+        </p>
+        <input
+          type="email"
+          placeholder="Votre email"
+          className="mb-2 w-full rounded-md border border-gray-400 py-1 my-4 pl-2 pr-4  :text-gray-300 sm:mb-0"
+        />
+
+        <input
+          type="text"
+          placeholder="Votre nom"
+          className="mb-2 w-full rounded-md border border-gray-400 py-1 my-4 pl-2 pr-4  :text-gray-300 sm:mb-0"
+        />
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="border w-full mx-auto mt-4 px-2 py-2 font-medium rounded-sm text-white float-right bg-primary"
+        >
+          Réserver
+        </button>
+        <button
+          onClick={closeModal}
+          className="bg-primary absolute -top-2 right-2 text-xs text-white px-2 py-1 rounded-md mt-4"
+        >
+          X
+        </button>
+      </div>
+    </div>
+  );
+};
 
 function Reservation() {
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -19,6 +71,9 @@ function Reservation() {
 
   const [reservations, setReservations] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
+
+  const [selectedSlot, setSelectedSlot] = useState("12:00");
+  const [showModal, setShowModal] = useState(false);
 
   const handleHourChange = (hour) => {
     setSelectedHours(hour.target.value);
@@ -51,6 +106,7 @@ function Reservation() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setShowModal(true);
     console.log(date);
     console.log("Formulaire soumis !");
 
@@ -140,6 +196,10 @@ function Reservation() {
     setTimeSlots(slots);
   }, [reservations, selectedHours]);
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div
       className="w-screen z-10
@@ -147,6 +207,15 @@ function Reservation() {
     >
       <div className="h-[120px]"></div>
       <div className="h-screen flex justify-center mx-4">
+        {showModal && (
+          <Modale
+            closeModal={closeModal}
+            date={date}
+            selectedSlot={selectedSlot}
+            peopleNumber={peopleNumber}
+            handleSubmit={handleSubmit}
+          ></Modale>
+        )}
         <div className="grid grid-cols-1 md:my-32  md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
           <Calendar
             className="rounded-lg p-2 border-none"
@@ -222,9 +291,18 @@ function Reservation() {
                 {timeSlots.map((slot, index) => (
                   <div
                     key={index}
+                    onClick={(e) => {
+                      setSelectedSlot(e.target.textContent);
+                    }}
                     className={`px-4 flex-1 py-1 w-fit rounded-lg ${
-                      slot.taken ? "bg-red-500" : "bg-primary"
-                    } text-white`}
+                      slot.taken ? "!bg-red-500" : "bg-white"
+                    }
+                      ${
+                        selectedSlot === slot.time
+                          ? "text-white !bg-primary"
+                          : ""
+                      }
+                       text-primary border-primary border cursor-pointer`}
                   >
                     {slot.time}
                   </div>
@@ -234,7 +312,7 @@ function Reservation() {
 
             <button
               type="submit"
-              onClick={handleSubmit}
+              onClick={() => setShowModal(true)}
               className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-white float-right bg-primary"
             >
               Réserver

@@ -12,7 +12,7 @@ const Contact = () => {
               <div className="h-full pr-6">
                 <ul className="mb-6 md:mb-0">
                   <h1 className="text-6xl font-medium text-primary mb-4 font-imperialScript">
-                    Oliver's World
+                    Oliver&apos;s World
                   </h1>
                   <li className="flex">
                     <div className="flex h-10 w-10 items-center justify-center rounded bg-primary-900 text-primary">
