@@ -98,8 +98,6 @@ const Admin = () => {
 
   return (
     <>
-      <div className="h-[100px]"></div>
-
       <div className="mx-8 min-h-screen">
         <section className="flex flex-wrap max-w-6xl mx-auto my-8 ">
           <aside className="relative border h-fit w-full text-center xl:w-fit">

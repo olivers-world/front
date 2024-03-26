@@ -168,7 +168,7 @@ const MakeRecipe = () => {
           nomMenu={nomMenu}
         ></MenuOfTheDay>
 
-        <button className="border mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary">
+        <button className="border mt-4 mx-auto px-2 py-2 font-medium rounded-sm text-primary float-right hover:text-white hover:bg-primary">
           Ajouter le menu à la carte
         </button>
       </div>

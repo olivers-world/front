@@ -1,4 +1,3 @@
-import React from "react";
 import menuTemplate from "../images/menuTemplate.png";
 import feuille from "../images/feuille.png";
 

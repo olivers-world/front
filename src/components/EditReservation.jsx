@@ -81,6 +81,10 @@ const ReservationBlock = ({
 };
 
 const EditReservation = () => {
+  const [filterName, setFilterName] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+  const [filterTime, setFilterTime] = useState("");
+
   const [reservations, setReservations] = useState([
     {
       name: "COURTARI ",
@@ -122,6 +126,15 @@ const EditReservation = () => {
     );
   };
 
+  const filteredReservations = reservations.filter(
+    (reservation) =>
+      reservation.name.toLowerCase().includes(filterName.toLowerCase()) &&
+      (filterDate ? reservation.date === filterDate : true) &&
+      (filterTime
+        ? reservation.time.split(":")[0] === filterTime.split(":")[0]
+        : true)
+  );
+
   return (
     <>
       <div className="flex gap-4">
@@ -130,25 +143,31 @@ const EditReservation = () => {
           <input
             type="text"
             className="border w-42 px-2 py-2 rounded-sm mb-2 "
+            value={filterName}
+            onChange={(e) => setFilterName(e.target.value)}
           />
         </div>
         <div>
           <label htmlFor="">Date : </label>
           <input
             type="date"
+            value={filterDate}
             className="border w-32 px-2 py-2 rounded-sm mb-2 "
+            onChange={(e) => setFilterDate(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="">Date : </label>
+          <label htmlFor="">Heure : </label>
           <input
             type="time"
+            value={filterTime}
             className="border w-24 px-2 py-2 rounded-sm mb-2 "
+            onChange={(e) => setFilterTime(e.target.value)}
           />
         </div>
       </div>
       <div className="flex flex-wrap gap-4">
-        {reservations.map((reservation, index) => {
+        {filteredReservations.map((reservation, index) => {
           return (
             <ReservationBlock
               key={reservation.id}

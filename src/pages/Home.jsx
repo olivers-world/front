@@ -81,33 +81,7 @@ const Home = () => {
           <br />
         </div>
       </section>
-      <section
-        id="hero"
-        className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg"
-      >
-        <div className="flex flex-wrap md:flex-nowrap justify-center gap-16 mx-auto">
-          <h1 className=" text-4xl mb-8 font-jacqueFrancois">
-            <span className="text-baseprimary float-right text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
-              Notre
-            </span>
-            <br />
-            <span className="whitespace-nowrap	float-right">
-              Formule du jour
-            </span>
-          </h1>
-          <div className="max-w-xl px-16 flex w-full justify-center items-center text-justify font-notoSerifKr">
-            <MenuOfTheDay
-              selectedEntree={"Velouté de champignons"}
-              selectedPlat={"Lasagnes au lit d épinard"}
-              selectedBoisson={["Soda", "Vin rouge", "Rosé"]}
-              selectedDessert={["Tiramisu", "Panacotta", "Cheesecake"]}
-              prixMenu={18}
-              nomMenu={"Le Doux"}
-            ></MenuOfTheDay>
-          </div>
-        </div>
-        <br />
-      </section>
+
       <section id="images-section" className="my-16 mx-auto  max-w-screen-lg">
         <div className="mx-8">
           <h1 className="py-8 text-7xl text-baseprimary mb-8 ml-16 font-imperialScript">

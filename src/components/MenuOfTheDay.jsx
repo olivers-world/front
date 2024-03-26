@@ -43,7 +43,7 @@ const MenuOfTheDay = ({
         </p>
 
         <p className="font-medium  text-4xl mt-8">
-          {prixMenu} {prixMenu ? " $" : ""}
+          {prixMenu} {prixMenu ? "€" : ""}
         </p>
         <img
           className={`mx-auto scale-75 md:hidden ${

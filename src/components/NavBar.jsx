@@ -67,10 +67,10 @@ const Navbar = ({ position, linkscolor }) => {
       className={`${position}  z-30 w-full flex justify-between items-center text-${linkscolor} my-3`}
     >
       <div className="w-1/2 flex justify-evenly opacity-0 sm:opacity-100">
-        <NavLink to="/reservation" className="leftnavelt font-jacqueFrancois">
+        <NavLink to="/reservation" className="leftnavelt font-medium">
           Réservation
         </NavLink>
-        <NavLink to="/menu" className="leftnavelt font-jacqueFrancois">
+        <NavLink to="/menu" className="leftnavelt font-medium">
           Menu
         </NavLink>
       </div>
@@ -81,7 +81,7 @@ const Navbar = ({ position, linkscolor }) => {
 
       <div className="relative w-1/2 ">
         <div className=" justify-evenly  hidden sm:flex">
-          <NavLink to="/contact" className="rightnavelt font-jacqueFrancois">
+          <NavLink to="/contact" className="rightnavelt font-medium">
             Contact
           </NavLink>
           <div

@@ -32,7 +32,6 @@ const PageWrapper = ({ children }) => {
           POSITION_BLOCK_ROUTES.includes(router.pathname) ? "block" : undefined
         }
       />
-
       {children}
 
       <Footer />
