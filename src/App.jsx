@@ -13,14 +13,13 @@ import RequireAuth from "./components/RequireAuth";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/reservation" element={<Reservation />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route
+      <Route path="/" element={<Home />} />
+      <Route path="/reservation" element={<Reservation />} />
+      <Route path="/menu" element={<Menu />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      {/* <Route
           path="/admin"
           element={
             <RequireAuth allowedRoles={["Administrateur"]}>
@@ -28,8 +27,7 @@ function App() {
             </RequireAuth>
           }
         /> */}
-        <Route path="/admin" element={<Admin />} />
-      </Route>
+      <Route path="/admin" element={<Admin />} />
     </Routes>
   );
 }

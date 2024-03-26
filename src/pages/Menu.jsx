@@ -15,8 +15,6 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <NavBar linkscolor="black" position="block" />
-
         <div className="py-6">
           <section
             id="hero"
@@ -50,7 +48,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 };

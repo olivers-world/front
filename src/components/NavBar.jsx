@@ -1,37 +1,91 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import logo from "../assets/logo.svg";
-import guest from "../assets/guest.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ConnexionMenu from "./ConnexionMenu";
 import Burger from "./Burger";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
-const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
+gsap.registerPlugin(useGSAP);
+
+const Navbar = ({ position, linkscolor }) => {
   const [displayConnexionMenu, setDisplayConnexionMenu] = useState(false);
+  const [hasAlreadySeenHomePage, setHasAlreadySeenHomePage] = useState(false);
+
+  const router = useLocation();
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ paused: true });
+    tl.add("start");
+
+    tl.from(
+      ".logo",
+      {
+        y: -200,
+        duration: 1,
+        delay: 0.6,
+        ease: "ease-out",
+      },
+      "start"
+    );
+    tl.from(
+      ".leftnavelt",
+      {
+        y: -200,
+        duration: 1,
+        delay: 0.6,
+        ease: "ease-out",
+        stagger: -0.2,
+      },
+      "start"
+    );
+    tl.from(
+      ".rightnavelt",
+      {
+        y: -200,
+        duration: 1,
+        delay: 0.6,
+        ease: "ease-out",
+        stagger: 0.2,
+      },
+      "start"
+    );
+
+    if (router.pathname === "/" && !hasAlreadySeenHomePage) {
+      tl.play();
+      setTimeout(() => setHasAlreadySeenHomePage(true), 2000);
+    } else {
+      gsap.set(".logo", { y: 0 });
+      gsap.set(".leftnavelt", { y: 0 });
+      gsap.set(".rightnavelt", { y: 0 });
+    }
+  }, []);
 
   return (
     <div
       className={`${position}  z-30 w-full flex justify-between items-center text-${linkscolor} my-3`}
     >
       <div className="w-1/2 flex justify-evenly opacity-0 sm:opacity-100">
-        <NavLink to="/reservation" className=" font-jacqueFrancois">
+        <NavLink to="/reservation" className="leftnavelt font-jacqueFrancois">
           Réservation
         </NavLink>
-        <NavLink to="/menu" className=" font-jacqueFrancois">
+        <NavLink to="/menu" className="leftnavelt font-jacqueFrancois">
           Menu
         </NavLink>
       </div>
 
-      <NavLink to="/">
-        <img src={logo} className="w-22" alt="logo" />
+      <NavLink to="/" className="logo">
+        <img src={logo} className="w-22 " alt="logo" />
       </NavLink>
 
       <div className="relative w-1/2 ">
         <div className=" justify-evenly  hidden sm:flex">
-          <NavLink to="/contact" className=" font-jacqueFrancois">
+          <NavLink to="/contact" className="rightnavelt font-jacqueFrancois">
             Contact
           </NavLink>
           <div
-            className="relative"
+            className="relative rightnavelt"
             onClick={() =>
               displayConnexionMenu
                 ? setDisplayConnexionMenu(false)
@@ -60,7 +114,13 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
 };
 
 Navbar.defaultProps = {
-  backgroundColor: "transparent",
+  position: "absolute",
+  linkscolor: "white",
+};
+
+Navbar.propTypes = {
+  position: PropTypes.string,
+  linkscolor: PropTypes.string,
 };
 
 export default Navbar;

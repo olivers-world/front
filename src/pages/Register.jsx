@@ -1,12 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import axios from "../api/axios";
 
 const PRENOM_REGEX = /^[A-Za-zéèêëîïôöûüçÉÈÊËÎÏÔÖÛÜÇ-]{2,24}$/;
@@ -26,7 +19,6 @@ const Register = () => {
   // Prenom
   const [prenom, setPrenom] = useState("");
   const [validPrenom, setValidPrenom] = useState(false);
-  const [prenomFocus, setPrenomFocus] = useState(false);
 
   // Nom
   const [nom, setNom] = useState("");
@@ -126,7 +118,6 @@ const Register = () => {
 
   return (
     <>
-      <NavBar position="block" linkscolor="black"></NavBar>
       {success ? (
         <section className="min-h-screen flex flex-1 flex-col px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -285,13 +276,12 @@ const Register = () => {
                 }
                 className="cursor-pointer mt-4 flex w-full justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
               >
-                S'inscrire
+                S&apos;inscrire
               </button>
             </form>
           </div>
         </section>
       )}
-      <Footer />
     </>
   );
 };

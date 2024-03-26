@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 const Contact = () => {
   return (
     <>
-      <NavBar position="block" linkscolor="black" />
       <section className="min-h-screen" id="contact">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-20">
           <div className="flex items-stretch justify-center">
@@ -170,7 +169,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-      <Footer></Footer>
     </>
   );
 };

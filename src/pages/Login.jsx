@@ -86,7 +86,6 @@ const Login = () => {
 
   return (
     <>
-      <NavBar linkscolor="black" position="block" />
       <section className=" min-h-screen flex flex-1 flex-col px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <p
@@ -161,7 +160,6 @@ const Login = () => {
           </form>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

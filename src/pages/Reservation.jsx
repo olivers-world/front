@@ -104,7 +104,7 @@ function Reservation() {
     const formattedDate = `${calendarDate.getFullYear()}-${
       calendarDate.getMonth() + 1
     }-${calendarDate.getDate()} ${selectedHours}:00:00`;
-    
+
     console.log("formattedDate : " + formattedDate);
 
     try {
@@ -141,14 +141,13 @@ function Reservation() {
   }, [reservations, selectedHours]);
 
   return (
-    <div>
-      <NavBar />
-
-      <div
-        className="h-screen w-screen flex justify-center  z-10
-      bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen"
-      >
-        <div className="grid grid-cols-1 mt-36 md:mt-64 md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
+    <div
+      className="w-screen z-10
+      bg-hero-bg bg-cover after:content[''] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-[calc(100vh+120px)]"
+    >
+      <div className="h-[120px]"></div>
+      <div className="h-screen flex justify-center mx-4">
+        <div className="grid grid-cols-1 md:my-32  md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
           <Calendar
             className="rounded-lg p-2 border-none"
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
@@ -223,7 +222,7 @@ function Reservation() {
                 {timeSlots.map((slot, index) => (
                   <div
                     key={index}
-                    className={`px-4 py-1 w-fit rounded-lg ${
+                    className={`px-4 flex-1 py-1 w-fit rounded-lg ${
                       slot.taken ? "bg-red-500" : "bg-primary"
                     } text-white`}
                   >
@@ -243,8 +242,6 @@ function Reservation() {
           </form>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

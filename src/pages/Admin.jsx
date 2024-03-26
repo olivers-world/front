@@ -98,8 +98,6 @@ const Admin = () => {
 
   return (
     <>
-      <NavBar linkscolor="black" />
-
       <div className="h-[100px]"></div>
 
       <div className="mx-8 min-h-screen">
@@ -124,8 +122,6 @@ const Admin = () => {
           </section>
         </section>
       </div>
-
-      <Footer />
     </>
   );
 };

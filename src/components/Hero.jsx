@@ -14,7 +14,7 @@ const Hero = ({ text, buttonText = undefined }) => {
     gsap.from(button.current, {
       y: 100,
       duration: 1,
-      delay: 0.3,
+      delay: 0.6,
       ease: "ease-out",
     });
     gsap.from(title.current, { y: 200, duration: 1, ease: "ease-out" });
