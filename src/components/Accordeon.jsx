@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 
 const Accordeon = ({ title, children, textcolor = "black", flex = false }) => {

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import EditReservation from "@/components/EditReservation";
 import Avis from "@/components/Avis";
 import EditMenu from "@/components/EditMenu";
+import AddMenuElement from "@/components/AddMenuElement";
 
 const Section = ({
   children,
@@ -66,6 +67,7 @@ const Admin = () => {
     { name: "modifier, annuler une réservation", active: false },
     { name: "avis", active: false },
     { name: "modifier les menus", active: false },
+    { name: "ajouter, modifier plat...", active: false },
   ]);
 
   const handleSetActiveSection = (name) => {
@@ -94,6 +96,8 @@ const Admin = () => {
         return <Avis />;
       case "modifier les menus":
         return <EditMenu />;
+      case "ajouter, modifier plat...":
+        return <AddMenuElement />;
       default:
         return <Dashboard />;
     }
@@ -103,7 +107,7 @@ const Admin = () => {
     <>
       <div className="mx-8 min-h-screen">
         <section className="flex flex-wrap max-w-6xl mx-auto my-8 ">
-          <aside className="relative border h-fit w-full text-center xl:w-fit">
+          <aside className=" border h-fit w-full text-center xl:w-fit">
             {sections.map((section, index) => {
               return (
                 <Section
