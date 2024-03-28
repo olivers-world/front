@@ -36,7 +36,7 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
       </div>
 
       <NavLink to="/">
-        <img src={logo} className="w-22" alt="logo" />
+        <img src={logo} className="w-24" alt="logo" />
       </NavLink>
 
       <div className="relative w-1/2 ">
@@ -64,7 +64,7 @@ const Navbar = ({ position = "absolute", linkscolor = "white" }) => {
               />
             </svg>
 
-            {displayConnexionMenu && <ConnexionMenu/>}
+            {displayConnexionMenu && <ConnexionMenu />}
           </div>
         </div>
         <Burger color={linkscolor == "white" ? "white" : "primary"}></Burger>

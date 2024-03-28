@@ -1,5 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "@/api/axios";
+
+const GET_URL = "/api/reservation/get";
 
 const ReservationBlock = ({
   id, // Supposons que chaque réservation a un id unique
@@ -15,11 +18,7 @@ const ReservationBlock = ({
   const [peopleNumber, setPeopleNumber] = useState(initialPeopleNumber);
 
   // Logique pour gérer les changements d'état et l'envoi des données
-  const sendUpdateToServer = async () => {
-    //
-    const updatedReservation = { id, name, date, time, peopleNumber };
-    onUpdate(updatedReservation);
-  };
+  const sendUpdateToServer = async () => {};
 
   return (
     <div className="bg-secondary w-fit text-white rounded-md p-2 mt-4">
@@ -80,37 +79,51 @@ const ReservationBlock = ({
   );
 };
 
+//////////////////// PARENT
+
 const EditReservation = () => {
-  const [reservations, setReservations] = useState([
-    {
-      name: "COURTARI ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 1,
-    },
-    {
-      name: "GARIBALDO ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 2,
-    },
-    {
-      name: "Réservation ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 3,
-    },
-    {
-      name: "Réservation ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 4,
-    },
-  ]);
+  const todayDate = new Date();
+  const todayHours = new Date().getHours();
+  const todayMinutes = new Date().getMinutes();
+
+  const [filterDate, setFilterDate] = useState(
+    todayDate.toISOString().split("T")[0]
+  );
+  const [filterName, setFilterName] = useState();
+  const [filterTime, setFilterTime] = useState(
+    `${todayHours}:${todayMinutes < 10 ? "0" : "" + todayMinutes}`
+  );
+
+  const [reservations, setReservations] = useState([]);
+
+  const getReservations = async () => {
+    console.log("djej3");
+
+    const formattedDate = `${filterDate} ${filterTime}:00`;
+    console.log(formattedDate);
+
+    console.log("djej4");
+
+    try {
+      const reponse = await axios.get(GET_URL, {
+        params: { dateHeure: formattedDate },
+      });
+
+      setReservations(reponse.data);
+    } catch (error) {
+      console.error(
+        "EditReservation : Erreur lors de la récupération des réservations",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    console.log("djej");
+
+    getReservations();
+    console.log("djej2");
+  }, [filterDate, filterTime]);
 
   const updateReservationInState = (updatedReservation) => {
     setReservations(
@@ -129,6 +142,8 @@ const EditReservation = () => {
           <label htmlFor="">Nom : </label>
           <input
             type="text"
+            value={filterName}
+            onChange={(e) => setFilterName(e.target.value)}
             className="border w-42 px-2 py-2 rounded-sm mb-2 "
           />
         </div>
@@ -136,13 +151,17 @@ const EditReservation = () => {
           <label htmlFor="">Date : </label>
           <input
             type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
             className="border w-32 px-2 py-2 rounded-sm mb-2 "
           />
         </div>
         <div>
-          <label htmlFor="">Date : </label>
+          <label htmlFor="">Heure : </label>
           <input
             type="time"
+            value={filterTime}
+            onChange={(e) => setFilterTime(e.target.value)}
             className="border w-24 px-2 py-2 rounded-sm mb-2 "
           />
         </div>
@@ -151,7 +170,7 @@ const EditReservation = () => {
         {reservations.map((reservation, index) => {
           return (
             <ReservationBlock
-              key={reservation.id}
+              key={`reservation${reservation.id}`}
               id={reservation.id}
               initialName={reservation.name}
               initialDate={reservation.date}

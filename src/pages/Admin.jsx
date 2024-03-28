@@ -6,6 +6,7 @@ import MakeRecipe from "@/components/MakeRecipe";
 import { useState, useEffect } from "react";
 import EditReservation from "@/components/EditReservation";
 import Avis from "@/components/Avis";
+import EditMenu from "@/components/EditMenu";
 
 const Section = ({ children, display, handleSetActiveSection, active }) => {
   return (
@@ -65,6 +66,7 @@ const Admin = () => {
     { name: "confectionner un menu", active: false },
     { name: "modifier, annuler une réservation", active: false },
     { name: "avis", active: false },
+    { name: "modifier les menus", active: false },
   ]);
 
   const handleSetActiveSection = (name) => {
@@ -91,6 +93,8 @@ const Admin = () => {
         return <EditReservation />;
       case "avis":
         return <Avis />;
+      case "modifier les menus":
+        return <EditMenu />;
       default:
         return <Dashboard />;
     }

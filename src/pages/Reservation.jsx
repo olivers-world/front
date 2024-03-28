@@ -4,6 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import NavBar from "../components/NavBar.jsx";
 import Footer from "../components/Footer.jsx";
 import axios from "../api/axios";
+import { getReservationsFake } from "@/services/api.js";
 
 const CREATE_URL = "/api/reservation/create";
 const GET_URL = "/api/reservation/get";
@@ -62,21 +63,14 @@ function Reservation() {
     const email = userInfo.email;
 
     try {
-      const response = await axios.post(
-        CREATE_URL,
-        JSON.stringify({
-          user: email,
-          date: formattedDate,
-          nbPersonne: peopleNumber,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+      console.log("call");
+      const reservations = await getReservationsFake(
+        email,
+        formattedDate,
+        peopleNumber
       );
-      console.log(response?.data);
-      console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
+
+      console.log(reservations);
     } catch (err) {
       // Il n'y a pas de réponse du serveur
       if (!err?.response) {

@@ -1,0 +1,80 @@
+import React from "react";
+import Accordeon from "./Accordeon";
+import Menu from "./Menu";
+import { useState, useEffect } from "react";
+import EditMenuBlock from "./EditMenuBlock";
+
+const EditMenu = () => {
+  const dataItems = [
+    {
+      category: "Entrées",
+      items: [
+        "Trio de bruschettas",
+        "Salade de chèvre chaud",
+        "Assiette de charcuterie",
+        "Carpaccio de saumon",
+        "Soupe à l'oignon gratinée",
+      ],
+    },
+    {
+      category: "Plats Principaux",
+      items: [
+        "Filet mignon",
+        "Poulet rôti",
+        "Pâtes aux fruits de mer",
+        "Ratatouille",
+        "Tarte à l'agneau",
+      ],
+    },
+    {
+      category: "Desserts",
+      items: [
+        "Tiramisu",
+        "Crème brûlée",
+        "Fondant au chocolat",
+        "Tarte aux pommes",
+        "Profiteroles",
+      ],
+    },
+    {
+      category: "Boissons",
+      items: [
+        "Vin rouge",
+        "Vin blanc",
+        "Bières artisanales",
+        "Cocktails",
+        "Jus de fruits frais",
+      ],
+    },
+  ];
+
+  const dataMenu = {
+    id: "1",
+    name: "Le Charcutier",
+    entrees: ["Trio de bruschettas"],
+    platsPrincipaux: ["Filet mignon"],
+    price: 18,
+    desserts: [
+      "Tiramisu",
+      "Crème brûlée",
+      "Fondant au chocolat",
+      "Tarte aux pommes",
+      "Profiteroles",
+    ],
+    boissons: [
+      "Vin rouge",
+      "Vin blanc",
+      "Bières artisanales",
+      "Cocktails",
+      "Jus de fruits frais",
+    ],
+  };
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      <EditMenuBlock dataItems={dataItems} dataMenu={dataMenu}></EditMenuBlock>
+    </div>
+  );
+};
+
+export default EditMenu;
