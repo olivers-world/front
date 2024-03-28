@@ -82,7 +82,6 @@ const ReservationBlock = ({
 //////////////////// PARENT
 
 const EditReservation = () => {
-<<<<<<< HEAD
   const todayDate = new Date();
   const todayHours = new Date().getHours();
   const todayMinutes = new Date().getMinutes();
@@ -90,20 +89,13 @@ const EditReservation = () => {
   const [filterDate, setFilterDate] = useState(
     todayDate.toISOString().split("T")[0]
   );
-  const [filterName, setFilterName] = useState();
+  const [filterName, setFilterName] = useState("");
   const [filterTime, setFilterTime] = useState(
     `${todayHours}:${todayMinutes < 10 ? "0" : "" + todayMinutes}`
   );
 
-  const [reservations, setReservations] = useState([]);
-
   const getReservations = async () => {
-    console.log("djej3");
-
     const formattedDate = `${filterDate} ${filterTime}:00`;
-    console.log(formattedDate);
-
-    console.log("djej4");
 
     try {
       const reponse = await axios.get(GET_URL, {
@@ -125,10 +117,6 @@ const EditReservation = () => {
     getReservations();
     console.log("djej2");
   }, [filterDate, filterTime]);
-=======
-  const [filterName, setFilterName] = useState("");
-  const [filterDate, setFilterDate] = useState("");
-  const [filterTime, setFilterTime] = useState("");
 
   const [reservations, setReservations] = useState([
     {
@@ -160,7 +148,6 @@ const EditReservation = () => {
       id: 4,
     },
   ]);
->>>>>>> 718a69cc9657f5da69a941b8c47a5ae903f0fd37
 
   const updateReservationInState = (updatedReservation) => {
     setReservations(
@@ -172,14 +159,17 @@ const EditReservation = () => {
     );
   };
 
-  const filteredReservations = reservations.filter(
-    (reservation) =>
+  const filteredReservations = reservations.filter((reservation) => {
+    console.log("Reservation:", reservation);
+    console.log("Name:", reservation.name);
+    return (
       reservation.name.toLowerCase().includes(filterName.toLowerCase()) &&
       (filterDate ? reservation.date === filterDate : true) &&
       (filterTime
         ? reservation.time.split(":")[0] === filterTime.split(":")[0]
         : true)
-  );
+    );
+  });
 
   return (
     <>
@@ -191,8 +181,6 @@ const EditReservation = () => {
             value={filterName}
             onChange={(e) => setFilterName(e.target.value)}
             className="border w-42 px-2 py-2 rounded-sm mb-2 "
-            value={filterName}
-            onChange={(e) => setFilterName(e.target.value)}
           />
         </div>
         <div>
@@ -200,10 +188,6 @@ const EditReservation = () => {
           <input
             type="date"
             value={filterDate}
-<<<<<<< HEAD
-            onChange={(e) => setFilterDate(e.target.value)}
-=======
->>>>>>> 718a69cc9657f5da69a941b8c47a5ae903f0fd37
             className="border w-32 px-2 py-2 rounded-sm mb-2 "
             onChange={(e) => setFilterDate(e.target.value)}
           />
@@ -213,17 +197,13 @@ const EditReservation = () => {
           <input
             type="time"
             value={filterTime}
-<<<<<<< HEAD
             onChange={(e) => setFilterTime(e.target.value)}
-=======
->>>>>>> 718a69cc9657f5da69a941b8c47a5ae903f0fd37
             className="border w-24 px-2 py-2 rounded-sm mb-2 "
-            onChange={(e) => setFilterTime(e.target.value)}
           />
         </div>
       </div>
       <div className="flex flex-wrap gap-4">
-        {filteredReservations.map((reservation, index) => {
+        {filteredReservations.map((reservation) => {
           return (
             <ReservationBlock
               key={`reservation${reservation.id}`}

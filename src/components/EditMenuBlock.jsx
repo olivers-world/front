@@ -63,14 +63,14 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
 
   return (
     <>
-      <div className="p-2 bg-primary rounded-sm text-white w-full">
+      <div className="p-2 rounded-sm  w-full">
         <Accordeon flex={true} title={nomMenu}>
           {
             // Si les données sont chargées, afficher les éléments
             dataItems.map((dataItem, index) => (
               <div key={`dataItem-${index}`} className="flex-1 min-w-[180px]">
                 <Accordeon
-                  textcolor="white"
+                  textcolor="black"
                   key={index}
                   title={dataItem.category}
                 >
@@ -117,7 +117,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
             />
             <div className="flex gap-1 items-center mb-2">
               <input type="checkbox" id={`menu_${id}`} />
-              <label htmlFor={`menu_${id}`}>Mettre en plat du jour</label>
+              <label htmlFor={`menu_${id}`}>Mettre en formule du jour</label>
             </div>
           </div>
 

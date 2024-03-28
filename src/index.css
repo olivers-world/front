@@ -114,7 +114,8 @@ active {
 
 .selected {
   font-weight: bold;
-  background-color: black;
+  background-color: #81764b;
+  color: white;
 }
 
 .bg-field::before,

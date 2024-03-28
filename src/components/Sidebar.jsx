@@ -28,9 +28,7 @@ const Sidebar = ({ expanded }) => {
       ref={sidebar}
       className="h-screen w-screen  text-black fixed top-0 left-0 z-40 bg-white"
     >
-      <img src={logo} className="w-22 mt-4 mx-auto" alt="logo" />
-
-      <div className="my-16 flex flex-col w-full h-full text-xl">
+      <div className="my-32 flex flex-col w-full h-full text-xl">
         <div className="py-4 px-8 border-b-0 uppercase font-medium border">
           <NavLink to="/reservation">Réservation</NavLink>
         </div>
