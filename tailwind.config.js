@@ -26,7 +26,7 @@ module.exports = {
         kaisei: ["Kaisei Decol", "serif;"],
       },
       backgroundImage: {
-        "hero-bg": "url('/bg-img.png')",
+        "hero-bg": "url('/imgbg.jpg')",
       },
       colors: {
         primary: "#81764B",

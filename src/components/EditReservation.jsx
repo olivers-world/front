@@ -21,7 +21,7 @@ const ReservationBlock = ({
   const sendUpdateToServer = async () => {};
 
   return (
-    <div className="bg-secondary w-fit text-white rounded-md p-2 mt-4">
+    <div className="bg-secondary w-fit min-w-[204px] flex-1 max-w-[250px] text-white rounded-md p-2 mt-4">
       <div className="flex gap-6">
         <div className="font-medium">
           <input
@@ -64,7 +64,7 @@ const ReservationBlock = ({
         onChange={(e) => setTime(e.target.value)}
       />
 
-      <div className="mt-2">
+      <div className="mt-2 flex justify-between">
         <button
           onClick={sendUpdateToServer}
           className="bg-white text-primary px-4 py-1 mr-2 rounded-sm"
@@ -82,6 +82,7 @@ const ReservationBlock = ({
 //////////////////// PARENT
 
 const EditReservation = () => {
+<<<<<<< HEAD
   const todayDate = new Date();
   const todayHours = new Date().getHours();
   const todayMinutes = new Date().getMinutes();
@@ -124,6 +125,42 @@ const EditReservation = () => {
     getReservations();
     console.log("djej2");
   }, [filterDate, filterTime]);
+=======
+  const [filterName, setFilterName] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+  const [filterTime, setFilterTime] = useState("");
+
+  const [reservations, setReservations] = useState([
+    {
+      name: "COURTARI ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 1,
+    },
+    {
+      name: "GARIBALDO ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 2,
+    },
+    {
+      name: "Réservation ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 3,
+    },
+    {
+      name: "Réservation ",
+      date: "2024-03-20",
+      time: "19:00",
+      peopleNumber: 4,
+      id: 4,
+    },
+  ]);
+>>>>>>> 718a69cc9657f5da69a941b8c47a5ae903f0fd37
 
   const updateReservationInState = (updatedReservation) => {
     setReservations(
@@ -135,9 +172,18 @@ const EditReservation = () => {
     );
   };
 
+  const filteredReservations = reservations.filter(
+    (reservation) =>
+      reservation.name.toLowerCase().includes(filterName.toLowerCase()) &&
+      (filterDate ? reservation.date === filterDate : true) &&
+      (filterTime
+        ? reservation.time.split(":")[0] === filterTime.split(":")[0]
+        : true)
+  );
+
   return (
     <>
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <div>
           <label htmlFor="">Nom : </label>
           <input
@@ -145,6 +191,8 @@ const EditReservation = () => {
             value={filterName}
             onChange={(e) => setFilterName(e.target.value)}
             className="border w-42 px-2 py-2 rounded-sm mb-2 "
+            value={filterName}
+            onChange={(e) => setFilterName(e.target.value)}
           />
         </div>
         <div>
@@ -152,8 +200,12 @@ const EditReservation = () => {
           <input
             type="date"
             value={filterDate}
+<<<<<<< HEAD
             onChange={(e) => setFilterDate(e.target.value)}
+=======
+>>>>>>> 718a69cc9657f5da69a941b8c47a5ae903f0fd37
             className="border w-32 px-2 py-2 rounded-sm mb-2 "
+            onChange={(e) => setFilterDate(e.target.value)}
           />
         </div>
         <div>
@@ -161,13 +213,17 @@ const EditReservation = () => {
           <input
             type="time"
             value={filterTime}
+<<<<<<< HEAD
             onChange={(e) => setFilterTime(e.target.value)}
+=======
+>>>>>>> 718a69cc9657f5da69a941b8c47a5ae903f0fd37
             className="border w-24 px-2 py-2 rounded-sm mb-2 "
+            onChange={(e) => setFilterTime(e.target.value)}
           />
         </div>
       </div>
       <div className="flex flex-wrap gap-4">
-        {reservations.map((reservation, index) => {
+        {filteredReservations.map((reservation, index) => {
           return (
             <ReservationBlock
               key={`reservation${reservation.id}`}

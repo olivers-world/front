@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardInfo from "../components/DashboardInfo";
 import DashboardInfoLine from "../components/DashboardInfoLine";
 import InfoBullet from "../components/InfoBullet";
@@ -26,7 +25,7 @@ const Dashboard = () => {
       </div>
 
       <DashboardInfo width="w-full">
-        <span>Refaire l'inventaire dans </span>
+        <span>Refaire l&apos;inventaire dans </span>
         <InputBullet info={0} />
       </DashboardInfo>
 

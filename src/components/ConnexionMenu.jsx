@@ -18,7 +18,7 @@ const ConnexionMenu = () => {
   }, []);
 
   return (
-    <div className="absolute -bottom-6 translate-y-full right-0 z-30 w-40 border">
+    <div className="absolute rounded-md -bottom-6 translate-y-full right-0 z-30 w-40 border">
       <div className="  bg-white text-black">
         {/*Utilisateur est connecter*/}
         {prenom && (

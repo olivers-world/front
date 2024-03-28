@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import "react-calendar/dist/Calendar.css";
-import NavBar from "../components/NavBar.jsx";
-import Footer from "../components/Footer.jsx";
+
 import Hero from "../components/Hero.jsx";
 import MenuOfTheDay from "@/components/MenuOfTheDay.jsx";
 
@@ -11,17 +10,13 @@ import example1 from "../images/example-1.png";
 import example2 from "../images/example-2.png";
 import example3 from "../images/example-3.png";
 import example4 from "../images/example-4.png";
-
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-
 gsap.registerPlugin(useGSAP);
 
 const Home = () => {
   const title = useRef();
-
-  const toggleNavbarColor = () => {};
 
   useGSAP(() => {
     gsap.from(title.current, {
@@ -35,35 +30,8 @@ const Home = () => {
 
   return (
     <div className="absolute h-screen w-screen bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen">
-      <NavBar></NavBar>
-
       <Hero text={"Oliver's World"} buttonText={"Réservez"} />
       <div className="h-screen w-screen"></div>
-
-      <section
-        id="hero"
-        className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg"
-      >
-        <div className="flex flex-wrap md:flex-nowrap justify-center gap-16 mx-auto">
-          <h1 className=" text-4xl mb-8 font-jacqueFrancois">
-            <span className="text-baseprimary  text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
-              Notre
-            </span>
-            <br /> Plat du jour
-          </h1>
-          <div className="max-w-xl px-16 flex w-full justify-center items-center text-justify font-notoSerifKr">
-            <MenuOfTheDay
-              selectedEntree={"Velouté de champignons"}
-              selectedPlat={"Lasagnes au lit d épinard"}
-              selectedBoisson={["Soda", "Vin rouge", "Rosé"]}
-              selectedDessert={["Tiramisu", "Panacotta", "Cheesecake"]}
-              prixMenu={18}
-              nomMenu={"Le Doux"}
-            ></MenuOfTheDay>
-          </div>
-        </div>
-        <br />
-      </section>
 
       <section
         id="hero"
@@ -127,7 +95,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <Footer></Footer>
     </div>
   );
 };
