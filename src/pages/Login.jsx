@@ -136,27 +136,27 @@ const Login = () => {
                 className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:primary-600 sm:text-sm sm:leading-6"
               />
             </div>
+            <input
+              type="checkbox"
+              id="persist"
+              className="mt-4"
+              onChange={togglePersist}
+              checked={persist}
+            />
+            <label htmlFor="persist">&nbsp;Se souvenir de moi</label>
 
-            <p className="gap-1 text-xs flex mt-4 text-primary-600 w-full justify-center">
+            <button className="cursor-pointer border mt-4 flex w-full justify-center rounded-md bg-primary text-white px-3 py-1.5 text-sm font-semibold leading-6  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
+              Se connecter
+            </button>
+            <p className="gap-1 text-xs flex mt-2 text-primary-600 w-full justify-center">
               Pas de compte ?
               <br />
               <span className="">
                 <a href="/register" className="">
-                  S'inscrire
+                  S&apos;inscrire
                 </a>
               </span>
             </p>
-
-            <button className="cursor-pointer mt-4 flex w-full justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
-              Se connecter
-            </button>
-            <input
-              type="checkbox"
-              id="persist"
-              onChange={togglePersist}
-              checked={persist}
-            />
-            <label htmlFor="persist">Trust This Device</label>
           </form>
         </div>
       </section>

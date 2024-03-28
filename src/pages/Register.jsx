@@ -255,7 +255,20 @@ const Register = () => {
                 />
               </div>
 
-              <p className="gap-1 text-xs flex mt-4 text-primary-600 w-full justify-center">
+              <button
+                disabled={
+                  !validPrenom ||
+                  !validNom ||
+                  !validEmail ||
+                  !validPwd ||
+                  !validMatch
+                }
+                className="cursor-pointer bg-primary text-white border mt-6 flex w-full justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+              >
+                S&apos;inscrire
+              </button>
+
+              <p className="gap-1 text-xs flex mt-2 text-primary-600 w-full justify-center">
                 Déjà inscrit ?
                 <br />
                 <span className="">
@@ -265,19 +278,6 @@ const Register = () => {
                   </a>
                 </span>
               </p>
-
-              <button
-                disabled={
-                  !validPrenom ||
-                  !validNom ||
-                  !validEmail ||
-                  !validPwd ||
-                  !validMatch
-                }
-                className="cursor-pointer mt-4 flex w-full justify-center rounded-md bg-primary-600 px-3 py-1.5 text-sm font-semibold leading-6 text-black   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
-              >
-                S&apos;inscrire
-              </button>
             </form>
           </div>
         </section>

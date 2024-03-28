@@ -82,7 +82,7 @@ const EditMenu = () => {
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 border p-2">
+    <div className="flex flex-wrap gap-2  p-2">
       {dataMenu.map((menu, index) => {
         return (
           <EditMenuBlock

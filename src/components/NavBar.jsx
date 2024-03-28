@@ -75,7 +75,7 @@ const Navbar = ({ position, linkscolor }) => {
         </NavLink>
       </div>
 
-      <NavLink to="/" className="logo">
+      <NavLink to="/" className="logo z-[60]">
         <img src={logo} className="w-24" alt="logo" />
       </NavLink>
 

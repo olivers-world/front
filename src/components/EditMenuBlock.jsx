@@ -63,7 +63,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
 
   return (
     <>
-      <div className="p-2 rounded-sm  w-full">
+      <div className="py-2 rounded-sm border shadow-md  w-full">
         <Accordeon flex={true} title={nomMenu}>
           {
             // Si les données sont chargées, afficher les éléments
