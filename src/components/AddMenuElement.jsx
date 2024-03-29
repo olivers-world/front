@@ -1,7 +1,7 @@
 import AddMenuElementBlock from "./AddMenuElementBlock";
 import {  useEffect } from "react";
 
-const AddMenuElement = () => {
+
   const dataItems = [
     {
       category: "Entrées",
@@ -55,7 +55,7 @@ const AddMenuElement = () => {
       console.error(err);
 
     }
-  };
+  }
 
   useEffect(() => {
     getData();
