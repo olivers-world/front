@@ -1,16 +1,14 @@
-import React from "react";
+import PropTypes from "prop-types"
 import { useState, useEffect } from "react";
 import axios from "@/api/axios";
 
 const GET_URL = "/api/reservation/get";
 
 const ReservationBlock = ({
-  id, // Supposons que chaque réservation a un id unique
   initialName,
   initialDate,
   initialTime,
   initialPeopleNumber,
-  onUpdate,
 }) => {
   const [name, setName] = useState(initialName);
   const [date, setDate] = useState(initialDate);
@@ -18,7 +16,9 @@ const ReservationBlock = ({
   const [peopleNumber, setPeopleNumber] = useState(initialPeopleNumber);
 
   // Logique pour gérer les changements d'état et l'envoi des données
-  const sendUpdateToServer = async () => {};
+  const sendUpdateToServer = async () => {
+    
+  };
 
   return (
     <div className="bg-secondary w-fit min-w-[204px] flex-1 max-w-[250px] text-white rounded-md p-2 mt-4">
@@ -79,6 +79,15 @@ const ReservationBlock = ({
   );
 };
 
+ReservationBlock.propTypes = {
+  id: PropTypes.number,
+  initialDate: PropTypes.any,
+  initialName: PropTypes.string,
+  initialPeopleNumber: PropTypes.number,
+  initialTime: PropTypes.any,
+  onUpdate: PropTypes.func
+}
+
 //////////////////// PARENT
 
 const EditReservation = () => {
@@ -94,28 +103,27 @@ const EditReservation = () => {
     `${todayHours}:${todayMinutes < 10 ? "0" : "" + todayMinutes}`
   );
 
-  const getReservations = async () => {
-    const formattedDate = `${filterDate} ${filterTime}:00`;
 
-    try {
-      const reponse = await axios.get(GET_URL, {
-        params: { dateHeure: formattedDate },
-      });
-
-      setReservations(reponse.data);
-    } catch (error) {
-      console.error(
-        "EditReservation : Erreur lors de la récupération des réservations",
-        error
-      );
-    }
-  };
 
   useEffect(() => {
-    console.log("djej");
+    const getReservations = async () => {
+      const formattedDate = `${filterDate} ${filterTime}:00`;
+  
+      try {
+        const reponse = await axios.get(GET_URL, {
+          params: { dateHeure: formattedDate },
+        });
+  
+        setReservations(reponse.data);
+      } catch (error) {
+        console.error(
+          "EditReservation : Erreur lors de la récupération des réservations",
+          error
+        );
+      }
+    };
 
     getReservations();
-    console.log("djej2");
   }, [filterDate, filterTime]);
 
   const [reservations, setReservations] = useState([

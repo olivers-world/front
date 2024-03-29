@@ -1,10 +1,8 @@
-import React from "react";
+import PropTypes from "prop-types"
 import Accordeon from "./Accordeon";
-import Menu from "./Menu";
-import { useState, useEffect, useRef, useReducer } from "react";
+import { useState } from "react";
 
 const EditMenuBlock = ({ dataMenu, dataItems }) => {
-  console.log(dataItems);
 
   //Récupérer informations du menu
 
@@ -64,7 +62,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
   return (
     <>
       <div className="py-2 rounded-sm border shadow-md  w-full">
-        <Accordeon flex={true} title={nomMenu}>
+        <Accordeon defaultExpanded={false} flex={true} title={nomMenu}>
           {
             // Si les données sont chargées, afficher les éléments
             dataItems.map((dataItem, index) => (
@@ -98,11 +96,11 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
             ))
           }
         </Accordeon>
-        <div className="flex justify-between w-full flex-wrap">
+        <div className="flex px-2 justify-between w-full flex-wrap">
           <div className="flex gap-2 flex-wrap">
             <input
               type="text"
-              className="border px-2 py-2 text-black rounded-sm mb-2 min-w-[300px] mr-4"
+              className="border px-2 py-2 text-black rounded-sm mb-2 min-w-[200px] mr-4"
               placeholder="Nom du menu"
               value={nomMenu}
               onChange={(e) => setNomMenu(e.target.value)}
@@ -137,5 +135,25 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
     </>
   );
 };
+
+EditMenuBlock.propTypes = {
+  dataItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string,
+      items: PropTypes.arrayOf(PropTypes.string)
+    })
+  ),
+  dataMenu: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      entrees: PropTypes.arrayOf(PropTypes.string),
+      platsPrincipaux: PropTypes.arrayOf(PropTypes.string),
+      price: PropTypes.number,
+      desserts: PropTypes.arrayOf(PropTypes.string),
+      boissons: PropTypes.arrayOf(PropTypes.string)
+    })
+  )
+}
 
 export default EditMenuBlock;

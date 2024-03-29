@@ -1,5 +1,4 @@
-import React from "react";
-import InfoBullet from "./InfoBullet";
+import PropTypes from "prop-types"
 import DashboardInfoLine from "./DashboardInfoLine";
 
 const DashboardInfo = ({ children, width = "w-fit" }) => {
@@ -9,5 +8,10 @@ const DashboardInfo = ({ children, width = "w-fit" }) => {
     </div>
   );
 };
+
+DashboardInfo.propTypes = {
+  children: PropTypes.any,
+  width: PropTypes.string
+}
 
 export default DashboardInfo;

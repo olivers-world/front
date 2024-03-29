@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types"
 
 const InfoBullet = ({ info, trapped = false }) => {
   return (
@@ -11,5 +11,10 @@ const InfoBullet = ({ info, trapped = false }) => {
     </span>
   );
 };
+
+InfoBullet.propTypes = {
+  info: PropTypes.any,
+  trapped: PropTypes.bool
+}
 
 export default InfoBullet;

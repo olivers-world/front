@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types"
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 
@@ -40,5 +40,9 @@ const Burger = ({ color = "white" }) => {
     </>
   );
 };
+
+Burger.propTypes = {
+  color: PropTypes.string
+}
 
 export default Burger;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import menuTemplate from "../images/menuTemplate.png";
 import feuille from "../images/feuille.png";
 
@@ -11,6 +12,11 @@ const MenuLine = ({ nomPlat, prixPlat }) => {
     </div>
   );
 };
+
+MenuLine.propTypes = {
+  nomPlat: PropTypes.string,
+  prixPlat: PropTypes.number
+}
 
 const Menu = ({ children }) => {
   return (
@@ -39,5 +45,9 @@ const Menu = ({ children }) => {
     </div>
   );
 };
+
+Menu.propTypes = {
+  children: PropTypes.any
+}
 
 export default Menu;

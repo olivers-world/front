@@ -11,23 +11,33 @@ import example3 from "../images/example-3.png";
 import example4 from "../images/example-4.png";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
 
 gsap.registerPlugin(useGSAP);
 
 const Home = () => {
+  const haveSeenHomepage = localStorage.getItem('haveSeenHomepage');
+
+  if (haveSeenHomepage === null || haveSeenHomepage === "false") {
+    localStorage.setItem("haveSeenHomepage", "false");
+  }
+
   useGSAP(() => {
     const tl = gsap.timeline({ paused: true });
-    tl.add("start");
 
-    gsap.to("#voile", {
-      scale: 0,
+    tl.to("#voile", {
+      scaleY: 0,
       delay: 1.6,
-      duration: 2,
+      duration: 5,
       ease: "ease-in-out",
     });
-  });
+
+    if (haveSeenHomepage === "false") {
+      tl.play();
+      setTimeout(() => localStorage.setItem("haveSeenHomepage", "true"), 4000);
+    } else {
+      gsap.set("#voile", { scaleY: 0 });
+    }
+  }, []);
 
   return (
     <div className="absolute h-[25.8rem] w-screen bg-hero-bg bg-cover after:content['d'] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-[25.8rem]">
@@ -35,7 +45,10 @@ const Home = () => {
       <div className="h-[25.8rem] w-screen"></div>
 
       <div className="relative">
-        <div id="voile" className="absolute  bg-white h-full w-full"></div>
+        <div
+          id="voile"
+          className="absolute origin-bottom bg-white h-full w-full"
+        ></div>
         <section
           id="hero"
           className=" py-2 flex justify-between flex-wrap mx-auto  max-w-screen-lg"

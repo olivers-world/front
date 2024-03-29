@@ -104,7 +104,7 @@ const Navbar = ({ position, linkscolor }) => {
               />
             </svg>
 
-            {displayConnexionMenu && <ConnexionMenu />}
+            <ConnexionMenu  displayConnexionMenu={displayConnexionMenu} />
           </div>
         </div>
         <Burger color={linkscolor == "white" ? "white" : "primary"}></Burger>

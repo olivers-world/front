@@ -1,7 +1,8 @@
+import PropTypes from "prop-types"
 import { useState } from "react";
 
-const Accordeon = ({ title, children, textcolor = "black", flex = false }) => {
-  const [accordionOpen, setAccordionOpen] = useState(true);
+const Accordeon = ({ title, children, textcolor = "black", flex = false, defaultExpanded = true }) => {
+  const [accordionOpen, setAccordionOpen] = useState(defaultExpanded);
 
   return (
     <div className={`px-1 relative mb-3 flex-1  text-${textcolor}`}>
@@ -31,5 +32,13 @@ const Accordeon = ({ title, children, textcolor = "black", flex = false }) => {
     </div>
   );
 };
+
+Accordeon.propTypes = {
+  children: PropTypes.any,
+  defaultExpanded: PropTypes.bool,
+  flex: PropTypes.bool,
+  textcolor: PropTypes.string,
+  title: PropTypes.string
+}
 
 export default Accordeon;

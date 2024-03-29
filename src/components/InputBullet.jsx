@@ -1,9 +1,8 @@
-import React from "react";
+import PropTypes from "prop-types"
 import { useState } from "react";
 
 const InputBullet = ({ info, trapped = false }) => {
   const [value, setValue] = useState(info);
-  console.log(info);
 
   return (
     <input
@@ -16,5 +15,10 @@ const InputBullet = ({ info, trapped = false }) => {
     ></input>
   );
 };
+
+InputBullet.propTypes = {
+  info: PropTypes.any,
+  trapped: PropTypes.bool
+}
 
 export default InputBullet;

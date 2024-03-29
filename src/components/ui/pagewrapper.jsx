@@ -2,6 +2,7 @@ import Navbar from "../NavBar";
 import Footer from "../Footer";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { SnackbarProvider } from 'notistack';
 
 // NAVBAR
 const BLACK_LINKS_ROUTES = [
@@ -32,7 +33,10 @@ const PageWrapper = ({ children }) => {
           POSITION_BLOCK_ROUTES.includes(router.pathname) ? "block" : undefined
         }
       />
-      {children}
+
+        <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+          {children}
+        </SnackbarProvider>
 
       <Footer />
     </>

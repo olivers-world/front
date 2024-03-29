@@ -1,5 +1,5 @@
+import PropTypes from "prop-types"
 import { useRef, useEffect } from "react";
-import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 
 import gsap from "gsap"; // <-- import GSAP
@@ -45,5 +45,9 @@ const Sidebar = ({ expanded }) => {
     </div>
   );
 };
+
+Sidebar.propTypes = {
+  expanded: PropTypes.bool
+}
 
 export default Sidebar;

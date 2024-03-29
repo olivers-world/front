@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Reservation from "./pages/Reservation.jsx";
 import Home from "./pages/Home.jsx";

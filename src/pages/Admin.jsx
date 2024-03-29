@@ -1,8 +1,5 @@
-import React from "react";
-import NavBar from "../components/NavBar";
 import Dashboard from "../components/Dashboard";
-import Footer from "../components/Footer";
-import MakeRecipe from "@/components/MakeRecipe";
+import MakeRecipeT from "@/components/MakeRecipeT";
 import { useState, useEffect } from "react";
 import EditReservation from "@/components/EditReservation";
 import Avis from "@/components/Avis";
@@ -89,7 +86,7 @@ const Admin = () => {
       case "dashboard":
         return <Dashboard />;
       case "confectionner un menu":
-        return <MakeRecipe />;
+        return <MakeRecipeT />;
       case "modifier, annuler une réservation":
         return <EditReservation />;
       case "avis":

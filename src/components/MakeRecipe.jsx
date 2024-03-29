@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import Accordeon from "./Accordeon";
-import feuille from "../images/feuille.png";
 import MenuOfTheDay from "./MenuOfTheDay";
+import { useState } from "react";
 
 const MakeRecipe = () => {
   const [selectedEntree, setSelectedEntree] = useState("");

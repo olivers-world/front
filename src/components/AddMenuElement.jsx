@@ -1,6 +1,5 @@
-import Accordeon from "./Accordeon";
 import AddMenuElementBlock from "./AddMenuElementBlock";
-import { useState } from "react";
+import {  useEffect } from "react";
 
 const AddMenuElement = () => {
   const dataItems = [
@@ -46,40 +45,30 @@ const AddMenuElement = () => {
     },
   ];
 
-  const [inputValue, setInputValue] = useState("");
+const AddMenuElement = () => {
+  // Fonction qui récupère les données du serveur
+  const getData = async () => {
+    try {
+      console.log("recup des données");
+      
+    } catch (err) {
+      console.error(err);
 
-  const handleInputChange = (value) => {
-    setInputValue(value);
+    }
   };
 
-  const sendNewElement = () => {
-    // Envoie le nouvel élément rentré au serveur
-  };
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <div className="flex flex-wrap">
-      {dataItems.map((dataItem, index) => (
-        <div key={`menuItem-${index}`} className="flex-1 min-w-[180px]">
-          <Accordeon textcolor="black" title={dataItem.category}>
-            <AddMenuElementBlock dataItem={dataItem} />
-            <div className="flex mt-4">
-              <input
-                data-category={dataItem.category}
-                onChange={(e) => handleInputChange(e.target.value)}
-                className="float-left flex-1 border  px-2  rounded-sm mr-4"
-                type="text"
-                value={inputValue}
-                placeholder="Ajouter un élément"
-              />
-              <div
-                onClick={sendNewElement}
-                className="border p-1 text-white bg-primary rounded-sm font-medium"
-              >
-                OK
-              </div>
-            </div>
-          </Accordeon>
-        </div>
+    <div className="flex flex-wrap gap-x-6">
+      {dataItems.map((dataItem) => (
+        <AddMenuElementBlock
+          key={dataItem.id}
+          dataItem={dataItem}
+          refreshFn={getData}
+        />
       ))}
     </div>
   );

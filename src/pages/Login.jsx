@@ -1,8 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+
 
 import axios from "../api/axios";
 const LOGIN_URL = "/api/auth/login";

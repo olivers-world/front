@@ -1,7 +1,4 @@
-import React from "react";
-import Accordeon from "./Accordeon";
-import Menu from "./Menu";
-import { useState, useEffect } from "react";
+
 import EditMenuBlock from "./EditMenuBlock";
 
 const EditMenu = () => {
@@ -82,7 +79,7 @@ const EditMenu = () => {
   ];
 
   return (
-    <div className="flex flex-wrap gap-2  p-2">
+    <div className="flex flex-wrap gap-6  p-2">
       {dataMenu.map((menu, index) => {
         return (
           <EditMenuBlock

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -60,6 +61,16 @@ const Modale = ({
     </div>
   );
 };
+
+Modale.propTypes = {
+  closeModal: PropTypes.func,
+  date: PropTypes.shape({
+    toLocaleDateString: PropTypes.func
+  }),
+  handleSubmit: PropTypes.func,
+  peopleNumber: PropTypes.number,
+  selectedSlot: PropTypes.string
+}
 
 function Reservation() {
   const [calendarDate, setCalendarDate] = useState(new Date());
