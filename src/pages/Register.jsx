@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRef, useState, useEffect } from "react";
 
 import axios from "../api/axios";
@@ -19,6 +20,7 @@ const Register = () => {
   // Prenom
   const [prenom, setPrenom] = useState("");
   const [validPrenom, setValidPrenom] = useState(false);
+  const [prenomFocus, setPrenomFocus] = useState(false);
 
   // Nom
   const [nom, setNom] = useState("");

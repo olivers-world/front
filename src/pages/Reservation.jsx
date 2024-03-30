@@ -154,8 +154,8 @@ function Reservation() {
   
     try {
       const reservations = await createReservations(
-        userInfo.nom,
         userInfo.email,
+        userInfo.nom,
         formattedDate,
         peopleNumber
       );

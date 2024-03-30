@@ -1,8 +1,6 @@
 import PropTypes from "prop-types"
 import { useState, useEffect } from "react";
-import axios from "@/api/axios";
-
-const GET_URL = "/api/reservation/get";
+import { getReservations } from "@/services/api.js";
 
 const ReservationBlock = ({
   initialName,
@@ -103,18 +101,20 @@ const EditReservation = () => {
     `${todayHours}:${todayMinutes < 10 ? "0" : "" + todayMinutes}`
   );
 
-
+  const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    const getReservations = async () => {
-      const formattedDate = `${filterDate} ${filterTime}:00`;
+    const getReservation = async () => {
+      const formattedFromDate = `${filterDate} ${filterTime}:00`;
+      const formattedToDate = `${filterDate} ${parseInt(filterTime, 10) + 1}:00`;
   
       try {
-        const reponse = await axios.get(GET_URL, {
-          params: { dateHeure: formattedDate },
-        });
+        const reservations = await getReservations(
+          formattedFromDate,
+          formattedToDate
+        );
   
-        setReservations(reponse.data);
+        setReservations(reservations);
       } catch (error) {
         console.error(
           "EditReservation : Erreur lors de la récupération des réservations",
@@ -123,61 +123,53 @@ const EditReservation = () => {
       }
     };
 
-    getReservations();
+    getReservation();
   }, [filterDate, filterTime]);
 
-  const [reservations, setReservations] = useState([
-    {
-      name: "COURTARI ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 1,
-    },
-    {
-      name: "GARIBALDO ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 2,
-    },
-    {
-      name: "Réservation ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 3,
-    },
-    {
-      name: "Réservation ",
-      date: "2024-03-20",
-      time: "19:00",
-      peopleNumber: 4,
-      id: 4,
-    },
-  ]);
+  // const [reservations, setReservations] = useState([
+  //   {
+  //     name: "COURTARI ",
+  //     date: "2024-03-20",
+  //     time: "19:00",
+  //     peopleNumber: 4,
+  //     id: 1,
+  //   },
+  // ]);
 
   const updateReservationInState = (updatedReservation) => {
     setReservations(
       reservations.map((reservation) =>
-        reservation.id === updatedReservation.id
+        reservation.ID === updatedReservation.ID
           ? updatedReservation
           : reservation
       )
     );
   };
 
-  const filteredReservations = reservations.filter((reservation) => {
-    console.log("Reservation:", reservation);
-    console.log("Name:", reservation.name);
+  const filteredReservations = reservations.map((reservation) => {
+    // Convertit la date et l'heure UTC en objet Date local
+    const localDateTime = new Date(reservation.DateHeure);
+    const date = localDateTime.toISOString().split('T')[0]; // Extrait la date au format YYYY-MM-DD
+    const hours = localDateTime.getHours(); // Obtient l'heure locale
+    const minutes = localDateTime.getMinutes(); // Obtient les minutes locales
+  
+    // Formate l'heure locale pour assurer un format à deux chiffres
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+  
+    return {
+      ...reservation,
+      date,
+      time: `${formattedHours}:${formattedMinutes}`, // Heure locale au format HH:mm
+    };
+  }).filter((reservation) => {
     return (
-      reservation.name.toLowerCase().includes(filterName.toLowerCase()) &&
-      (filterDate ? reservation.date === filterDate : true) &&
-      (filterTime
-        ? reservation.time.split(":")[0] === filterTime.split(":")[0]
-        : true)
+      reservation.Nom.toLowerCase().includes(filterName.toLowerCase()) &&
+      (filterDate ? reservation.date === filterDate : true)
     );
   });
+  
+  
 
   return (
     <>
@@ -214,12 +206,12 @@ const EditReservation = () => {
         {filteredReservations.map((reservation) => {
           return (
             <ReservationBlock
-              key={`reservation${reservation.id}`}
-              id={reservation.id}
-              initialName={reservation.name}
+              key={`reservation${reservation.ID}`}
+              id={reservation.ID}
+              initialName={reservation.Nom}
               initialDate={reservation.date}
               initialTime={reservation.time}
-              initialPeopleNumber={reservation.peopleNumber}
+              initialPeopleNumber={reservation.NbPersonnes}
               onUpdate={updateReservationInState}
             />
           );
