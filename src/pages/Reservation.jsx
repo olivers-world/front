@@ -1,13 +1,12 @@
-import PropTypes from "prop-types"
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-
-import axios from "../api/axios";
-import { getReservationsFake } from "@/services/api.js";
-
-const CREATE_URL = "/api/reservation/create";
-const GET_URL = "/api/reservation/get";
+import { createReservations, getReservations } from "@/services/api.js";
+import { useSnackbar } from "notistack";
 
 const Modale = ({
   closeModal,
@@ -15,6 +14,10 @@ const Modale = ({
   selectedSlot,
   peopleNumber,
   handleSubmit,
+  handleEmailChange,
+  handleNameChange,
+  email,
+  name,
 }) => {
   let dateOptions = {
     weekday: "long",
@@ -36,12 +39,16 @@ const Modale = ({
         <input
           type="email"
           placeholder="Votre email"
+          value={email}
+          onChange={(e) => handleEmailChange(e.target.value)}
           className="mb-2 w-full rounded-md border border-gray-400 py-1 my-4 pl-2 pr-4  :text-gray-300 sm:mb-0"
         />
 
         <input
           type="text"
           placeholder="Votre nom"
+          value={name}
+          onChange={(e) => handleNameChange(e.target.value)}
           className="mb-2 w-full rounded-md border border-gray-400 py-1 my-4 pl-2 pr-4  :text-gray-300 sm:mb-0"
         />
         <button
@@ -63,16 +70,22 @@ const Modale = ({
 };
 
 Modale.propTypes = {
+  handleEmailChange: PropTypes.func,
+  handleNameChange: PropTypes.func,
   closeModal: PropTypes.func,
   date: PropTypes.shape({
-    toLocaleDateString: PropTypes.func
+    toLocaleDateString: PropTypes.func,
   }),
   handleSubmit: PropTypes.func,
   peopleNumber: PropTypes.number,
-  selectedSlot: PropTypes.string
-}
+  selectedSlot: PropTypes.string,
+  email: PropTypes.string,
+  name: PropTypes.string,
+};
 
 function Reservation() {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [calendarDate, setCalendarDate] = useState(new Date());
   const [date, setDate] = useState();
 
@@ -81,11 +94,22 @@ function Reservation() {
 
   const [peopleNumber, setPeopleNumber] = useState(1);
 
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+
   const [reservations, setReservations] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
 
   const [selectedSlot, setSelectedSlot] = useState("12:00");
   const [showModal, setShowModal] = useState(false);
+
+  const handleNameChange = (name) => {
+    setUserName(name);
+  };
+
+  const handleEmailChange = (email) => {
+    setUserEmail(email);
+  };
 
   const handleHourChange = (hour) => {
     setSelectedHours(hour.target.value);
@@ -121,59 +145,72 @@ function Reservation() {
     setShowModal(true);
     console.log(date);
     console.log("Formulaire soumis !");
-
-    const formattedDate = `${calendarDate.getFullYear()}-${
-      calendarDate.getMonth() + 1
-    }-${calendarDate.getDate()} ${selectedHours}:${selectedMinutes}:00`;
-
-    const userInfo = JSON.parse(userInfoString);
-    const email = userInfo.email;
-
+  
+    const selectedDate = `${calendarDate.getFullYear()}-${calendarDate.getMonth()+1}-${calendarDate.getDate()}`;
+    const formattedDate = userInfoString ? `${selectedDate} ${selectedHours}:${selectedMinutes}:00` : `${selectedDate} ${selectedSlot}`;
+    const userInfo = userInfoString ? JSON.parse(userInfoString) : { nom: userName, email: userEmail };
+  
+    console.log("Appel API avec : ", userInfo.nom, userInfo.email);
+  
     try {
-      console.log("call");
-      const reservations = await getReservationsFake(
-        email,
+      const reservations = await createReservations(
+        userInfo.nom,
+        userInfo.email,
         formattedDate,
         peopleNumber
       );
-
+  
+      enqueueSnackbar('Réservation prise!',{variant:"success"});
+      setShowModal(false);
       console.log(reservations);
     } catch (err) {
       // Il n'y a pas de réponse du serveur
       if (!err?.response) {
         console.log("Pas de réponse serveur");
+        enqueueSnackbar('Pas de réponse serveur',{variant:"error"});
       }
       // Erreur de base de données
       else if (err.response?.status === 500) {
         console.log("Database error");
+        enqueueSnackbar('Créneau déjà pris',{variant:"error"});
       }
-      // Ici, vous vérifiez si l'erreur vient du fait qu'il n'y a pas assez de place
+      // Pas assez de place
       else if (
         err.response?.status === 400 &&
         err.response?.data?.message === "Pas assez de place"
       ) {
         console.log("Trop de place");
+        enqueueSnackbar('Plus de places disponible',{variant:"error"});
       }
       // Autres erreurs
       else {
         console.log("Échec");
+        enqueueSnackbar('Échec lors de la prise de la réservation',{variant:"error"});
       }
     }
   };
+  
 
   const fetchReservations = async () => {
-    const formattedDate = `${calendarDate.getFullYear()}-${
+    const formattedFromDate = `${calendarDate.getFullYear()}-${
       calendarDate.getMonth() + 1
     }-${calendarDate.getDate()} ${selectedHours}:00:00`;
 
-    console.log("formattedDate : " + formattedDate);
+    const formattedToDate = `${calendarDate.getFullYear()}-${
+      calendarDate.getMonth() + 1
+    }-${calendarDate.getDate()} ${parseInt(selectedHours, 10) + 1}:00:00`;
+
+    console.log("formattedFromDate : " + formattedFromDate);
+    console.log("formattedToDate : " + formattedToDate);
 
     try {
-      const response = await axios.get(GET_URL, {
-        params: { dateHeure: formattedDate },
-      });
-      console.log(response.data);
-      setReservations(response.data);
+      console.log("call");
+      const reservations = await getReservations(
+        formattedFromDate,
+        formattedToDate
+      );
+      console.log(reservations);
+      setReservations(reservations);
     } catch (error) {
       console.error("Erreur lors de la récupération des réservations", error);
     }
@@ -212,13 +249,18 @@ function Reservation() {
     >
       <div className="h-[120px]"></div>
       <div className="h-screen flex justify-center mx-4">
-        {showModal && (
+        {/* Si utilisateur pas connecter */}
+        {showModal && !userInfoString && (
           <Modale
+            handleEmailChange={handleEmailChange}
+            handleNameChange={handleNameChange}
             closeModal={closeModal}
             date={date}
             selectedSlot={selectedSlot}
             peopleNumber={peopleNumber}
-            handleSubmit={handleSubmit}
+            handleSubmit={(e) => handleSubmit(e)}
+            email={userEmail}
+            name={userName}
           ></Modale>
         )}
         <div className="grid grid-cols-1 md:my-32  md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
@@ -227,10 +269,7 @@ function Reservation() {
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           />
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col rounded-xl  h-full bg-white px-4 py-4 max-w-[350px]"
-          >
+          <form className="flex flex-col rounded-xl  h-full bg-white px-4 py-4 max-w-[350px]">
             <div className="flex flex-wrap">
               <span className="mr-2 font-medium text-lg">
                 Je veux arriver vers :
@@ -300,7 +339,7 @@ function Reservation() {
                       setSelectedSlot(e.target.textContent);
                     }}
                     className={`px-4 flex-1 py-1 w-fit rounded-lg ${
-                      slot.taken ? "!bg-red-500" : "bg-white"
+                      slot.taken ? "!bg-neutral-400 text-white" : "bg-white"
                     }
                       ${
                         selectedSlot === slot.time
@@ -315,13 +354,23 @@ function Reservation() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              onClick={() => setShowModal(true)}
-              className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-white float-right bg-primary"
-            >
-              Réserver
-            </button>
+            {userInfoString ? (
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-white float-right bg-primary"
+              >
+                Réserver
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowModal(true)}
+                className="border w-full mx-auto px-2 py-2 font-medium rounded-sm text-white float-right bg-primary"
+              >
+                Réserver
+              </button>
+            )}
           </form>
         </div>
       </div>
