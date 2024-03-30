@@ -27,11 +27,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const haveSeenHomepage = localStorage.getItem('haveSeenHomepage');
+  const [toggleImgStag, setToggleImgStag] = useState(false);
+
 
   if (haveSeenHomepage === null || haveSeenHomepage === "false") {
     localStorage.setItem("haveSeenHomepage", "false");
   }
-  
 
   useGSAP(() => {
     const tl = gsap.timeline({ paused: true });
@@ -51,6 +52,15 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+    ScrollTrigger.create({
+      trigger:'#hero',
+      start:'bottom center',
+      onEnter: () => setToggleImgStag(true),
+      onLeaveBack: () => setToggleImgStag(false)
+    })
+  },[])
+
   return (
     <div className="relative">
       <div className="absolute h-[25.8rem] w-screen bg-hero-bg bg-cover after:content[''] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-[25.8rem]"></div>
@@ -62,6 +72,7 @@ const Home = () => {
           id="voile"
           className="absolute origin-bottom bg-white h-full w-full"
         ></div>
+        
         <section
           id="hero"
           className=" py-2 flex justify-between flex-wrap mx-auto  max-w-screen-lg"
@@ -112,7 +123,7 @@ const Home = () => {
           </div>
         </section>
 
-        <HomesectionPopImage></HomesectionPopImage>
+        <HomesectionPopImage toggleImgStag={toggleImgStag}></HomesectionPopImage>
 
         <section id="images-section" className="my-16 mx-auto  max-w-screen-lg">
           <div className="mx-8">

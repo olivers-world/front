@@ -14,11 +14,10 @@ import { useRef, useState } from "react";
 gsap.registerPlugin(useGSAP);
 
 
-const HomesectionPopImage = () => {
+const HomesectionPopImage = ({toggleImgStag}) => {
     const tlImgStag = useRef()
   const imgstag = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
 
-  const [toggleImgStag, setToggleImgStag] = useState(false);
 
   const positions = [
     { top: '0', left: '-10%', translateX: '0%', rotate: -5},
