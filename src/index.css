@@ -139,3 +139,9 @@ active {
   background-color: red;
   z-index: -1;
 }
+
+.imgstag {
+  will-change: transform; /* Example of <custom-ident> */
+  will-change: opacity; /* Example of <custom-ident> */
+  will-change: left, top;
+}

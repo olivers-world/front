@@ -2,7 +2,7 @@ import Navbar from "../NavBar";
 import Footer from "../Footer";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { SnackbarProvider } from 'notistack';
+import { SnackbarProvider } from "notistack";
 
 // NAVBAR
 const BLACK_LINKS_ROUTES = [
@@ -25,20 +25,23 @@ const PageWrapper = ({ children }) => {
 
   return (
     <>
-      <Navbar
-        linkscolor={
-          BLACK_LINKS_ROUTES.includes(router.pathname) ? "black" : undefined
-        }
-        position={
-          POSITION_BLOCK_ROUTES.includes(router.pathname) ? "block" : undefined
-        }
-      />
+      <SnackbarProvider
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Navbar
+          linkscolor={
+            BLACK_LINKS_ROUTES.includes(router.pathname) ? "black" : undefined
+          }
+          position={
+            POSITION_BLOCK_ROUTES.includes(router.pathname)
+              ? "block"
+              : undefined
+          }
+        />
 
-        <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-          {children}
-        </SnackbarProvider>
-
-      <Footer />
+        {children}
+        <Footer />
+      </SnackbarProvider>
     </>
   );
 };
