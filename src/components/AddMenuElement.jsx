@@ -1,7 +1,7 @@
 import AddMenuElementBlock from "./AddMenuElementBlock";
 import {  useEffect } from "react";
 
-
+const AddMenuElement = () => {
   const dataItems = [
     {
       category: "Entrées",
@@ -45,7 +45,6 @@ import {  useEffect } from "react";
     },
   ];
 
-const AddMenuElement = () => {
   // Fonction qui récupère les données du serveur
   const getData = async () => {
     try {
@@ -55,11 +54,11 @@ const AddMenuElement = () => {
       console.error(err);
 
     }
-  }
 
   useEffect(() => {
     getData();
   }, []);
+};
 
   return (
     <div className="flex flex-wrap gap-x-6">
@@ -72,6 +71,6 @@ const AddMenuElement = () => {
       ))}
     </div>
   );
-};
+}
 
-export default AddMenuElement;
+export default AddMenuElement

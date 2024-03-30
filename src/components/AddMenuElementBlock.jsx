@@ -2,13 +2,14 @@ import PropTypes from "prop-types"
 import { useState } from "react";
 import Accordeon from "./Accordeon";
 import { useSnackbar } from 'notistack';
+import InputItemMenuElement from "./InputItemMenuElement";
 
 const AddMenuElementBlock = ({ dataItem, getData }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputNewElement, setInputNewElement] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
   const sendNewElement = () => {
-    console.log(inputValue);
+    console.log(inputNewElement);
     // Envoie le nouvel élément rentré au serveur
 
     // envoyer dataItem.id pour l'id du menu et inputValue en nouvel item
@@ -26,16 +27,16 @@ const AddMenuElementBlock = ({ dataItem, getData }) => {
 
         <div className="">
           {dataItem.items.map((item) => (
-            <div key={item}>{item}</div>
+            <InputItemMenuElement key={item} item={item}/>
           ))}
           
           <div className="flex justify-center mt-4">
             <input
               data-category={dataItem.category}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => setInputNewElement(e.target.value)}
               className="flex-1 border min-w-32 px-2  rounded-sm mr-1"
               type="text"
-              value={inputValue}
+              value={inputNewElement}
               placeholder="Ajouter un élément"
             />
             <div
