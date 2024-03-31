@@ -28,7 +28,6 @@ export const getReservations = async (from, to) => {
   return (
     await api.get("/reservation/get", {
       params: {
-        // Ajoutez cet objet pour contenir les paramètres
         from: from,
         to: to,
       },
