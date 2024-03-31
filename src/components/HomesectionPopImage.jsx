@@ -68,7 +68,6 @@ const HomesectionPopImage = ({toggleImgStag}) => {
         </div>
       </div>
     </div>
-    <button onClick={()=>{setToggleImgStag(!toggleImgStag), console.log(toggleImgStag)}}>DDDDDDDDDDD</button>
   </section>
   )
 }
