@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react"; // <-- import the hook from our React pac
 
 gsap.registerPlugin(useGSAP);
 
-const Sidebar = ({ expanded }) => {
+const Sidebar = ({ expanded, closeSidebar }) => {
   const sidebar = useRef();
 
   useEffect(() => {
@@ -30,16 +30,16 @@ const Sidebar = ({ expanded }) => {
     >
       <div className="my-32 flex flex-col w-full h-full text-xl">
         <div className="py-4 px-8 border-b-0 uppercase font-medium border">
-          <NavLink to="/reservation">Réservation</NavLink>
+          <NavLink onClick={closeSidebar} to="/reservation">Réservation</NavLink>
         </div>
         <div className="py-4 px-8 uppercase font-medium border-b border">
-          <NavLink to="/menu">Menu</NavLink>
+          <NavLink onClick={closeSidebar}  to="/menu">Menu</NavLink>
         </div>
         <div className="py-4 px-8 uppercase font-medium border-b border">
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink onClick={closeSidebar}  to="/contact">Contact</NavLink>
         </div>
         <div className="py-4 px-8 uppercase font-medium border-b border">
-          <NavLink to="/login">Connexion</NavLink>
+          <NavLink onClick={closeSidebar}  to="/login">Connexion</NavLink>
         </div>
       </div>
     </div>

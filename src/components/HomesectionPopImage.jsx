@@ -52,9 +52,9 @@ const HomesectionPopImage = ({toggleImgStag}) => {
 
   return (
     <section>
-    <div className="py-64 sm:py-48">
-      <div className="mx-auto max-w-screen-lg">
-        <div className="h-[600px] sm:h-[500px] relative flex justify-center items-center">
+    <div className="h-[90vh] py-64 sm:py-48">
+      <div className="h-full mx-auto max-w-screen-lg">
+        <div className="h-full relative flex justify-center items-center">
           <h2 className="z-30 pr-5 bg-white text-black font-imperialScript text-6xl sm:text-8xl">Notre excellence</h2>
           
           {/*  */}
