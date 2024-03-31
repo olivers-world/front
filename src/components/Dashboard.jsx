@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getReservations } from "@/services/api"; // Exemple, ajustez selon votre structure
+import { getReservations, getMostRecentInventaire, getMostRecentNettoyage } from "@/services/api"; // Exemple, ajustez selon votre structure
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime)
 
 import DashboardInfo from "../components/DashboardInfo";
 import DashboardInfoLine from "../components/DashboardInfoLine";
@@ -11,6 +14,9 @@ const Dashboard = () => {
   const [reservationsToday, setReservationsToday] = useState(0);
   const [reservationsThisWeek, setReservationsThisWeek] = useState(0);
   const [reservationsThisMonth, setReservationsThisMonth] = useState(0);
+
+  const [inventaireCount, setInventaireCount] = useState(0);
+  const [nettoyageCount, setNettoyageCount] = useState(0);
 
   useEffect(() => {
     const fetchReservationsData = async () => {
@@ -47,8 +53,45 @@ const Dashboard = () => {
       }
     };
 
+    const fetchInventaireData = async () => {
+      try {
+        const inventaire = await getMostRecentInventaire();
+        const mostRecentDateFromNow = dayjs(inventaire.Date).diff(dayjs(),"day").valueOf();
+
+        setInventaireCount(mostRecentDateFromNow);
+        console.log(mostRecentDateFromNow);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données des inventaires", error);
+      }
+    };
+
+    const fetchNettoyageData = async () => {
+      try {
+        const nettoyage = await getMostRecentNettoyage();
+        const mostRecentDateFromNow = dayjs(nettoyage.Date).diff(dayjs(),"day").valueOf();
+
+        setNettoyageCount(mostRecentDateFromNow);
+        console.log(mostRecentDateFromNow);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données des nettoyages", error);
+      }
+    };
+
+    fetchInventaireData();
     fetchReservationsData();
+    fetchNettoyageData();
   }, []);
+
+  const updateValues = () => {
+    const timerId = setTimeout(() => {
+      console.log("Recharger les données");
+    }, 2000);
+
+    // Annuler changement précédent si inventaireCount
+    // ou nettoyageCount change avant les 5 secondes
+    return () => clearTimeout(timerId);
+  };
+
 
   return (
     <>
@@ -72,13 +115,13 @@ const Dashboard = () => {
 
       <DashboardInfo width="w-full">
         <span>Refaire l&apos;inventaire dans </span>
-        <InputBullet info={0} />
+        <InputBullet info={inventaireCount} onChange={updateValues} />
       </DashboardInfo>
 
       <DashboardInfo width="w-fit">
         <span>
           Refaire le grand nettoyage de la cuisine dans
-          <InputBullet trapped={true} info={0} />
+          <InputBullet trapped={true} info={nettoyageCount} onChange={updateValues} />
           jours
         </span>
       </DashboardInfo>
