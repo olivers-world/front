@@ -1,21 +1,59 @@
 import PropTypes from "prop-types"
 import { useState, useEffect } from "react";
-import { getReservations } from "@/services/api.js";
+import { getReservations, deleteReservation, updateReservation } from "@/services/api.js";
+import { useSnackbar } from "notistack";
 
 const ReservationBlock = ({
+  id,
   initialName,
   initialDate,
   initialTime,
   initialPeopleNumber,
+  DateHeure,
+  onDelete
 }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [name, setName] = useState(initialName);
   const [date, setDate] = useState(initialDate);
   const [time, setTime] = useState(initialTime);
   const [peopleNumber, setPeopleNumber] = useState(initialPeopleNumber);
 
+  const formatDateToISO = (date) => {
+    const tzOffset = new Date().getTimezoneOffset() * 60000; // offset en millisecondes
+    const localISOTime = (new Date(date - tzOffset)).toISOString().slice(0, -1);
+    return localISOTime;
+  };
+
   // Logique pour gérer les changements d'état et l'envoi des données
-  const sendUpdateToServer = async () => {
-    
+  const UpdateReservation = async () => {
+    console.log("name : " + name);
+    console.log("date : " + date);
+    console.log("time : " + time);
+    console.log("peopleNumber : " + peopleNumber);
+
+    const newDate = new Date(date + 'T' + time);
+    const formattedDate = formatDateToISO(newDate);
+    console.log("newDate : " + newDate);
+
+    try {
+      const response = await updateReservation(id, name, formattedDate, peopleNumber);
+      enqueueSnackbar('Réservation modifiée',{variant:"success"});
+    } catch (error) {
+      enqueueSnackbar("Erreur lors de la modification!",{variant:"error"});
+      console.error("Erreur lors de la modification de la réservation", error);
+    }
+  };
+
+  const DeleteReservation = async () => {
+    try {
+      const response = await deleteReservation(id);
+      onDelete(id);
+      enqueueSnackbar('Réservation annulée',{variant:"success"});
+    } catch (error) {
+      enqueueSnackbar("Erreur lors de l'annulation!",{variant:"error"});
+      console.error("Erreur lors de la suppression de la réservation", error);
+    }
   };
 
   return (
@@ -64,12 +102,14 @@ const ReservationBlock = ({
 
       <div className="mt-2 flex justify-between">
         <button
-          onClick={sendUpdateToServer}
+          onClick={UpdateReservation}
           className="bg-white text-primary px-4 py-1 mr-2 rounded-sm"
         >
           Modifier
         </button>
-        <button className="bg-white text-primary px-4 py-1  rounded-sm">
+        <button 
+          onClick={DeleteReservation}
+          className="bg-white text-primary px-4 py-1  rounded-sm">
           Annuler
         </button>
       </div>
@@ -83,6 +123,7 @@ ReservationBlock.propTypes = {
   initialName: PropTypes.string,
   initialPeopleNumber: PropTypes.number,
   initialTime: PropTypes.any,
+  DateHeure: PropTypes.any,
   onUpdate: PropTypes.func
 }
 
@@ -146,6 +187,10 @@ const EditReservation = () => {
     );
   };
 
+  const deleteReservationFromState = (idToDelete) => {
+    setReservations(reservations.filter(reservation => reservation.ID !== idToDelete));
+  };
+
   const filteredReservations = reservations.map((reservation) => {
     // Convertit la date et l'heure UTC en objet Date local
     const localDateTime = new Date(reservation.DateHeure);
@@ -159,7 +204,8 @@ const EditReservation = () => {
   
     return {
       ...reservation,
-      date,
+      DateHeure:localDateTime,
+      date:date,
       time: `${formattedHours}:${formattedMinutes}`, // Heure locale au format HH:mm
     };
   }).filter((reservation) => {
@@ -213,6 +259,7 @@ const EditReservation = () => {
               initialTime={reservation.time}
               initialPeopleNumber={reservation.NbPersonnes}
               onUpdate={updateReservationInState}
+              onDelete={deleteReservationFromState}
             />
           );
         })}

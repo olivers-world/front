@@ -8,7 +8,12 @@ const api = axios.create({
 
 // Rerservations
 
-export const createReservations = async (email, nom, formattedDate, peopleNumber) => {
+export const createReservations = async (
+  email,
+  nom,
+  formattedDate,
+  peopleNumber
+) => {
   return (
     await api.post("/reservation/create", {
       email: email,
@@ -22,10 +27,30 @@ export const createReservations = async (email, nom, formattedDate, peopleNumber
 export const getReservations = async (from, to) => {
   return (
     await api.get("/reservation/get", {
-      params: { // Ajoutez cet objet pour contenir les paramètres
+      params: {
+        // Ajoutez cet objet pour contenir les paramètres
         from: from,
         to: to,
       },
+    })
+  ).data;
+};
+
+export const updateReservation = async (id, nom, dateHeure, nbPersonne) => {
+  return (
+    await api.put("/reservation/update", {
+      reservationId: id,
+      newNom: nom,
+      newDate: dateHeure,
+      newNbPersonne: nbPersonne,
+    })
+  ).data;
+};
+
+export const deleteReservation = async (id) => {
+  return (
+    await api.delete("/reservation/delete", {
+      data: { reservationId: id },
     })
   ).data;
 };
