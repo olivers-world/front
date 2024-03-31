@@ -5,6 +5,10 @@ import Sidebar from "../components/Sidebar";
 const Burger = ({ color = "white" }) => {
   const [expanded, setExpanded] = useState(false);
 
+  const closeSidebar = () => {
+    setExpanded(false);
+  }
+
   const handleClick = () => {
     setExpanded(!expanded);
   };
@@ -36,7 +40,7 @@ const Burger = ({ color = "white" }) => {
         </div>
       </div>
 
-      <Sidebar expanded={expanded}></Sidebar>
+      <Sidebar closeSidebar={closeSidebar} expanded={expanded}></Sidebar>
     </>
   );
 };

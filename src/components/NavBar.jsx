@@ -13,6 +13,10 @@ const Navbar = ({ position, linkscolor }) => {
   const [displayConnexionMenu, setDisplayConnexionMenu] = useState(false);
   const [hasAlreadySeenHomePage, setHasAlreadySeenHomePage] = useState(false);
 
+  const closeConnexionMenu = () => {
+    setDisplayConnexionMenu(false);
+  }
+
   const router = useLocation();
 
   useGSAP(() => {
