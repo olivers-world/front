@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import Accordeon from "./Accordeon";
 import { useState, useEffect } from "react";
-import { updateMenu } from "@/services/api"; // Assurez-vous d'importer correctement la fonction updateMenu depuis votre service API
+import { updateMenu, deleteMenu } from "@/services/api";
+import { useSnackbar } from "notistack";
 
 const EditMenuBlock = ({ dataMenu, dataItems }) => {
-  //Récupérer informations du menu
-  // console.log(dataItems);
-
+  const { enqueueSnackbar } = useSnackbar();
   // Récupérer informations du menu
   const [selectedEntree, setSelectedEntree] = useState([]);
   const [selectedPlat, setSelectedPlat] = useState([]);
@@ -25,11 +24,11 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
     setNomMenu(dataMenu.name);
     setPrixMenu(dataMenu.price);
   }, [dataMenu]);
-  
+
   // Fonction pour gérer la sélection d'un item d'un type donné
   const handleItemClick = (item, type) => {
     const category = type.category.toLowerCase();
-  
+
     switch (category) {
       case "entrées":
         setSelectedEntree((prev) =>
@@ -67,23 +66,34 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
   const handleUpdateMenu = async () => {
     try {
       // Récupérer les IDs des plats sélectionnés
-      const platIDs = [...selectedEntree, ...selectedPlat, ...selectedDessert, ...selectedBoisson].map(plat => plat.id);
-    
+      const platIDs = [
+        ...selectedEntree,
+        ...selectedPlat,
+        ...selectedDessert,
+        ...selectedBoisson,
+      ].map((plat) => plat.id);
+
       // Appeler la fonction d'API pour mettre à jour le menu
-      const response = await updateMenu({
-        id: id,
-        newMenu: nomMenu,
-        newPrix: prixMenu,
-        plats: platIDs,
-      });
-  
+      const response = await updateMenu(id, nomMenu, prixMenu, platIDs);
+
       console.log("Menu updated successfully:", response.data);
+      enqueueSnackbar("Menu modifié!", { variant: "success" });
     } catch (error) {
       console.error("Error updating menu:", error);
+      enqueueSnackbar("Erreur pendant la modification du menu", { variant: "error" });
     }
   };
-  
-  
+
+  const handleDeleteMenu = async () => {
+    try {
+      const response = await deleteMenu(id); // Appelez la fonction deleteMenu avec l'ID du menu à supprimer
+      console.log("Menu deleted successfully:", response.data);
+      // Ajoutez ici toute logique supplémentaire après la suppression du menu
+    } catch (error) {
+      console.error("Error deleting menu:", error);
+    }
+  };
+
   return (
     <>
       <div className="py-2 rounded-sm border shadow-md  w-full">
@@ -99,19 +109,19 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
                 >
                   {dataItem.items.map((item, itemIndex) => (
                     <p
-                    key={`item-${itemIndex}`}
-                    className={`cursor-pointer ${
-                      selectedEntree.some((entry) => entry.id === item.id) ||
-                      selectedPlat.some((entry) => entry.id === item.id) ||
-                      selectedDessert.some((entry) => entry.id === item.id) ||
-                      selectedBoisson.some((entry) => entry.id === item.id)
-                        ? "selected"
-                        : ""
-                    }`}
-                    onClick={() => handleItemClick(item, dataItem)}
-                  >
-                    {item.name}
-                  </p>
+                      key={`item-${itemIndex}`}
+                      className={`cursor-pointer ${
+                        selectedEntree.some((entry) => entry.id === item.id) ||
+                        selectedPlat.some((entry) => entry.id === item.id) ||
+                        selectedDessert.some((entry) => entry.id === item.id) ||
+                        selectedBoisson.some((entry) => entry.id === item.id)
+                          ? "selected"
+                          : ""
+                      }`}
+                      onClick={() => handleItemClick(item, dataItem)}
+                    >
+                      {item.name}
+                    </p>
                   ))}
                 </Accordeon>
               </div>
@@ -142,7 +152,10 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
           </div>
 
           <div className="flex gap-2 h-fit flex-wrap justify-between w-full md:w-fit">
-            <div className="cursor-pointer border px-1 py-1 rounded-sm">
+            <div
+              className="cursor-pointer border px-1 py-1 rounded-sm"
+              onClick={handleDeleteMenu}
+            >
               Supprimer
             </div>
             <div
