@@ -98,6 +98,10 @@ export const getPlat = async () => {
   return (await api.get("/plat/get")).data;
 };
 
+export const getPlatsByTypes = async () => {
+  return (await api.get("/plat/getByTypes")).data;
+};
+
 export const updatePlat = async (nom, newNom, newPrix, newTypes) => {
   return (
     await api.put("/plat/update", {
