@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { getReservations, getMostRecentInventaire, getMostRecentNettoyage } from "@/services/api"; // Exemple, ajustez selon votre structure
+import React, { useState, useEffect, useRef } from "react";
+import { getReservations, getMostRecentInventaire, getMostRecentNettoyage, createNettoyage, createInventaire } from "@/services/api"; // Exemple, ajustez selon votre structure
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
@@ -11,6 +11,9 @@ import ReservationChart from "../components/ReservationChart";
 import InputBullet from "../components/InputBullet";
 
 const Dashboard = () => {
+  const [hasChanged, setHasChanged] = useState(false);
+  const timerIdRef = useRef(null);
+
   const [reservationsToday, setReservationsToday] = useState(0);
   const [reservationsThisWeek, setReservationsThisWeek] = useState(0);
   const [reservationsThisMonth, setReservationsThisMonth] = useState(0);
@@ -82,14 +85,32 @@ const Dashboard = () => {
     fetchNettoyageData();
   }, []);
 
-  const updateValues = () => {
-    const timerId = setTimeout(() => {
-      console.log("Recharger les données");
-    }, 2000);
+  useEffect(() => {
+    if (hasChanged) {
+      timerIdRef.current = setTimeout(() => {
+        updateValues();
+      }, 2000);
 
-    // Annuler changement précédent si inventaireCount
-    // ou nettoyageCount change avant les 5 secondes
-    return () => clearTimeout(timerId);
+      return () => clearTimeout(timerIdRef.current);
+    }
+  }, [inventaireCount, nettoyageCount, hasChanged]);
+
+  const updateValues = async () => {
+      console.log("Envoyer nouvelles données");
+      try {
+        const dateInventaire = dayjs().add(inventaireCount, 'day').format("YYYY-MM-DD");
+        const dateNettoyage = dayjs().add(nettoyageCount, 'day').format("YYYY-MM-DD");
+
+        const inventaire = await createInventaire(dateInventaire);
+        const nettoyage = await createNettoyage(dateNettoyage);
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des nouvelles données", error);
+      }
+  };
+
+  const handleChange = (newValue, setStateFunction) => {
+    setHasChanged(true);
+    setStateFunction(newValue);
   };
 
 
@@ -115,13 +136,13 @@ const Dashboard = () => {
 
       <DashboardInfo width="w-full">
         <span>Refaire l&apos;inventaire dans </span>
-        <InputBullet info={inventaireCount} onChange={updateValues} />
+        <InputBullet info={inventaireCount} onChange={(value) => handleChange(value, setInventaireCount)} />
       </DashboardInfo>
 
       <DashboardInfo width="w-fit">
         <span>
           Refaire le grand nettoyage de la cuisine dans
-          <InputBullet trapped={true} info={nettoyageCount} onChange={updateValues} />
+          <InputBullet trapped={true} info={nettoyageCount} onChange={(value) => handleChange(value, setNettoyageCount)} />
           jours
         </span>
       </DashboardInfo>
