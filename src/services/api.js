@@ -65,9 +65,7 @@ export const createInventaire = async (date) => {
 };
 
 export const getMostRecentInventaire = async () => {
-  return (
-    await api.get("/inventaire/get")
-  ).data;
+  return (await api.get("/inventaire/get")).data;
 };
 
 // Nettoyages
@@ -81,7 +79,74 @@ export const createNettoyage = async (date) => {
 };
 
 export const getMostRecentNettoyage = async () => {
+  return (await api.get("/nettoyage/get")).data;
+};
+
+// Plats
+
+export const createPlat = async (nom, prix, types) => {
   return (
-    await api.get("/nettoyage/get")
+    await api.post("/plat/create", {
+      nom: nom,
+      prix: prix,
+      types: types,
+    })
+  ).data;
+};
+
+export const getPlat = async () => {
+  return (await api.get("/plat/get")).data;
+};
+
+export const updatePlat = async (nom, newNom, newPrix, newTypes) => {
+  return (
+    await api.put("/plat/update", {
+      nom: nom,
+      newNom: newNom,
+      newPrix: newPrix,
+      newTypes: newTypes,
+    })
+  ).data;
+};
+
+export const deletePlat = async (nom) => {
+  return (
+    await api.delete("/plat/delete", {
+      data: { nom: nom },
+    })
+  ).data;
+};
+
+
+// Menus
+
+export const createMenu = async (menu, prix) => {
+  return (
+    await api.post("/menu/create", {
+      menu: menu,
+      prix: prix
+    })
+  ).data;
+};
+
+export const getMenu = async () => {
+  return (await api.get("/menu/get")).data;
+};
+
+export const updateMenu = async (menu, newMenu, newPrix) => {
+  return (
+    await api.put("/menu/update", {
+      menu: menu,
+      newMenu: newMenu,
+      newPrix: newPrix
+    })
+  ).data;
+};
+
+export const deleteMenu = async (menu) => {
+  return (
+    await api.delete("/menu/delete", {
+      data: { menu: menu },
+    })
   ).data;
 };
