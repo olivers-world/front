@@ -85,13 +85,7 @@ export const getMostRecentNettoyage = async () => {
 // Plats
 
 export const createPlat = async (nom, prix, types) => {
-  return (
-    await api.post("/plat/create", {
-      nom: nom,
-      prix: prix,
-      types: types,
-    })
-  ).data;
+  return (await api.post("/plat/create", { nom, prix, types })).data;
 };
 
 export const getPlat = async () => {
@@ -102,88 +96,48 @@ export const getPlatsByTypes = async () => {
   return (await api.get("/plat/getByTypes")).data;
 };
 
-export const updatePlat = async (nom, newNom, newPrix, newTypes) => {
-  return (
-    await api.put("/plat/update", {
-      nom: nom,
-      newNom: newNom,
-      newPrix: newPrix,
-      newTypes: newTypes,
-    })
-  ).data;
+export const updatePlat = async (id, newNom, newPrix, newTypes) => {
+  return (await api.put("/plat/update", { id, newNom, newPrix, newTypes }))
+    .data;
 };
 
-export const deletePlat = async (nom) => {
-  return (
-    await api.delete("/plat/delete", {
-      data: { nom: nom },
-    })
-  ).data;
+export const deletePlat = async (id) => {
+  return (await api.delete("/plat/delete", { data: { id } })).data;
 };
-
 
 // Menus
 
 export const createMenu = async (menu, prix) => {
-  return (
-    await api.post("/menu/create", {
-      menu: menu,
-      prix: prix
-    })
-  ).data;
+  return (await api.post("/menu/create", { menu, prix })).data;
 };
 
 export const getMenu = async () => {
   return (await api.get("/menu/get")).data;
 };
 
-export const updateMenu = async (menu, newMenu, newPrix) => {
-  return (
-    await api.put("/menu/update", {
-      menu: menu,
-      newMenu: newMenu,
-      newPrix: newPrix
-    })
-  ).data;
+export const updateMenu = async (id, newMenu, newPrix) => {
+  return (await api.put("/menu/update", { id, newMenu, newPrix })).data;
 };
 
-export const deleteMenu = async (menu) => {
-  return (
-    await api.delete("/menu/delete", {
-      data: { menu: menu },
-    })
-  ).data;
+export const deleteMenu = async (id) => {
+  return (await api.delete("/menu/delete", { data: { id } })).data;
 };
 
 // Formule du jour
 
-export const createFormuleDuJour = async (menu, date) => {
-  return (
-    await api.post("/formule/create", {
-      menu: menu,
-      date: date
-    })
-  ).data;
+export const createFormuleDuJour = async (menuID, date) => {
+  return (await api.post("/formule/create", { menuID, date })).data;
 };
 
 export const getFormuleDuJour = async () => {
   return (await api.get("/formule/get")).data;
 };
 
-export const updateFormuleDuJour = async (menu, newMenu, newDate) => {
-  return (
-    await api.put("/formule/update", {
-      menu: menu,
-      newMenu: newMenu,
-      newDate: newDate
-    })
-  ).data;
+export const updateFormuleDuJour = async (menuID, newMenuID, newDate) => {
+  return (await api.put("/formule/update", { menuID, newMenuID, newDate }))
+    .data;
 };
 
-export const deleteFormuleDuJour = async (menu) => {
-  return (
-    await api.delete("/formule/delete", {
-      data: { menu: menu },
-    })
-  ).data;
+export const deleteFormuleDuJour = async (menuID) => {
+  return (await api.delete("/formule/delete", { data: { menuID } })).data;
 };

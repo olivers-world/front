@@ -1,44 +1,47 @@
 import { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
+import { updatePlat } from "@/services/api"; // Ensure this is correctly imported
 
 const InputItemPriceMenuElement = ({ price, item }) => {
-  const [inputItemPrice, setInputItemPrice] = useState(price);
-  const [isTouched, setIsTouched] = useState(false);
+  const [inputItemPrice, setInputItemPrice] = useState(price.toString()); // Ensure price is a string for input value
   const { enqueueSnackbar } = useSnackbar();
 
-  const sendModificationToServer = () => {
-    enqueueSnackbar("Le prix a bien été enregistrée", {
-      variant: "success",
-    });
+  const handleUpdatePrice = async () => {
+    // Only proceed if the price has actually been changed
+    if (parseFloat(inputItemPrice) !== price) {
+      try {
+        // Assuming updatePlat API expects ID, newNom (optional), newPrix, newTypes (optional)
+        await updatePlat(item.ID, null, parseFloat(inputItemPrice), null);
+        enqueueSnackbar("Le prix a bien été mis à jour", { variant: "success" });
+      } catch (error) {
+        console.error("Failed to update price:", error);
+        enqueueSnackbar("Erreur lors de la mise à jour du prix", { variant: "error" });
+      }
+    }
   };
 
   useEffect(() => {
-    // Envoie au serveur lorsque l'utilisateur quitte l'input
-    if (inputItemPrice !== price && !isTouched) {
-      sendModificationToServer();
-    }
-  }, [inputItemPrice, price, isTouched]);
+    // Reset isTouched to false when the component receives a new price prop
+    setInputItemPrice(price.toString());
+  }, [price]);
 
   const handleBlur = () => {
-    setIsTouched(false); // Définir isTouched sur false lorsque l'utilisateur quitte l'input
+    handleUpdatePrice();
   };
 
   const handleChange = (e) => {
     setInputItemPrice(e.target.value);
-    setIsTouched(true); // Définir isTouched sur true lorsque l'utilisateur modifie la valeur de l'input
   };
 
   return (
-    <>
-      <input
-        className="w-12"
-        key={`priceInput-${item}`}
-        type="number"
-        value={inputItemPrice}
-        onChange={handleChange} // Appeler la fonction handleChange lors de l'événement onChange
-        onBlur={handleBlur}
-      />
-    </>
+    <input
+      className="w-20" // Adjust width as needed
+      type="number"
+      step="0.01" // Allow decimal values for price
+      value={inputItemPrice}
+      onChange={handleChange}
+      onBlur={handleBlur}
+    />
   );
 };
 

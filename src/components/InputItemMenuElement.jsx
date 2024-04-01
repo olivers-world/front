@@ -1,43 +1,48 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { updatePlat, deletePlat } from "@/services/api"; // Ensure these functions accept ID
 
-const InputItemMenuElement = ({ item }) => {
-  const [inputItem, setInputItem] = useState(item);
-  const [isTouched, setIsTouched] = useState(false);
+const InputItemMenuElement = ({ item, refreshData }) => {
+  const [inputValue, setInputValue] = useState(item.Nom); // Assuming item has `Nom` and `ID`
   const { enqueueSnackbar } = useSnackbar();
 
-  const sendModificationToServer = () => {
-    enqueueSnackbar("La modification a bien été enregistrée", {
-      variant: "success",
-    });
+  const handleUpdateOrDelete = async () => {
+    if (inputValue.trim() === "" && item.ID) {
+      // Delete if input is empty and item had an ID
+      try {
+        await deletePlat(item.ID);
+        enqueueSnackbar("Le plat a été supprimé", { variant: "default" });
+        refreshData(); // Refresh the list to show the deletion
+      } catch (error) {
+        enqueueSnackbar("Erreur lors de la suppression du plat", { variant: "error" });
+      }
+    } else if (inputValue !== item.Nom && inputValue.trim() !== "") {
+      // Update if input has changed and is not empty
+      try {
+        await updatePlat(item.ID, inputValue, item.Prix, item.Types); // Pass ID instead of name
+        enqueueSnackbar("La modification a bien été enregistrée", { variant: "success" });
+        refreshData(); // Refresh to show the update
+      } catch (error) {
+        enqueueSnackbar("Erreur lors de la mise à jour du plat", { variant: "error" });
+      }
+    }
   };
 
-  useEffect(() => {
-    // Envoie au serveur lorsque l'utilisateur quitte l'input
-    if (inputItem !== item && !isTouched) {
-      sendModificationToServer();
-    }
-  }, [inputItem, item, isTouched]);
-
   const handleBlur = () => {
-    setIsTouched(false); // Définir isTouched sur false lorsque l'utilisateur quitte l'input
+    handleUpdateOrDelete();
   };
 
   const handleChange = (e) => {
-    setInputItem(e.target.value);
-    setIsTouched(true); // Définir isTouched sur true lorsque l'utilisateur modifie la valeur de l'input
+    setInputValue(e.target.value);
   };
 
   return (
-    <>
-      <input
-        key={item}
-        type="text"
-        value={inputItem}
-        onChange={handleChange} // Appeler la fonction handleChange lors de l'événement onChange
-        onBlur={handleBlur}
-      />
-    </>
+    <input
+      type="text"
+      value={inputValue}
+      onChange={handleChange}
+      onBlur={handleBlur}
+    />
   );
 };
 
