@@ -53,3 +53,35 @@ export const deleteReservation = async (id) => {
     })
   ).data;
 };
+
+// Inventaires
+
+export const createInventaire = async (date) => {
+  return (
+    await api.post("/inventaire/create", {
+      date: date,
+    })
+  ).data;
+};
+
+export const getMostRecentInventaire = async () => {
+  return (
+    await api.get("/inventaire/get")
+  ).data;
+};
+
+// Nettoyages
+
+export const createNettoyage = async (date) => {
+  return (
+    await api.post("/nettoyage/create", {
+      date: date,
+    })
+  ).data;
+};
+
+export const getMostRecentNettoyage = async () => {
+  return (
+    await api.get("/nettoyage/get")
+  ).data;
+};
