@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -45,7 +45,7 @@ const Hero = ({ text, buttonText = undefined }) => {
 
 Hero.propTypes = {
   buttonText: PropTypes.string,
-  text: PropTypes.string
-}
+  text: PropTypes.string,
+};
 
 export default Hero;

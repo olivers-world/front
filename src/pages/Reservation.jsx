@@ -145,13 +145,19 @@ function Reservation() {
     setShowModal(true);
     console.log(date);
     console.log("Formulaire soumis !");
-  
-    const selectedDate = `${calendarDate.getFullYear()}-${calendarDate.getMonth()+1}-${calendarDate.getDate()}`;
-    const formattedDate = userInfoString ? `${selectedDate} ${selectedHours}:${selectedMinutes}:00` : `${selectedDate} ${selectedSlot}`;
-    const userInfo = userInfoString ? JSON.parse(userInfoString) : { nom: userName, email: userEmail };
-  
+
+    const selectedDate = `${calendarDate.getFullYear()}-${
+      calendarDate.getMonth() + 1
+    }-${calendarDate.getDate()}`;
+    const formattedDate = userInfoString
+      ? `${selectedDate} ${selectedHours}:${selectedMinutes}:00`
+      : `${selectedDate} ${selectedSlot}`;
+    const userInfo = userInfoString
+      ? JSON.parse(userInfoString)
+      : { nom: userName, email: userEmail };
+
     console.log("Appel API avec : ", userInfo.nom, userInfo.email);
-  
+
     try {
       const reservations = await createReservations(
         userInfo.email,
@@ -159,20 +165,20 @@ function Reservation() {
         formattedDate,
         peopleNumber
       );
-  
-      enqueueSnackbar('Réservation prise!',{variant:"success"});
+
+      enqueueSnackbar("Réservation prise!", { variant: "success" });
       setShowModal(false);
       console.log(reservations);
     } catch (err) {
       // Il n'y a pas de réponse du serveur
       if (!err?.response) {
         console.log("Pas de réponse serveur");
-        enqueueSnackbar('Pas de réponse serveur',{variant:"error"});
+        enqueueSnackbar("Pas de réponse serveur", { variant: "error" });
       }
       // Erreur de base de données
       else if (err.response?.status === 500) {
         console.log("Database error");
-        enqueueSnackbar('Créneau déjà pris',{variant:"error"});
+        enqueueSnackbar("Créneau déjà pris", { variant: "error" });
       }
       // Pas assez de place
       else if (
@@ -180,16 +186,17 @@ function Reservation() {
         err.response?.data?.message === "Pas assez de place"
       ) {
         console.log("Trop de place");
-        enqueueSnackbar('Plus de places disponible',{variant:"error"});
+        enqueueSnackbar("Plus de places disponible", { variant: "error" });
       }
       // Autres erreurs
       else {
         console.log("Échec");
-        enqueueSnackbar('Échec lors de la prise de la réservation',{variant:"error"});
+        enqueueSnackbar("Échec lors de la prise de la réservation", {
+          variant: "error",
+        });
       }
     }
   };
-  
 
   const fetchReservations = async () => {
     const formattedFromDate = `${calendarDate.getFullYear()}-${
@@ -263,7 +270,7 @@ function Reservation() {
             name={userName}
           ></Modale>
         )}
-        <div className="grid grid-cols-1 md:my-32  md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
+        <div className="grid grid-cols-1 md:my-16  md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
           <Calendar
             className="rounded-lg p-2 border-none"
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
