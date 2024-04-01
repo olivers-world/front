@@ -12,36 +12,48 @@ const MenuOfTheDay = ({
 }) => {
   return (
     <>
-      <div className={`text-center w-full`}>
-        <h1 className="mx-auto mb-6 font-jacqueFrancois  w-fit text-4xl font-medium">
+      <div className={`text-center w-full ${className}`}>
+        <h1 className="mx-auto mb-6 font-jacqueFrancois w-fit text-4xl font-medium">
           {nomMenu}
         </h1>
-        {selectedEntree && <p className="py-2">{selectedEntree}</p>}
-        {selectedPlat && <p className="py-2">{selectedPlat}</p>}
-        {selectedDessert.length > 0 && (
-          <p className="py-2">
-            {selectedDessert.map((dessert, index) => (
-              <span key={index}>
-                {dessert}
-                {index + 1 !== selectedDessert.length ? "," : ""}
-              </span>
+        {selectedEntree && (
+          <div className="py-2">
+            {selectedEntree.map((entree, index) => (
+              <p key={index}>{entree}</p>
             ))}
-          </p>
+          </div>
+        )}
+        {selectedPlat && (
+          <div className="py-2">
+            {selectedPlat.map((plat, index) => (
+              <p key={index}>{plat}</p>
+            ))}
+          </div>
+        )}
+        {selectedDessert.length > 0 && (
+          <div className="py-2">
+            {selectedDessert.map((dessert, index) => (
+              <p key={index}>{dessert}</p>
+            ))}
+          </div>
         )}
         {selectedBoisson.length > 0 && (
-          <p className="py-2">
+          <div className="py-2">
             {selectedBoisson.map((boisson, index) => (
-              <span
-                key={index}
-                className={selectedBoisson.length > 3 ? "text-sm" : ""}
-              >
+              <p key={index} className={selectedBoisson.length > 3 ? "text-sm" : ""}>
                 {boisson}
-                {index + 1 !== selectedBoisson.length ? "," : ""}
-              </span>
+              </p>
             ))}
-          </p>
+          </div>
         )}
         {prixMenu && <p className="font-medium text-4xl mt-8">{prixMenu} €</p>}
+        {displayFeuille && (
+          <img
+            src={feuille}
+            alt="Decorative leaf"
+            className="absolute bottom-0 right-0"
+          />
+        )}
       </div>
     </>
   );

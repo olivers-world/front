@@ -154,3 +154,36 @@ export const deleteMenu = async (menu) => {
     })
   ).data;
 };
+
+// Formule du jour
+
+export const createFormuleDuJour = async (menu, date) => {
+  return (
+    await api.post("/formule/create", {
+      menu: menu,
+      date: date
+    })
+  ).data;
+};
+
+export const getFormuleDuJour = async () => {
+  return (await api.get("/formule/get")).data;
+};
+
+export const updateFormuleDuJour = async (menu, newMenu, newDate) => {
+  return (
+    await api.put("/formule/update", {
+      menu: menu,
+      newMenu: newMenu,
+      newDate: newDate
+    })
+  ).data;
+};
+
+export const deleteFormuleDuJour = async (menu) => {
+  return (
+    await api.delete("/formule/delete", {
+      data: { menu: menu },
+    })
+  ).data;
+};
