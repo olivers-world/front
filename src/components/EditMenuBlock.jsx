@@ -1,19 +1,31 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import Accordeon from "./Accordeon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { updateMenu } from "@/services/api"; // Assurez-vous d'importer correctement la fonction updateMenu depuis votre service API
 
 const EditMenuBlock = ({ dataMenu, dataItems }) => {
-
   //Récupérer informations du menu
+  console.log(dataItems);
 
-  const [selectedEntree, setSelectedEntree] = useState(dataMenu.entrees);
-  const [selectedPlat, setSelectedPlat] = useState(dataMenu.platsPrincipaux);
-  const [selectedDessert, setSelectedDessert] = useState(dataMenu.desserts);
-  const [selectedBoisson, setSelectedBoisson] = useState(dataMenu.boissons);
-  const [nomMenu, setNomMenu] = useState(dataMenu.name);
-  const [prixMenu, setPrixMenu] = useState(dataMenu.price);
+  // Récupérer informations du menu
+  const [selectedEntree, setSelectedEntree] = useState([]);
+  const [selectedPlat, setSelectedPlat] = useState([]);
+  const [selectedDessert, setSelectedDessert] = useState([]);
+  const [selectedBoisson, setSelectedBoisson] = useState([]);
+  const [nomMenu, setNomMenu] = useState("");
+  const [prixMenu, setPrixMenu] = useState(0);
   const id = dataMenu.id;
 
+  // Mettre à jour les états des plats sélectionnés lorsque les données du menu changent
+  useEffect(() => {
+    setSelectedEntree(dataMenu.entrees);
+    setSelectedPlat(dataMenu.plats);
+    setSelectedDessert(dataMenu.desserts);
+    setSelectedBoisson(dataMenu.boissons);
+    setNomMenu(dataMenu.name);
+    setPrixMenu(dataMenu.price);
+  }, [dataMenu]);
+  
   // Fonction pour gérer la sélection d'un item d'un type donné
   const handleItemClick = (item, type) => {
     const category = type.category.toLowerCase();
@@ -28,7 +40,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
         );
 
         break;
-      case "plats principaux":
+      case "plats":
         setSelectedPlat((prev) =>
           prev.includes(item)
             ? prev.filter((entry) => entry !== item)
@@ -54,9 +66,23 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
     }
   };
 
-  const updateMenu = () => {
-    // Envoyer les nouvelles informations au serveur
-    console.log("Update Changes");
+  const handleUpdateMenu = () => {
+    // Récupérer les plats sélectionnés
+    const plats = [...selectedEntree, ...selectedPlat, ...selectedDessert, ...selectedBoisson];
+
+    // Appeler la fonction d'API pour mettre à jour le menu
+    updateMenu({
+      id: id,
+      newMenu: nomMenu,
+      newPrix: prixMenu,
+      plats: plats,
+    })
+      .then((response) => {
+        console.log("Menu updated successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating menu:", error);
+      });
   };
 
   return (
@@ -74,22 +100,19 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
                 >
                   {dataItem.items.map((item, itemIndex) => (
                     <p
-                      key={`item-${itemIndex}`}
-                      className={`
-                      cursor-pointer
-                      ${
-                        selectedEntree.includes(item) ||
-                        selectedPlat.includes(item) ||
-                        selectedDessert.includes(item) ||
-                        selectedBoisson.includes(item)
-                          ? "selected"
-                          : ""
-                      }
-                    `}
-                      onClick={() => handleItemClick(item, dataItem)}
-                    >
-                      {item}
-                    </p>
+                    key={`item-${itemIndex}`}
+                    className={`cursor-pointer ${
+                      selectedEntree.some((entry) => entry.id === item.id) ||
+                      selectedPlat.some((entry) => entry.id === item.id) ||
+                      selectedDessert.some((entry) => entry.id === item.id) ||
+                      selectedBoisson.some((entry) => entry.id === item.id)
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() => handleItemClick(item, dataItem)}
+                  >
+                    {item.name}
+                  </p>
                   ))}
                 </Accordeon>
               </div>
@@ -125,7 +148,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
             </div>
             <div
               className="cursor-pointer border px-1 py-1 rounded-sm"
-              onClick={updateMenu}
+              onClick={handleUpdateMenu} // Appeler la fonction handleUpdateMenu lors du clic sur le bouton "Modifier"
             >
               Modifier
             </div>
@@ -140,20 +163,43 @@ EditMenuBlock.propTypes = {
   dataItems: PropTypes.arrayOf(
     PropTypes.shape({
       category: PropTypes.string,
-      items: PropTypes.arrayOf(PropTypes.string)
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          name: PropTypes.string,
+        })
+      ),
     })
   ),
-  dataMenu: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      entrees: PropTypes.arrayOf(PropTypes.string),
-      platsPrincipaux: PropTypes.arrayOf(PropTypes.string),
-      price: PropTypes.number,
-      desserts: PropTypes.arrayOf(PropTypes.string),
-      boissons: PropTypes.arrayOf(PropTypes.string)
-    })
-  )
-}
+  dataMenu: PropTypes.shape({
+    id: PropTypes.string,
+    price: PropTypes.number,
+    name: PropTypes.string,
+    entrees: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })
+    ),
+    plats: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })
+    ),
+    desserts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })
+    ),
+    boissons: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })
+    ),
+  }),
+};
 
 export default EditMenuBlock;

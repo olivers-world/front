@@ -115,8 +115,8 @@ export const getMenu = async () => {
   return (await api.get("/menu/get")).data;
 };
 
-export const updateMenu = async (id, newMenu, newPrix) => {
-  return (await api.put("/menu/update", { id, newMenu, newPrix })).data;
+export const updateMenu = async (id, newMenu, newPrix, plats) => {
+  return (await api.put("/menu/update", { id, newMenu, newPrix, plats })).data;
 };
 
 export const deleteMenu = async (id) => {
