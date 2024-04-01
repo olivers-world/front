@@ -5,7 +5,7 @@ import { updateMenu } from "@/services/api"; // Assurez-vous d'importer correcte
 
 const EditMenuBlock = ({ dataMenu, dataItems }) => {
   //Récupérer informations du menu
-  console.log(dataItems);
+  // console.log(dataItems);
 
   // Récupérer informations du menu
   const [selectedEntree, setSelectedEntree] = useState([]);
@@ -29,35 +29,33 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
   // Fonction pour gérer la sélection d'un item d'un type donné
   const handleItemClick = (item, type) => {
     const category = type.category.toLowerCase();
-    console.log(category);
-
+  
     switch (category) {
       case "entrées":
         setSelectedEntree((prev) =>
-          prev.includes(item)
-            ? prev.filter((entry) => entry !== item)
+          prev.some((entry) => entry.id === item.id)
+            ? prev.filter((entry) => entry.id !== item.id)
             : [...prev, item]
         );
-
         break;
       case "plats":
         setSelectedPlat((prev) =>
-          prev.includes(item)
-            ? prev.filter((entry) => entry !== item)
+          prev.some((entry) => entry.id === item.id)
+            ? prev.filter((entry) => entry.id !== item.id)
             : [...prev, item]
         );
         break;
       case "desserts":
         setSelectedDessert((prev) =>
-          prev.includes(item)
-            ? prev.filter((entry) => entry !== item)
+          prev.some((entry) => entry.id === item.id)
+            ? prev.filter((entry) => entry.id !== item.id)
             : [...prev, item]
         );
         break;
       case "boissons":
         setSelectedBoisson((prev) =>
-          prev.includes(item)
-            ? prev.filter((entry) => entry !== item)
+          prev.some((entry) => entry.id === item.id)
+            ? prev.filter((entry) => entry.id !== item.id)
             : [...prev, item]
         );
         break;
@@ -66,25 +64,26 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
     }
   };
 
-  const handleUpdateMenu = () => {
-    // Récupérer les plats sélectionnés
-    const plats = [...selectedEntree, ...selectedPlat, ...selectedDessert, ...selectedBoisson];
-
-    // Appeler la fonction d'API pour mettre à jour le menu
-    updateMenu({
-      id: id,
-      newMenu: nomMenu,
-      newPrix: prixMenu,
-      plats: plats,
-    })
-      .then((response) => {
-        console.log("Menu updated successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error updating menu:", error);
+  const handleUpdateMenu = async () => {
+    try {
+      // Récupérer les IDs des plats sélectionnés
+      const platIDs = [...selectedEntree, ...selectedPlat, ...selectedDessert, ...selectedBoisson].map(plat => plat.id);
+    
+      // Appeler la fonction d'API pour mettre à jour le menu
+      const response = await updateMenu({
+        id: id,
+        newMenu: nomMenu,
+        newPrix: prixMenu,
+        plats: platIDs,
       });
+  
+      console.log("Menu updated successfully:", response.data);
+    } catch (error) {
+      console.error("Error updating menu:", error);
+    }
   };
-
+  
+  
   return (
     <>
       <div className="py-2 rounded-sm border shadow-md  w-full">
