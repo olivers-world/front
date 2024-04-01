@@ -1,8 +1,9 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { useState } from "react";
 import Accordeon from "./Accordeon";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 import InputItemMenuElement from "./InputItemMenuElement";
+import InputItemPriceMenuElement from "./InputItemPriceMenuElement";
 
 const AddMenuElementBlock = ({ dataItem, getData }) => {
   const [inputNewElement, setInputNewElement] = useState("");
@@ -15,7 +16,7 @@ const AddMenuElementBlock = ({ dataItem, getData }) => {
     // envoyer dataItem.id pour l'id du menu et inputValue en nouvel item
 
     // rappeler l'api pour recharger la liste des menus
-    enqueueSnackbar('L\'élément a bien été ajouté', {variant:'success'})
+    enqueueSnackbar("L'élément a bien été ajouté", { variant: "success" });
     // enqueueSnackbar('L\'élément n\'a pas bien été ajouté', {variant:'error'})
 
     getData();
@@ -23,13 +24,22 @@ const AddMenuElementBlock = ({ dataItem, getData }) => {
 
   return (
     <div key={`menuItem-${dataItem.id}`} className="flex-1 ">
-      <Accordeon textcolor="black" title={dataItem.category}>
-
+      <Accordeon
+        className="max-w-[340px]"
+        textcolor="black"
+        title={dataItem.category}
+      >
         <div className="">
           {dataItem.items.map((item) => (
-            <InputItemMenuElement key={item} item={item}/>
+            <div
+              className="flex gap-4 justify-between "
+              key={`menuItem-${item}`}
+            >
+              <InputItemMenuElement item={item} />
+              <InputItemPriceMenuElement item={item} price={18} />
+            </div>
           ))}
-          
+
           <div className="flex justify-center mt-4">
             <input
               data-category={dataItem.category}
@@ -56,9 +66,9 @@ AddMenuElementBlock.propTypes = {
   dataItem: PropTypes.shape({
     category: PropTypes.string,
     id: PropTypes.number,
-    items: PropTypes.arrayOf(PropTypes.string)
+    items: PropTypes.arrayOf(PropTypes.string),
   }),
-  getData: PropTypes.func
-}
+  getData: PropTypes.func,
+};
 
 export default AddMenuElementBlock;
