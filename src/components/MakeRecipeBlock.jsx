@@ -21,9 +21,9 @@ const MakeRecipeBlock = ({
       {dataItem.items.map((item) => {
         return (
           <div
-          key={`data-item-${item}`}
-          className={`cursor-pointer ${selectedItems.includes(item) ? "selected" : ""}`}
-          onClick={() => toggleSelection(item)}>
+            key={`data-item-${item}`}
+            className={`cursor-pointer ${selectedItems.includes(item) ? "selected" : ""}`}
+            onClick={() => toggleSelection(item)}>
             {item} 
           </div>
         );
@@ -40,7 +40,7 @@ MakeRecipeBlock.propTypes = {
     items: PropTypes.arrayOf(PropTypes.string)
   }),
   removeSelectedItem: PropTypes.func,
-  selectedItems: PropTypes.string,
+  selectedItems: PropTypes.arrayOf(PropTypes.string), // Correction du PropTypes
 };
 
 export default MakeRecipeBlock;

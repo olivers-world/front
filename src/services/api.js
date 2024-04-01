@@ -107,8 +107,8 @@ export const deletePlat = async (id) => {
 
 // Menus
 
-export const createMenu = async (menu, prix) => {
-  return (await api.post("/menu/create", { menu, prix })).data;
+export const createMenu = async (menu, prix, plats) => {
+  return (await api.post("/menu/create", { menu, prix, plats })).data;
 };
 
 export const getMenu = async () => {

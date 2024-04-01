@@ -1,57 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MakeRecipeBlock from "./MakeRecipeBlock";
-import MenuOfTheDay from "./MenuOfTheDay";
-
-const dataItems = [
-  {
-    id: 1,
-    category: "Entrées",
-    items: [
-      "Trio de bruschettas",
-      "Salade de chèvre chaud",
-      "Assiette de charcuterie",
-      "Carpaccio de saumon",
-      "Soupe à l'oignon gratinée",
-    ],
-  },
-  {
-    id: 2,
-    category: "Plats Principaux",
-    items: [
-      "Filet mignon",
-      "Poulet rôti",
-      "Pâtes aux fruits de mer",
-      "Ratatouille",
-      "Tarte à l'agneau",
-    ],
-  },
-  {
-    id: 3,
-    category: "Desserts",
-    items: [
-      "Tiramisu",
-      "Crème brûlée",
-      "Fondant au chocolat",
-      "Tarte aux pommes",
-      "Profiteroles",
-    ],
-  },
-  {
-    id: 4,
-    category: "Boissons",
-    items: [
-      "Vin rouge",
-      "Vin blanc",
-      "Bières artisanales",
-      "Cocktails",
-      "Jus de fruits frais",
-    ],
-  },
-];
+import { getPlatsByTypes, createMenu } from "@/services/api.js";
 
 const MakeRecipeT = () => {
   const [nomMenu, setNomMenu] = useState("");
-  const [prixMenu, setPrixMenu] = useState();
+  const [prixMenu, setPrixMenu] = useState("");
+  const [dataItems, setDataItems] = useState([]);
+  const [platsResponse, setPlatsResponse] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getPlatsByTypes();
+        if (response) {
+          setPlatsResponse(response);
+          const platsData = response;
+          const formattedData = Object.keys(platsData).map((category) => ({
+            category,
+            items: platsData[category].map((plat) => plat.Nom),
+          }));
+          setDataItems(formattedData);
+        } else {
+          console.error("Plats response is undefined.");
+        }
+      } catch (error) {
+        console.error("Error fetching plats by types:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -63,7 +41,41 @@ const MakeRecipeT = () => {
 
   const removeSelectedItem = (item) => {
     if (selectedItems.includes(item)) {
-      setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+      setSelectedItems(
+        selectedItems.filter((selectedItem) => selectedItem !== item)
+      );
+    }
+  };
+
+  const createMenuHandler = async () => {
+    try {
+      // Check if required fields are filled
+      if (!nomMenu || !prixMenu) {
+        console.error("Nom du menu et prix sont requis");
+        return;
+      }
+
+      // Create the menu
+      const platsIds = selectedItems.map((selectedItem) => {
+        // Retrieve the plat ID using selected item's name
+        let platId = null;
+        Object.values(platsResponse).forEach((platsCategory) => {
+          const plat = platsCategory.find((plat) => plat.Nom === selectedItem);
+          if (plat) {
+            platId = plat.ID;
+          }
+        });
+        return platId;
+      });
+      await createMenu(nomMenu, prixMenu, platsIds);
+      console.log("Menu créé avec succès");
+
+      // Reset fields and selected items
+      setNomMenu("");
+      setPrixMenu("");
+      setSelectedItems([]);
+    } catch (error) {
+      console.error("Error creating menu:", error);
     }
   };
 
@@ -89,7 +101,7 @@ const MakeRecipeT = () => {
         {dataItems.map((dataItem) => {
           return (
             <MakeRecipeBlock
-            key={`dataItem-MR-${dataItem.id}`}
+              key={`dataItem-MR-${dataItem.category}`}
               removeSelectedItem={removeSelectedItem}
               addSelectedItem={addSelectedItem}
               selectedItems={selectedItems}
@@ -99,12 +111,14 @@ const MakeRecipeT = () => {
         })}
       </div>
 
-    <div className="flex justify-center">
-        <button className="border mt-6 px-2 py-2 font-medium rounded-sm text-primary hover:text-white hover:bg-primary">
-            Ajouter le menu à la carte
+      <div className="flex justify-center">
+        <button
+          className="border mt-6 px-2 py-2 font-medium rounded-sm text-primary hover:text-white hover:bg-primary"
+          onClick={createMenuHandler}
+        >
+          Ajouter le menu à la carte
         </button>
-    </div>
-
+      </div>
     </>
   );
 };
