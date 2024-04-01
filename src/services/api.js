@@ -133,6 +133,10 @@ export const getFormuleDuJour = async () => {
   return (await api.get("/formule/get")).data;
 };
 
+export const getMenuIDFormuleDuJour = async () => {
+  return (await api.get("/formule/getId")).data;
+};
+
 export const updateFormuleDuJour = async (menuID, newMenuID, newDate) => {
   return (await api.put("/formule/update", { menuID, newMenuID, newDate }))
     .data;

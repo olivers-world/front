@@ -1,8 +1,16 @@
 import PropTypes from "prop-types";
 import Accordeon from "./Accordeon";
 import { useState, useEffect } from "react";
-import { updateMenu, deleteMenu } from "@/services/api";
+import {
+  updateMenu,
+  deleteMenu,
+  updateFormuleDuJour,
+  deleteFormuleDuJour,
+  createFormuleDuJour,
+  getMenuIDFormuleDuJour,
+} from "@/services/api";
 import { useSnackbar } from "notistack";
+import dayjs from "dayjs";
 
 const EditMenuBlock = ({ dataMenu, dataItems }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -13,6 +21,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
   const [selectedBoisson, setSelectedBoisson] = useState([]);
   const [nomMenu, setNomMenu] = useState("");
   const [prixMenu, setPrixMenu] = useState(0);
+  const [isFormuleDuJour, setIsFormuleDuJour] = useState(false);
   const id = dataMenu.id;
 
   // Mettre à jour les états des plats sélectionnés lorsque les données du menu changent
@@ -23,7 +32,20 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
     setSelectedBoisson(dataMenu.boissons);
     setNomMenu(dataMenu.name);
     setPrixMenu(dataMenu.price);
-  }, [dataMenu]);
+
+    const fetchFormuleDuJour = async () => {
+      try {
+        const response = await getMenuIDFormuleDuJour();
+        if (response.menuID == id) {
+          setIsFormuleDuJour(true);
+        }
+      } catch (error) {
+        console.error("Error fetching formule du jour:", error);
+      }
+    };
+
+    fetchFormuleDuJour();
+  }, [dataMenu, id]);
 
   // Fonction pour gérer la sélection d'un item d'un type donné
   const handleItemClick = (item, type) => {
@@ -80,7 +102,9 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
       enqueueSnackbar("Menu modifié!", { variant: "success" });
     } catch (error) {
       console.error("Error updating menu:", error);
-      enqueueSnackbar("Erreur pendant la modification du menu", { variant: "error" });
+      enqueueSnackbar("Erreur pendant la modification du menu", {
+        variant: "error",
+      });
     }
   };
 
@@ -91,6 +115,43 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
       // Ajoutez ici toute logique supplémentaire après la suppression du menu
     } catch (error) {
       console.error("Error deleting menu:", error);
+    }
+  };
+
+  const handleToggleFormuleDuJour = async (isChecked) => {
+    try {
+      if (isChecked) {
+        // Vérifier si la form  ule du jour existe déjà pour aujourd'hui
+        const response = await getMenuIDFormuleDuJour();
+        const today = dayjs().format("YYYY-MM-DD");
+
+        if (response.menuID == null) {
+          await createFormuleDuJour(id, today);
+          setIsFormuleDuJour(true);
+          enqueueSnackbar("Formule du jour créée avec succès", {
+            variant: "success",
+          });
+        } else {
+          await deleteFormuleDuJour(response.menuID);
+          await createFormuleDuJour(id, today);
+          setIsFormuleDuJour(true);
+          enqueueSnackbar("Menu ajouté à la formule du jour", {
+            variant: "success",
+          });
+        }
+      } else {
+        // Si la case est décochée, supprimer le menu de la "Formule du jour"
+        await deleteFormuleDuJour(id);
+        setIsFormuleDuJour(false);
+        enqueueSnackbar("Menu retiré de la formule du jour", {
+          variant: "info",
+        });
+      }
+    } catch (error) {
+      console.error("Error toggling formule du jour:", error);
+      enqueueSnackbar("Erreur lors de la mise à jour de la formule du jour", {
+        variant: "error",
+      });
     }
   };
 
@@ -146,8 +207,13 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
               onChange={(e) => setPrixMenu(e.target.value)}
             />
             <div className="flex gap-1 items-center mb-2">
-              <input type="checkbox" id={`menu_${id}`} />
-              <label htmlFor={`menu_${id}`}>Mettre en formule du jour</label>
+              <input
+                type="checkbox"
+                id={`menu_${id}`}
+                checked={isFormuleDuJour}
+                onChange={(e) => handleToggleFormuleDuJour(e.target.checked)}
+              />
+              <label htmlFor={`menu_${id}`}>Formule du jour</label>
             </div>
           </div>
 
