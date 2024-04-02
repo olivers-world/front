@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types"
 import { useState, useEffect } from "react";
 import { getReservations, deleteReservation, updateReservation } from "@/services/api.js";
@@ -124,7 +125,8 @@ ReservationBlock.propTypes = {
   initialPeopleNumber: PropTypes.number,
   initialTime: PropTypes.any,
   DateHeure: PropTypes.any,
-  onUpdate: PropTypes.func
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 //////////////////// PARENT
