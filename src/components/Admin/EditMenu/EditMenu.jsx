@@ -20,18 +20,18 @@ const EditMenu = () => {
             id: menu.ID.toString(),
             price: parseFloat(menu.Prix),
             name: menu.Menu,
-            entrees: menu.Plats
-              .filter((plat) => plat.Types === "Entrées")
-              .map((plat) => ({ id: plat.ID, name: plat.Nom })),
-            plats: menu.Plats
-              .filter((plat) => plat.Types === "Plats")
-              .map((plat) => ({ id: plat.ID, name: plat.Nom })),
-            desserts: menu.Plats
-              .filter((plat) => plat.Types === "Desserts")
-              .map((plat) => ({ id: plat.ID, name: plat.Nom })),
-            boissons: menu.Plats
-              .filter((plat) => plat.Types === "Boissons")
-              .map((plat) => ({ id: plat.ID, name: plat.Nom })),
+            entrees: menu.Plats.filter((plat) => plat.Types === "Entrées").map(
+              (plat) => ({ id: plat.ID, name: plat.Nom })
+            ),
+            plats: menu.Plats.filter((plat) => plat.Types === "Plats").map(
+              (plat) => ({ id: plat.ID, name: plat.Nom })
+            ),
+            desserts: menu.Plats.filter(
+              (plat) => plat.Types === "Desserts"
+            ).map((plat) => ({ id: plat.ID, name: plat.Nom })),
+            boissons: menu.Plats.filter(
+              (plat) => plat.Types === "Boissons"
+            ).map((plat) => ({ id: plat.ID, name: plat.Nom })),
           };
         });
         // console.log(formattedMenuData);
@@ -39,15 +39,21 @@ const EditMenu = () => {
         const formattedDataItems = Object.keys(itemsData).map((category) => {
           return {
             category: category,
-            items: itemsData[category].map((plat) => ({ id: plat.ID, name: plat.Nom })),
+            items: itemsData[category].map((plat) => ({
+              id: plat.ID,
+              name: plat.Nom,
+            })),
           };
-        });        
+        });
         // console.log(formattedDataItems);
 
         setDataItems(formattedDataItems);
         setDataMenu(formattedMenuData);
       } catch (error) {
-        console.error("Erreur lors de la récupération des données des menus :", error);
+        console.error(
+          "Erreur lors de la récupération des données des menus :",
+          error
+        );
       }
     };
 

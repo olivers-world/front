@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getReservations, getMostRecentInventaire, getMostRecentNettoyage, createNettoyage, createInventaire } from "@/services/api"; // Exemple, ajustez selon votre structure
+import {
+  getReservations,
+  getMostRecentInventaire,
+  getMostRecentNettoyage,
+  createNettoyage,
+  createInventaire,
+} from "@/services/api"; // Exemple, ajustez selon votre structure
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime"
-dayjs.extend(relativeTime)
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
-import DashboardInfo from "../components/DashboardInfo";
-import DashboardInfoLine from "../components/DashboardInfoLine";
-import InfoBullet from "../components/InfoBullet";
-import ReservationChart from "../components/ReservationChart";
-import InputBullet from "../components/InputBullet";
+import DashboardInfo from "./DashboardInfo";
+import DashboardInfoLine from "./DashboardInfoLine";
+import InfoBullet from "../../ui/InfoBullet";
+import ReservationChart from "@/components/Admin/Dashboard/ReservationChart";
+import InputBullet from "../../ui/InputBullet";
 
 const Dashboard = () => {
   const [hasChanged, setHasChanged] = useState(false);
@@ -24,9 +30,22 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchReservationsData = async () => {
       const today = new Date(new Date().setHours(0, 0, 0, 0));
-      const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
-      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59);
+      const firstDayOfWeek = new Date(
+        today.setDate(today.getDate() - today.getDay())
+      );
+      const firstDayOfMonth = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
+      const lastDayOfMonth = new Date(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        0,
+        23,
+        59,
+        59
+      );
 
       const formatDate = (date) => date.toISOString().split("T")[0];
       const formatDateTime = (date, time) => `${formatDate(date)}T${time}`;
@@ -52,31 +71,44 @@ const Dashboard = () => {
         setReservationsThisWeek(weeklyReservations.length);
         setReservationsThisMonth(monthlyReservations.length);
       } catch (error) {
-        console.error("Erreur lors de la récupération des données de réservation", error);
+        console.error(
+          "Erreur lors de la récupération des données de réservation",
+          error
+        );
       }
     };
 
     const fetchInventaireData = async () => {
       try {
         const inventaire = await getMostRecentInventaire();
-        const mostRecentDateFromNow = dayjs(inventaire.Date).diff(dayjs(),"day").valueOf();
+        const mostRecentDateFromNow = dayjs(inventaire.Date)
+          .diff(dayjs(), "day")
+          .valueOf();
 
         setInventaireCount(mostRecentDateFromNow);
         console.log(mostRecentDateFromNow);
       } catch (error) {
-        console.error("Erreur lors de la récupération des données des inventaires", error);
+        console.error(
+          "Erreur lors de la récupération des données des inventaires",
+          error
+        );
       }
     };
 
     const fetchNettoyageData = async () => {
       try {
         const nettoyage = await getMostRecentNettoyage();
-        const mostRecentDateFromNow = dayjs(nettoyage.Date).diff(dayjs(),"day").valueOf();
+        const mostRecentDateFromNow = dayjs(nettoyage.Date)
+          .diff(dayjs(), "day")
+          .valueOf();
 
         setNettoyageCount(mostRecentDateFromNow);
         console.log(mostRecentDateFromNow);
       } catch (error) {
-        console.error("Erreur lors de la récupération des données des nettoyages", error);
+        console.error(
+          "Erreur lors de la récupération des données des nettoyages",
+          error
+        );
       }
     };
 
@@ -96,23 +128,26 @@ const Dashboard = () => {
   }, [inventaireCount, nettoyageCount, hasChanged]);
 
   const updateValues = async () => {
-      console.log("Envoyer nouvelles données");
-      try {
-        const dateInventaire = dayjs().add(inventaireCount, 'day').format("YYYY-MM-DD");
-        const dateNettoyage = dayjs().add(nettoyageCount, 'day').format("YYYY-MM-DD");
+    console.log("Envoyer nouvelles données");
+    try {
+      const dateInventaire = dayjs()
+        .add(inventaireCount, "day")
+        .format("YYYY-MM-DD");
+      const dateNettoyage = dayjs()
+        .add(nettoyageCount, "day")
+        .format("YYYY-MM-DD");
 
-        const inventaire = await createInventaire(dateInventaire);
-        const nettoyage = await createNettoyage(dateNettoyage);
-      } catch (error) {
-        console.error("Erreur lors de l'envoi des nouvelles données", error);
-      }
+      const inventaire = await createInventaire(dateInventaire);
+      const nettoyage = await createNettoyage(dateNettoyage);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi des nouvelles données", error);
+    }
   };
 
   const handleChange = (newValue, setStateFunction) => {
     setHasChanged(true);
     setStateFunction(newValue);
   };
-
 
   return (
     <>
@@ -136,13 +171,20 @@ const Dashboard = () => {
 
       <DashboardInfo width="w-full">
         <span>Refaire l&apos;inventaire dans </span>
-        <InputBullet info={inventaireCount} onChange={(value) => handleChange(value, setInventaireCount)} />
+        <InputBullet
+          info={inventaireCount}
+          onChange={(value) => handleChange(value, setInventaireCount)}
+        />
       </DashboardInfo>
 
       <DashboardInfo width="w-fit">
         <span>
           Refaire le grand nettoyage de la cuisine dans
-          <InputBullet trapped={true} info={nettoyageCount} onChange={(value) => handleChange(value, setNettoyageCount)} />
+          <InputBullet
+            trapped={true}
+            info={nettoyageCount}
+            onChange={(value) => handleChange(value, setNettoyageCount)}
+          />
           jours
         </span>
       </DashboardInfo>

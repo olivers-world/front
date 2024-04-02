@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import "react-calendar/dist/Calendar.css";
 
-import Hero from "../components/Hero.jsx";
+import Hero from "../components/layout/Sections/Hero.jsx";
 
 import img from "../images/img-1.png";
 import img2 from "../images/img-2.png";
@@ -13,7 +13,7 @@ import example5 from "../images/imghori1-min.png";
 import example6 from "../images/imghori2-min.jpg";
 import example7 from "../images/imghori3-min.jpg";
 
-import HomesectionPopImage from "@/components/HomesectionPopImage.jsx";
+import HomesectionPopImage from "@/components/layout/Sections/HomesectionPopImage.jsx";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";

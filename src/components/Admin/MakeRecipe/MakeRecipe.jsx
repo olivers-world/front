@@ -1,5 +1,5 @@
-import Accordeon from "./Accordeon";
-import MenuOfTheDay from "./MenuOfTheDay";
+import Accordeon from "../../ui/Accordeon";
+import MenuOfTheDay from "../../ui/MenuOfTheDay";
 import { useState } from "react";
 
 const MakeRecipe = () => {

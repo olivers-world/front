@@ -30,15 +30,14 @@ const ReservationChart = () => {
 
   let options = {
     scales: {
-        y: {
-            min: 0,
-            ticks: {
-                stepSize: 1
-            }
-        }
-    }
+      y: {
+        min: 0,
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
   };
-
 
   useEffect(() => {
     const fetchReservations = async () => {

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Accordeon from "./Accordeon";
+import Accordeon from "../../ui/Accordeon";
 
 const MakeRecipeBlock = ({
   dataItem,
@@ -7,7 +7,6 @@ const MakeRecipeBlock = ({
   removeSelectedItem,
   selectedItems,
 }) => {
-
   const toggleSelection = (item) => {
     console.log(item);
     selectedItems.includes(item)
@@ -22,9 +21,12 @@ const MakeRecipeBlock = ({
         return (
           <div
             key={`data-item-${item}`}
-            className={`cursor-pointer ${selectedItems.includes(item) ? "selected" : ""}`}
-            onClick={() => toggleSelection(item)}>
-            {item} 
+            className={`cursor-pointer ${
+              selectedItems.includes(item) ? "selected" : ""
+            }`}
+            onClick={() => toggleSelection(item)}
+          >
+            {item}
           </div>
         );
       })}
@@ -37,7 +39,7 @@ MakeRecipeBlock.propTypes = {
   dataItem: PropTypes.shape({
     category: PropTypes.string,
     id: PropTypes.number,
-    items: PropTypes.arrayOf(PropTypes.string)
+    items: PropTypes.arrayOf(PropTypes.string),
   }),
   removeSelectedItem: PropTypes.func,
   selectedItems: PropTypes.arrayOf(PropTypes.string), // Correction du PropTypes

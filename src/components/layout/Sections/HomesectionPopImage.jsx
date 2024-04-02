@@ -1,9 +1,9 @@
-import example1 from "../images/example-1.png";
-import example2 from "../images/example-2.png";
-import example3 from "../images/example-3.png";
-import example4 from "../images/example-4.png";
-import example5 from "../images/imghori1-min.png";
-import example6 from "../images/imghori2-min.jpg";
+import example1 from "@/images/example-1.png";
+import example2 from "@/images/example-2.png";
+import example3 from "@/images/example-3.png";
+import example4 from "@/images/example-4.png";
+import example5 from "@/images/imghori1-min.png";
+import example6 from "@/images/imghori2-min.jpg";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";

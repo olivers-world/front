@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import Accordeon from "./Accordeon";
+import Accordeon from "../../ui/Accordeon";
 import { useSnackbar } from "notistack";
 import InputItemMenuElement from "./InputItemMenuElement";
 import InputItemPriceMenuElement from "./InputItemPriceMenuElement";
@@ -13,29 +13,45 @@ const AddMenuElementBlock = ({ dataItem, getData }) => {
 
   const sendNewElement = async () => {
     if (!inputNewElement.trim() || !inputNewPrice.trim()) {
-      enqueueSnackbar("Le nom et le prix du plat sont requis", { variant: "warning" });
+      enqueueSnackbar("Le nom et le prix du plat sont requis", {
+        variant: "warning",
+      });
       return;
     }
     try {
-      await createPlat(inputNewElement, parseFloat(inputNewPrice), dataItem.category);
+      await createPlat(
+        inputNewElement,
+        parseFloat(inputNewPrice),
+        dataItem.category
+      );
       enqueueSnackbar("L'élément a bien été ajouté", { variant: "success" });
       setInputNewElement(""); // Clear the input field
       setInputNewPrice(""); // Clear the price field
       getData(); // Refresh the list
     } catch (error) {
       console.error(error);
-      enqueueSnackbar("L'élément n'a pas bien été ajouté", { variant: "error" });
+      enqueueSnackbar("L'élément n'a pas bien été ajouté", {
+        variant: "error",
+      });
     }
   };
 
   return (
     <div className="flex-1">
-      <Accordeon className="max-w-[340px]" textcolor="black" title={dataItem.category}>
+      <Accordeon
+        className="max-w-[340px]"
+        textcolor="black"
+        title={dataItem.category}
+      >
         <div>
           {dataItem.items.map((item, index) => (
             <div className="flex gap-4 justify-between" key={index}>
               <InputItemMenuElement item={item} refreshData={getData} />
-              <InputItemPriceMenuElement item={item} price={item.Prix} refreshData={getData} />
+              <InputItemPriceMenuElement
+                item={item}
+                price={item.Prix}
+                refreshData={getData}
+              />
             </div>
           ))}
           <div className="flex justify-center mt-4">
@@ -69,13 +85,13 @@ const AddMenuElementBlock = ({ dataItem, getData }) => {
 AddMenuElementBlock.propTypes = {
   dataItem: PropTypes.shape({
     category: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      Nom: PropTypes.string.isRequired,
-      Prix: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]).isRequired,
-    })).isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        Nom: PropTypes.string.isRequired,
+        Prix: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          .isRequired,
+      })
+    ).isRequired,
   }),
   getData: PropTypes.func.isRequired,
 };

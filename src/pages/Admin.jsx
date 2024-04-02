@@ -1,10 +1,10 @@
-import Dashboard from "../components/Dashboard";
-import MakeRecipeT from "@/components/MakeRecipeT";
+import Dashboard from "../components/Admin/Dashboard/Dashboard";
+import MakeRecipeT from "../components/Admin/MakeRecipe/MakeRecipeT";
 import { useState, useEffect } from "react";
-import EditReservation from "@/components/EditReservation";
-import Avis from "@/components/Avis";
-import EditMenu from "@/components/EditMenu";
-import AddMenuElement from "@/components/AddMenuElement";
+import EditReservation from "../components/Admin/EditReservation/EditReservation";
+import Avis from "../components/Admin/Avis/Avis";
+import EditMenu from "../components/Admin/EditMenu/EditMenu";
+import AddMenuElement from "../components/Admin/AddMenuElement/AddMenuElement";
 
 const Section = ({
   children,

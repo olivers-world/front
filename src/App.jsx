@@ -6,8 +6,8 @@ import Menu from "./pages/Menu.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Admin from "./pages/Admin.jsx";
-import Layout from "./components/Layout.jsx";
-import RequireAuth from "./components/RequireAuth";
+import Layout from "./components/layout/Layout.jsx";
+import RequireAuth from "./components/back/RequireAuth.jsx";
 
 function App() {
   return (

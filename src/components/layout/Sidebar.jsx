@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
@@ -30,16 +30,24 @@ const Sidebar = ({ expanded, closeSidebar }) => {
     >
       <div className="my-32 flex flex-col w-full h-full text-xl">
         <div className="py-4 px-8 border-b-0 uppercase font-medium border">
-          <NavLink onClick={closeSidebar} to="/reservation">Réservation</NavLink>
+          <NavLink onClick={closeSidebar} to="/reservation">
+            Réservation
+          </NavLink>
         </div>
         <div className="py-4 px-8 uppercase font-medium border-b border">
-          <NavLink onClick={closeSidebar}  to="/menu">Menu</NavLink>
+          <NavLink onClick={closeSidebar} to="/menu">
+            Menu
+          </NavLink>
         </div>
         <div className="py-4 px-8 uppercase font-medium border-b border">
-          <NavLink onClick={closeSidebar}  to="/contact">Contact</NavLink>
+          <NavLink onClick={closeSidebar} to="/contact">
+            Contact
+          </NavLink>
         </div>
         <div className="py-4 px-8 uppercase font-medium border-b border">
-          <NavLink onClick={closeSidebar}  to="/login">Connexion</NavLink>
+          <NavLink onClick={closeSidebar} to="/login">
+            Connexion
+          </NavLink>
         </div>
       </div>
     </div>
@@ -47,7 +55,7 @@ const Sidebar = ({ expanded, closeSidebar }) => {
 };
 
 Sidebar.propTypes = {
-  expanded: PropTypes.bool
-}
+  expanded: PropTypes.bool,
+};
 
 export default Sidebar;

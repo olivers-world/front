@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Accordeon from "./Accordeon";
+import Accordeon from "../../ui/Accordeon";
 import { useState, useEffect } from "react";
 import {
   updateMenu,

@@ -1,4 +1,4 @@
-import feuille from "../images/feuille.png";
+import feuille from "@/images/feuille.png";
 
 const MenuOfTheDay = ({
   displayFeuille = true,
@@ -40,7 +40,10 @@ const MenuOfTheDay = ({
         {selectedBoisson.length > 0 && (
           <div className="py-2">
             {selectedBoisson.map((boisson, index) => (
-              <p key={index} className={selectedBoisson.length > 3 ? "text-sm" : ""}>
+              <p
+                key={index}
+                className={selectedBoisson.length > 3 ? "text-sm" : ""}
+              >
                 {boisson}
               </p>
             ))}

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import logo from "../assets/logo.svg";
+import logo from "@/assets/logo.svg";
 import { NavLink, useLocation } from "react-router-dom";
-import ConnexionMenu from "./ConnexionMenu";
-import Burger from "./Burger";
+import ConnexionMenu from "../ui/ConnexionMenu";
+import Burger from "../ui/Burger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -15,7 +15,7 @@ const Navbar = ({ position, linkscolor }) => {
 
   const closeConnexionMenu = () => {
     setDisplayConnexionMenu(false);
-  }
+  };
 
   const router = useLocation();
 
@@ -108,7 +108,7 @@ const Navbar = ({ position, linkscolor }) => {
               />
             </svg>
 
-            <ConnexionMenu  displayConnexionMenu={displayConnexionMenu} />
+            <ConnexionMenu displayConnexionMenu={displayConnexionMenu} />
           </div>
         </div>
         <Burger color={linkscolor == "white" ? "white" : "primary"}></Burger>

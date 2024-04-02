@@ -1,6 +1,6 @@
-import insta from "../images/insta.svg";
-import fb from "../images/fb.svg";
-import tripadvisor from "../images/tripadvisor.svg";
+import insta from "@/images/insta.svg";
+import fb from "@/images/fb.svg";
+import tripadvisor from "@/images/tripadvisor.svg";
 
 function Footer() {
   return (

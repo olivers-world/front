@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import menuTemplate from "../images/menuTemplate.png";
-import feuille from "../images/feuille.png";
+import menuTemplate from "@/images/menuTemplate.png";
+import feuille from "@/images/feuille.png";
 
 const MenuLine = ({ nomPlat, prixPlat }) => {
   // Max 9 lignes sur un menu

@@ -1,13 +1,13 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "@/components/layout/Sidebar";
 
 const Burger = ({ color = "white" }) => {
   const [expanded, setExpanded] = useState(false);
 
   const closeSidebar = () => {
     setExpanded(false);
-  }
+  };
 
   const handleClick = () => {
     setExpanded(!expanded);
@@ -46,7 +46,7 @@ const Burger = ({ color = "white" }) => {
 };
 
 Burger.propTypes = {
-  color: PropTypes.string
-}
+  color: PropTypes.string,
+};
 
 export default Burger;
