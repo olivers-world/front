@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import {
   updateMenu,
   deleteMenu,
-  updateFormuleDuJour,
   deleteFormuleDuJour,
   createFormuleDuJour,
   getMenuIDFormuleDuJour,
@@ -12,7 +11,7 @@ import {
 import { useSnackbar } from "notistack";
 import dayjs from "dayjs";
 
-const EditMenuBlock = ({ dataMenu, dataItems }) => {
+const EditMenuBlock = ({ dataMenu, dataItems, isFormuleDuJour }) => {
   const { enqueueSnackbar } = useSnackbar();
   // Récupérer informations du menu
   const [selectedEntree, setSelectedEntree] = useState([]);
@@ -21,7 +20,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
   const [selectedBoisson, setSelectedBoisson] = useState([]);
   const [nomMenu, setNomMenu] = useState("");
   const [prixMenu, setPrixMenu] = useState(0);
-  const [isFormuleDuJour, setIsFormuleDuJour] = useState(false);
+  const [formuleDuJour, setFormuleDuJour] = useState(false);
   const id = dataMenu.id;
 
   // Mettre à jour les états des plats sélectionnés lorsque les données du menu changent
@@ -37,7 +36,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
       try {
         const response = await getMenuIDFormuleDuJour();
         if (response.menuID == id) {
-          setIsFormuleDuJour(true);
+          setFormuleDuJour(true);
         }
       } catch (error) {
         console.error("Error fetching formule du jour:", error);
@@ -127,14 +126,14 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
 
         if (response.menuID == null) {
           await createFormuleDuJour(id, today);
-          setIsFormuleDuJour(true);
+          setFormuleDuJour(true);
           enqueueSnackbar("Formule du jour créée avec succès", {
             variant: "success",
           });
         } else {
           await deleteFormuleDuJour(response.menuID);
           await createFormuleDuJour(id, today);
-          setIsFormuleDuJour(true);
+          setFormuleDuJour(true);
           enqueueSnackbar("Menu ajouté à la formule du jour", {
             variant: "success",
           });
@@ -142,7 +141,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
       } else {
         // Si la case est décochée, supprimer le menu de la "Formule du jour"
         await deleteFormuleDuJour(id);
-        setIsFormuleDuJour(false);
+        setFormuleDuJour(false);
         enqueueSnackbar("Menu retiré de la formule du jour", {
           variant: "info",
         });
@@ -210,7 +209,7 @@ const EditMenuBlock = ({ dataMenu, dataItems }) => {
               <input
                 type="checkbox"
                 id={`menu_${id}`}
-                checked={isFormuleDuJour}
+                checked={formuleDuJour}
                 onChange={(e) => handleToggleFormuleDuJour(e.target.checked)}
               />
               <label htmlFor={`menu_${id}`}>Formule du jour</label>
@@ -278,6 +277,7 @@ EditMenuBlock.propTypes = {
       })
     ),
   }),
+  isFormuleDuJour: PropTypes.number,
 };
 
 export default EditMenuBlock;

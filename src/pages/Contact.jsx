@@ -1,4 +1,46 @@
+import { useState } from 'react';
+
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        console.log('Message envoyé avec succès !');
+        // Réinitialiser le formulaire si nécessaire
+        setFormData({
+          name: '',
+          email: '',
+          message: ''
+        });
+      } else {
+        console.error('Erreur lors de l\'envoi du message.');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message :', error);
+    }
+  };
+
   return (
     <>
       <section className="min-h-screen mt-6 md:mt-0" id="contact">
@@ -104,7 +146,7 @@ const Contact = () => {
                 </ul>
               </div>
               <div className="card h-fit max-w-6xl" id="form">
-                <form id="contactForm">
+                <form id="contactForm" onSubmit={handleSubmit}>
                   <div className="mb-6">
                     <div className="mx-0 mb-1 sm:mb-4">
                       <div className="mx-0 mb-1 sm:mb-4">
@@ -119,6 +161,9 @@ const Contact = () => {
                           placeholder="Votre nom"
                           className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md :text-gray-300 sm:mb-0"
                           name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
                         />
                       </div>
                       <div className="mx-0 mb-1 sm:mb-4">
@@ -133,6 +178,9 @@ const Contact = () => {
                           placeholder="Votre adresse email"
                           className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md :text-gray-300 sm:mb-0"
                           name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -148,6 +196,9 @@ const Contact = () => {
                         rows="5"
                         placeholder="Votre message"
                         className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md :text-gray-300 sm:mb-0"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
                       ></textarea>
                     </div>
                   </div>
