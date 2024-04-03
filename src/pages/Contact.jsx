@@ -1,9 +1,7 @@
-
-
 const Contact = () => {
   return (
     <>
-      <section className="min-h-screen" id="contact">
+      <section className="min-h-screen mt-6 md:mt-0" id="contact">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-20">
           <div className="flex items-stretch justify-center">
             <div className="grid md:grid-cols-2 md:gap-16">

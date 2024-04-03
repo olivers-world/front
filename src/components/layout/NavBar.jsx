@@ -68,9 +68,9 @@ const Navbar = ({ position, linkscolor }) => {
 
   return (
     <div
-      className={`${position}  z-30 w-full flex justify-between items-center text-${linkscolor} my-3`}
+      className={`${position} h-[60px] sm:h-[110px] z-30 w-full flex justify-between items-center text-${linkscolor} pt-2`}
     >
-      <div className="w-1/2 flex justify-evenly opacity-0 sm:opacity-100">
+      <div className="flex-1 flex justify-evenly opacity-0 sm:opacity-100">
         <NavLink to="/reservation" className="leftnavelt font-medium">
           Réservation
         </NavLink>
@@ -79,12 +79,14 @@ const Navbar = ({ position, linkscolor }) => {
         </NavLink>
       </div>
 
-      <NavLink to="/" className="logo z-[60]">
-        <img src={logo} className="w-24" alt="logo" />
-      </NavLink>
+      <div className="min-w-12 w-24 h-full relative">
+        <NavLink to="/" className="absolute logo z-[60]">
+          <img src={logo} className="w-24" alt="logo" />
+        </NavLink>
+      </div>
 
-      <div className="relative w-1/2 ">
-        <div className=" justify-evenly  hidden sm:flex">
+      <div className="relative flex justify-center flex-1 ">
+        <div className="hidden justify-evenly w-full sm:flex">
           <NavLink to="/contact" className="rightnavelt font-medium">
             Contact
           </NavLink>

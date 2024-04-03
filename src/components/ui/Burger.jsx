@@ -18,7 +18,7 @@ const Burger = ({ color = "white" }) => {
       <div
         className={`relative text-primary ${
           expanded ? "-rotate-90 bg-white" : ""
-        } transition-all duration-1000 float-right mr-8 origin-center sm:hidden -translate-x-1/2 cursor-pointer w-fit h-fit font-medium text-xl z-50`}
+        } transition-all duration-1000 float-right md:mr-8 origin-center sm:hidden  cursor-pointer w-fit h-fit font-medium text-xl z-50`}
         onClick={() => handleClick()}
       >
         <div className="flex flex-col gap-1">

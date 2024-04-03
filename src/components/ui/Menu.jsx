@@ -26,7 +26,7 @@ const Menu = ({ title, plats }) => {
     <div className="relative">
       <img src={menuTemplate} alt="Menu template" />
       <img
-        className="absolute bottom-20 -right-20 -z-10"
+        className="absolute hidden sm:block bottom-20 -right-20 -z-10"
         src={feuille}
         alt="Decorative leaf"
       ></img>

@@ -6,6 +6,7 @@ import Menu from "./pages/Menu.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Admin from "./pages/Admin.jsx";
+import GiveFeedback from "./pages/Givefeedback.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import RequireAuth from "./components/back/RequireAuth.jsx";
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/givefeedback" element={<GiveFeedback />} />
       {/* <Route
           path="/admin"
           element={

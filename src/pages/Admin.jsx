@@ -102,7 +102,7 @@ const Admin = () => {
 
   return (
     <>
-      <div className="mx-8 min-h-screen">
+      <div className="mx-8 min-h-screen mt-12 md:mt-0">
         <section className="flex flex-wrap max-w-6xl mx-auto my-8 ">
           <aside className=" border h-fit w-full text-center xl:w-fit">
             {sections.map((section, index) => {

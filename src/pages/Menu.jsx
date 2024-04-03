@@ -63,7 +63,7 @@ const Home = () => {
             id="hero"
             className=" my-16  flex justify-between flex-wrap mx-auto  max-w-screen-lg"
           >
-            <div className="flex flex-wrap md:flex-nowrap justify-center gap-16 mx-auto">
+            <div className="flex flex-wrap md:flex-nowrap justify-center gap-x-16 mx-auto">
               <h1 className=" text-4xl mb-8 font-jacqueFrancois">
                 <span className="text-baseprimary float-right text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
                   Notre

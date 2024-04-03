@@ -82,7 +82,7 @@ const Home = () => {
           <div className="mx-8">
             <div className="flex md:justify-end">
               <h1 className="text-4xl mb-8 font-jacqueFrancois block ">
-                <span className="text-baseprimary text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
+                <span className="text-baseprimary text-5xl md:text-7xl md:ml-16 mt-2 font-imperialScript font-medium">
                   Notre
                 </span>
                 <div className="ml-6 inline">Histoire</div>
@@ -125,16 +125,28 @@ const Home = () => {
           toggleImgStag={toggleImgStag}
         ></HomesectionPopImage>
 
-        <section id="images-section" className="my-16 mx-auto  max-w-screen-lg">
-          <div className="mx-8">
-            <h1 className="py-8 text-7xl text-baseprimary mb-8 ml-16 font-imperialScript">
-              Happening
+        <section
+          id="horaire"
+          className=" mt-16 py-32 flex-wrap mx-auto  max-w-screen-lg"
+        >
+          <div className="mx-8 flex flex-wrap gap-16">
+            <h1 className="text-5xl md:text-7xl font-imperialScript">
+              Horaires d'ouverture
             </h1>
-            <div className="relative flex flex-wrap gap-8 justify-evenly">
-              <img className="x-parallax-bg" src={example1} alt="" />
-              <img className="x-parallax-bg" src={example2} alt="" />
-              <img className="x-parallax-bg" src={example3} alt="" />
-              <img className="x-parallax-bg" src={example4} alt="" />
+            <div className="mx-auto flex justify-center flex-wrap gap-12">
+              <div className="flex flex-col">
+                <h2 className="mb-4 font-medium">Lundi à Mardi</h2>
+                <p>8:30 à 14:00</p>
+                <p>18:30 à 23:00</p>
+              </div>
+              <div className="flex flex-col">
+                <h2 className="mb-4 font-medium">Samedi</h2>
+                <p>18:30 à 23:00</p>
+              </div>
+              <div className="flex flex-col">
+                <h2 className="mb-4 font-medium">Dimanche</h2>
+                <p>Fermé</p>
+              </div>
             </div>
           </div>
         </section>
