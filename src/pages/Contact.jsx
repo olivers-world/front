@@ -1,43 +1,45 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { sendEmail } from "@/services/api";
+import { renderToString } from 'react-dom/server';
+import ContactEmail from "@/emails/contact";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+      const { name, email, message } = formData;
+      const emailContent = renderToString(<ContactEmail authorName={name} authorEmail={email} contactText={message} />);
+      const response = await sendEmail(
+        email,
+        "garibaldialexis@gmail.com",
+        "Nouveau message de contact",
+        emailContent
+      );
+
+      console.log("Message envoyé avec succès !", response);
+
+      // Réinitialiser le formulaire
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
       });
-      if (response.ok) {
-        console.log('Message envoyé avec succès !');
-        // Réinitialiser le formulaire si nécessaire
-        setFormData({
-          name: '',
-          email: '',
-          message: ''
-        });
-      } else {
-        console.error('Erreur lors de l\'envoi du message.');
-      }
     } catch (error) {
-      console.error('Erreur lors de l\'envoi du message :', error);
+      console.error("Erreur lors de l'envoi du message :", error);
     }
   };
 
@@ -190,8 +192,8 @@ const Contact = () => {
                         className="pb-1 text-xs uppercase tracking-wider"
                       ></label>
                       <textarea
-                        id="textarea"
-                        name="textarea"
+                        id="message" // Modifier l'ID en "message"
+                        name="message" // Garder le nom comme "message"
                         cols="30"
                         rows="5"
                         placeholder="Votre message"

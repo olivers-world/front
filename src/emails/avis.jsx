@@ -15,7 +15,7 @@ import {
 //  import logo from "../src/assets/logo.svg";
 import * as React from "react";
 
-export default function ContactEmail({ authorName, authorEmail, contactText }) {
+export default function AvisEmail({ authorName, authorEmail, contactText }) {
   const previewText = `Read ${authorName}'s review`;
 
   return (

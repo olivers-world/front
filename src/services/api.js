@@ -1,4 +1,5 @@
 import axios from "axios";
+import emailjs from 'emailjs-com';
 
 const api = axios.create({
   baseURL: "http://localhost:1945/api",
@@ -144,4 +145,26 @@ export const updateFormuleDuJour = async (menuID, newMenuID, newDate) => {
 
 export const deleteFormuleDuJour = async (menuID) => {
   return (await api.delete("/formule/delete", { data: { menuID } })).data;
+};
+
+// Email
+
+// export const sendEmail = async (emailFrom, emailTo, emailSubject, emailContent) => {
+//   return (await api.post("/email/send", { emailFrom, emailTo, emailSubject, emailContent })).data;
+// };
+
+export const sendEmail = async (emailFrom, emailTo, emailSubject, emailContent) => {
+  const templateParams = {
+    from_email: emailFrom,
+    to_email: emailTo,
+    subject: emailSubject,
+    message_html: emailContent
+  };
+
+  try {
+    const response = await emailjs.send('service_mft1rxg', 'template_wxkqdjm', templateParams, 'fRlroJQyoaXIORO7D');
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };
