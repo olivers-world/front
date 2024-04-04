@@ -36,7 +36,10 @@ const Dashboard = () => {
       const firstDayOfMonth = new Date(
         today.getFullYear(),
         today.getMonth(),
-        1
+        0,
+        23,
+        59,
+        59
       );
       const lastDayOfMonth = new Date(
         today.getFullYear(),
@@ -65,7 +68,7 @@ const Dashboard = () => {
       try {
         const dailyReservations = await getReservations(fromToday, toToday);
         const weeklyReservations = await getReservations(fromWeek, toWeek);
-        const monthlyReservations = await getReservations(fromMonth, toMonth);
+        const monthlyReservations = await getReservations(fromMonth, toToday);
 
         setReservationsToday(dailyReservations.length);
         setReservationsThisWeek(weeklyReservations.length);

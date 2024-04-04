@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { sendEmail } from "@/services/api";
 import { renderToString } from 'react-dom/server';
-import ContactEmail from "@/emails/contact";
+import ContactEmail from "@/emails/ContactEmail";
 
 const Contact = () => {
   const [formData, setFormData] = useState({

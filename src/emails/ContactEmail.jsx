@@ -26,8 +26,8 @@ export default function ContactEmail({ authorName, authorEmail, contactText }) {
           <Hr style={hr} />
 
           <Text style={footer}>
-          Oliver’s World restaurant © 178 avenue de la Girolle, 13015 Marseille,
-          France. Tel 04.94.26.45.45 | Tous droits réservés.
+            Oliver’s World restaurant © 178 avenue de la Girolle, 13015 Marseille,
+            France. Tel 04.94.26.45.45 | Tous droits réservés.
           </Text>
         </Container>
       </Body>

@@ -149,9 +149,7 @@ function Reservation() {
     const selectedDate = `${calendarDate.getFullYear()}-${
       calendarDate.getMonth() + 1
     }-${calendarDate.getDate()}`;
-    const formattedDate = userInfoString
-      ? `${selectedDate} ${selectedHours}:${selectedMinutes}:00`
-      : `${selectedDate} ${selectedSlot}`;
+    const formattedDate = `${selectedDate} ${selectedSlot}`;
     const userInfo = userInfoString
       ? JSON.parse(userInfoString)
       : { nom: userName, email: userEmail };
