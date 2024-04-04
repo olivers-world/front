@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import example1 from "@/images/example-1.png";
 import example2 from "@/images/example-2.png";
 import example3 from "@/images/example-3.png";
@@ -110,5 +111,9 @@ const HomesectionPopImage = ({ toggleImgStag }) => {
     </section>
   );
 };
+
+HomesectionPopImage.propTypes = {
+  toggleImgStag: PropTypes.array
+}
 
 export default HomesectionPopImage;
