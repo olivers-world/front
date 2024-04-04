@@ -28,7 +28,7 @@ const Modale = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center  z-40 after:content[''] after:bg-opacity-50 after:absolute after:top-0 after:bg-black after:w-screen after:h-screen">
-      <div className="relative bg-white -translate-y-1/2 z-50 p-8 rounded-lg border shadow-xl">
+      <div className="relative bg-white sm:-translate-y-1/2 mx-2 z-50 p-8 rounded-lg border shadow-xl">
         <h2 className="text-2xl font-semibold mb-4">
           Réservation pour le {date.toLocaleDateString("fr-FR", dateOptions)}
         </h2>
