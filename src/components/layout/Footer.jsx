@@ -4,7 +4,7 @@ import tripadvisor from "@/images/tripadvisor.svg";
 
 function Footer() {
   return (
-    <div className="bg-primary w-screen px-4">
+    <footer className="bg-primary w-screen px-4">
       <div className="flex flex-col items-center py-8 gap-4 text-sm">
         <div className="flex gap-8">
           <img src={insta} alt="" />
@@ -16,7 +16,7 @@ function Footer() {
           France. Tel 04.94.26.45.45 | Tous droits réservés.
         </p>
       </div>
-    </div>
+    </footer>
   );
 }
 

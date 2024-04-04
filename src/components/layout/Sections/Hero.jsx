@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,9 +8,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
+
 const Hero = ({ text, buttonText = undefined }) => {
   const button = useRef();
   const title = useRef();
+
+  useGSAP(() => {
+    const tl = gsap.timeline();
+
+    tl.from(button.current, {
+      y:'100%',
+      duration:.5,
+    }, '<').from(title.current, {
+      delay:0,
+      y:'120%',
+      ease:'ease-in-out',
+      duration:.5,
+
+    })
+  },[])
 
   return (
     <>

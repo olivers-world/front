@@ -138,6 +138,22 @@ function Reservation() {
     setDate(updatedDate);
   };
 
+  const tileDisabled = ({ date }) => {
+    return (
+      date.getDay() === 0
+    );
+  };
+
+  const tileClassName = ({date, view}) => {
+
+    if(date.getDay() === 6) {
+      console.log(date.getDay())
+      return 'text-primary font-bold'
+    } else {
+      return ''
+    }
+  }
+
   const userInfoString = localStorage.getItem("userInfo");
 
   const handleSubmit = async (event) => {
@@ -270,13 +286,16 @@ function Reservation() {
         )}
         <div className="grid grid-cols-1 md:my-16  md:grid-cols-2 z-10 h-fit min-h-[350px]  bg-white p-4 rounded-xl ">
           <Calendar
+            tileClassName={tileClassName}
+            minDate={new Date()}
+            tileDisabled={tileDisabled}
             className="rounded-lg p-2 border-none"
             onChange={(selectedDate) => handleCalendarDate(selectedDate)}
           />
 
           <form className="flex flex-col rounded-xl  h-full bg-white px-4 py-4 max-w-[350px]">
             <div className="flex flex-wrap">
-              <span className="mr-2 font-medium text-lg">
+              <span className="mr-2 font-medium text-base sm:text-lg">
                 Je veux arriver vers :
               </span>
               <div className="inline text-center">
@@ -319,7 +338,7 @@ function Reservation() {
               </div>
 
               <div className="mt-2">
-                <span className="mr-2 font-medium text-lg">
+                <span className="mr-2 font-medium text-base sm:text-lg">
                   Nombre de personnes :
                 </span>
                 <input

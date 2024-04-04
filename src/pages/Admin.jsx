@@ -130,3 +130,9 @@ const Admin = () => {
 };
 
 export default Admin;
+
+
+<section className="text-left lg:text-center border border-red-600">
+  <h1>Hello world!</h1>
+</section>
+
